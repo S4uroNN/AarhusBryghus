@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AarhusBryghus.iml" filepath="$PROJECT_DIR$/AarhusBryghus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AarhusBryghus.iml" filepath="$PROJECT_DIR$/.idea/AarhusBryghus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Bryghus1.1/Bryghus1.1.iml" filepath="$PROJECT_DIR$/Bryghus1.1/Bryghus1.1.iml" />
     </modules>
   </component>
 </project>
