@@ -4,12 +4,12 @@ package application.model;
 public class FastRabat implements Rabat{
     private double fastRabat;
 
-    public FastRabat(double fastRabat){
-        this.fastRabat = fastRabat;
+    public FastRabat(){
+        this.fastRabat = 25;
 
     }
     @Override
     public double beregnRabat() {
-        return 0;
+        return fastRabat;
     }
 }

@@ -11,6 +11,7 @@ public class Dagsproduktion {
     private double omsætning;
 
     private final List<Salg> salgs = new ArrayList<>();
+
     public Dagsproduktion(LocalDate dato, LocalTime tid){
         this.omsætning = 0;
     }
