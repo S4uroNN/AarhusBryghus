@@ -1,4 +1,4 @@
 package application.model;
 
-public class Varegruppe {
+public class VareGruppe {
 }

@@ -12,7 +12,7 @@ public class Dagsproduktion {
 
     private final List<Salg> salgs = new ArrayList<>();
 
-    public Dagsproduktion(LocalDate dato, LocalTime tid){
+    public Dagsproduktion(LocalDate dato, LocalTime tid) {
         this.omsætning = 0;
     }
 
@@ -40,10 +40,15 @@ public class Dagsproduktion {
         this.omsætning = omsætning;
     }
 
-    public Salg createSalg(int id){
-        return null;
+    public Salg createSalg(int id) {
+        Salg salg = new Salg();
+        salgs.add(salg);
+        return salg;
     }
-    public ArrayList<Salg> getSalg(){
+
+    public ArrayList<Salg> getSalg() {
         return new ArrayList<Salg>(salgs);
     }
+    //TODO oversigt? smth smth print out shit
+    //TODO klippekortStat
 }
