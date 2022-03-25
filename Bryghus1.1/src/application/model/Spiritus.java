@@ -1,4 +1,4 @@
 package application.model;
 
-public class Spiritus {
+public class Spiritus extends Drikkevare{
 }

@@ -1,4 +1,4 @@
 package application.model;
 
-public class Fustage {
+public class Fustage extends Drikkevare{
 }

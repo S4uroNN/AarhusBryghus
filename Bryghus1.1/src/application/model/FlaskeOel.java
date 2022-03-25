@@ -1,4 +1,4 @@
 package application.model;
 
-public class FlaskeOel {
+public class FlaskeOel extends Drikkevare{
 }

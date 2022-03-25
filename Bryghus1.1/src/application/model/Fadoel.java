@@ -1,4 +1,4 @@
 package application.model;
 
-public class Fadoel {
+public class Fadoel extends Drikkevare{
 }
