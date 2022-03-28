@@ -33,7 +33,7 @@ public class Salg {
     public double samletPris(){
         double samletpris = 0;
         for(OrdreLinje o : ordrer){
-            o.getVare().getpris;
+            o.getVare().getPris(null);
         }
         return samletpris;
     }
