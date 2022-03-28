@@ -1,5 +1,6 @@
 package gui;
 
+import application.model.Prisliste;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -39,6 +40,9 @@ public class StartVindue extends Application {
 
         VarePane varePane = new VarePane();
         tabVisVare.setContent(varePane);
+
+        PrislistePane prislistePane = new PrislistePane();
+        tabPrisliste.setContent(prislistePane);
 
         tabPane.getTabs().add(tabOpret);
         tabPane.getTabs().add(tabOpretUdl);
