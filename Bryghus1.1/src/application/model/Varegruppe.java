@@ -3,12 +3,12 @@ package application.model;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VareGruppe{
+public class Varegruppe {
     private String navn;
 
     private final Set varer = new HashSet();
 
-    public VareGruppe(String navn){
+    public Varegruppe(String navn){
         this.navn = navn;
     }
 
