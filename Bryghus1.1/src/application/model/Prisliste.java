@@ -4,7 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Prisliste {
+    private String navn;
     private Map<Vare, Double> priser  = new HashMap<>();
+
+    public Prisliste(String navn){
+        this.navn = navn;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
 
     public double getVarePris(Vare vare){
         return priser.get(vare);
