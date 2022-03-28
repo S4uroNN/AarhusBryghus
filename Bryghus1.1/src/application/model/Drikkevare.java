@@ -10,4 +10,12 @@ public class Drikkevare extends Vare {
         this.procenter = procenter;
 
     }
+
+    public String getProcenter() {
+        return procenter;
+    }
+
+    public String getStørelse() {
+        return størelse;
+    }
 }
