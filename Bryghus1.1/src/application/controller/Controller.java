@@ -5,18 +5,23 @@ import application.model.Vare;
 import application.model.VareGruppe;
 import storage.Storage;
 
+import java.util.HashSet;
+
 public class Controller {
     private Storage storage;
-    private static Controller controller;
+    private Controller controller;
 
-    private Controller(){storage = new Storage();}
+    private Controller() {
+        storage = Storage.getInstance();
+    }
 
-    public static Controller getController(){
+    public Controller getController(){
         if (controller == null) {
             controller = new Controller();
         }
         return controller;
     }
+
 
     public Vare createVare(String navn){
         Vare vare = new Vare(navn);
@@ -54,6 +59,20 @@ public class Controller {
     public void deletePrisliste(Prisliste prisliste){
         storage.removePrisliste(prisliste);
     }
+
+    public HashSet<Vare> getVarer(){
+        return storage.getVarer();
+    }
+
+    public HashSet<VareGruppe> getVareGrupper(){
+        return storage.getVaregrupper();
+    }
+
+    public HashSet<Prisliste> getPrisliste(){
+        return storage.getPrislister();
+    }
+
+
 
 
 
