@@ -8,7 +8,7 @@ public class Vare {
     }
 
     public double getPris(){
-        double pris = 0;
-        return pris;
+        //todo
+        return 0;
     }
 }
