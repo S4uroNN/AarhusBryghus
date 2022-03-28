@@ -8,8 +8,6 @@ public class Vare {
     }
 
     public double getPris(Prisliste prisliste){
-        //TODO fix this
-        double pris = 0;
-        return pris;
+        return prisliste.getVarePris(this);
     }
 }
