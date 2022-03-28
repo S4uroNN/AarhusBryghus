@@ -18,7 +18,6 @@ public class OrdreLinje {
     public int getAntal() {
         return antal;
     }
-
     public int getId() {
         return id;
     }

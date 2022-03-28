@@ -50,5 +50,5 @@ public class Dagsproduktion {
         return new ArrayList<Salg>(salgs);
     }
     //TODO oversigt? smth smth print out shit
-    //TODO klippekortStat
+    //TODO klippekortStat (controller?)
 }
