@@ -7,8 +7,9 @@ public class Vare {
         this.navn = navn;
     }
 
-    public double getPris(){
-        //todo
-        return 0;
+    public double getPris(Prisliste prisliste){
+        //TODO fix this
+        double pris = 0;
+        return pris;
     }
 }
