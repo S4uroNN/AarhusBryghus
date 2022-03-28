@@ -1,0 +1,53 @@
+package gui;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+public class StartVindue extends Application {
+
+    private void initContent(BorderPane pane) {
+        TabPane tabPane = new TabPane();
+        this.initTabPane(tabPane);
+        pane.setCenter(tabPane);
+
+    }
+
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("Aarhus Bryghus - Salg");
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
+
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.setHeight(500);
+        stage.setWidth(800);
+        stage.show();
+    }
+    private void initTabPane(TabPane tabPane) {
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        Tab tabOpret = new Tab("Salg");
+        Tab tabOpretUdl = new Tab("Opret Udlejninger");
+        Tab tabVisUdl = new Tab("Vis Udlejninger");
+        Tab tabStatistik = new Tab("Salgsstatistik");
+        Tab tabVisVare = new Tab("Vare");
+        Tab tabPrisliste = new Tab("Prislister");
+
+        VarePane varePane = new VarePane();
+        tabVisVare.setContent(varePane);
+
+        tabPane.getTabs().add(tabOpret);
+        tabPane.getTabs().add(tabOpretUdl);
+        tabPane.getTabs().add(tabVisUdl);
+        tabPane.getTabs().add(tabStatistik);
+        tabPane.getTabs().add(tabVisVare);
+        tabPane.getTabs().add(tabPrisliste);
+
+
+
+    }
+}
