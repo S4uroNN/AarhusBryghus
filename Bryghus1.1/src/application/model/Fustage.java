@@ -6,4 +6,8 @@ public class Fustage extends Drikkevare{
         super(navn, størelse, procenter);
         pant = 200;
     }
+
+    public int getPant() {
+        return pant;
+    }
 }
