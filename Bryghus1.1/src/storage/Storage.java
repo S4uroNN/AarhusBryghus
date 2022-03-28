@@ -2,7 +2,7 @@ package storage;
 
 import application.model.Prisliste;
 import application.model.Vare;
-import application.model.Varegruppe;
+import application.model.VareGruppe;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ public class Storage implements Serializable {
 
     private Set<Vare> varer = new HashSet<>();
     private Set<Prisliste> prislister = new HashSet<>();
-    private Set<Varegruppe> varegrupper = new HashSet<>();
+    private Set<VareGruppe> varegrupper = new HashSet<>();
 
     private Storage() {
     }
@@ -50,15 +50,15 @@ public class Storage implements Serializable {
         prislister.remove(prisliste);
     }
 
-    public HashSet<Varegruppe> getVaregrupper() {
+    public HashSet<VareGruppe> getVaregrupper() {
         return new HashSet<>(varegrupper);
     }
 
-    public void addVaregruppe(Varegruppe varegruppe){
+    public void addVareGruppe(VareGruppe varegruppe){
         varegrupper.add(varegruppe);
     }
 
-    public void removeVaregruppe(Varegruppe varegruppe){
+    public void removeVareGruppe(VareGruppe varegruppe){
         varegrupper.remove(varegruppe);
     }
 

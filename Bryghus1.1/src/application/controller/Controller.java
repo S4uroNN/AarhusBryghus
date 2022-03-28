@@ -3,6 +3,7 @@ package application.controller;
 import application.model.Prisliste;
 import application.model.Vare;
 import application.model.VareGruppe;
+import storage.Storage;
 
 public class Controller {
     private Storage storage;
