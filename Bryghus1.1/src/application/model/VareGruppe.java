@@ -16,10 +16,6 @@ public class VareGruppe {
         return navn;
     }
 
-    public void setNavn(String navn) {
-        this.navn = navn;
-    }
-
     public void addVare(Vare vare){
         varer.add(vare);
     }
