@@ -20,7 +20,7 @@ public class PrislistePane extends GridPane {
         this.setPadding(new Insets(20));
         setHgap(40);
         setVgap(10);
-        setGridLinesVisible(true);
+        setGridLinesVisible(true );
         setMaxWidth(1000);
 
         Label lblVareGruppe = new Label("Prislister");
@@ -46,5 +46,12 @@ public class PrislistePane extends GridPane {
         vbox.setSpacing(10);
         this.add(vbox,2,1);
 
+        btnAddPrisliste.setOnAction(event -> tilføjAction());
+
     }
+    private void tilføjAction() {
+        TilføjPrisListeWindow tilføj = new TilføjPrisListeWindow("Tilføj Prisliste");
+        tilføj.showAndWait();
+    }
+
 }
