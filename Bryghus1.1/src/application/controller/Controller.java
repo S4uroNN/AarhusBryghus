@@ -9,13 +9,13 @@ import java.util.HashSet;
 
 public class Controller {
     private Storage storage;
-    private Controller controller;
+    private static Controller controller;
 
     private Controller() {
         storage = Storage.getInstance();
     }
 
-    public Controller getController(){
+    public static Controller getController(){
         if (controller == null) {
             controller = new Controller();
         }

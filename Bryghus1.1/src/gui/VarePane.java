@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.Vare;
 import application.model.VareGruppe;
 import javafx.geometry.Insets;
@@ -17,7 +18,12 @@ public class VarePane extends GridPane {
 
     private Button btnAddVare,btnAddVareGruppe, btnDeleteVare, btnDeleteVareGruppe;
 
+    private Controller controller;
+
     public VarePane(){
+
+        controller = Controller.getController();
+
         this.setPadding(new Insets(20));
         setHgap(40);
         setVgap(10);
@@ -38,6 +44,7 @@ public class VarePane extends GridPane {
         btnAddVare.setPrefWidth(120);
         btnAddVareGruppe = new Button("Tilføj Vare Gruppe");
         btnAddVareGruppe.setPrefWidth(120);
+        btnAddVareGruppe.setOnAction(event -> this.tilføjActionVareGruppe());
         btnDeleteVare = new Button("Slet Vare");
         btnDeleteVare.setPrefWidth(120);
         btnDeleteVareGruppe = new Button("Slet Vare Gruppe");
@@ -52,6 +59,16 @@ public class VarePane extends GridPane {
 
 
 
+
+    }
+
+    private void tilføjActionVareGruppe() {
+        TilføjVareGruppeWindow dia = new TilføjVareGruppeWindow("Tilføj VareGruppe");
+        dia.showAndWait();
+
+        lbwvareGruppe.getItems().setAll(controller.getVareGrupper());
+        int index = lbwvareGruppe.getItems().size() -1;
+        lbwvareGruppe.getSelectionModel().select(index);
 
     }
 }
