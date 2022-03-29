@@ -28,8 +28,8 @@ public class Controller {
         storage.addVare(vare);
         return vare;
     }
-    public VareGruppe createVareGruppe(String navn){
-        VareGruppe vareGruppe = new VareGruppe(navn);
+    public VareGruppe createVareGruppe(String navn, int pant){
+        VareGruppe vareGruppe = new VareGruppe(navn,pant);
         storage.addVareGruppe(vareGruppe);
         return vareGruppe;
     }

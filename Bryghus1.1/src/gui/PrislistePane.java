@@ -20,7 +20,7 @@ public class PrislistePane extends GridPane {
         this.setPadding(new Insets(20));
         setHgap(40);
         setVgap(10);
-        setGridLinesVisible(true );
+        setGridLinesVisible(false);
         setMaxWidth(1000);
 
         Label lblVareGruppe = new Label("Prislister");
