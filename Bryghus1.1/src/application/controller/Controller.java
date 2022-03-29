@@ -41,8 +41,9 @@ public class Controller {
 
     public void addVareToVareGruppe(Vare vare, VareGruppe vareGruppe){vareGruppe.addVare(vare);}
 
-    public void updateVareGruppe(VareGruppe vareGruppe, String navn) {
+    public void updateVareGruppe(VareGruppe vareGruppe, String navn, int pant) {
         vareGruppe.setNavn(navn);
+        vareGruppe.setPant(pant);
     }
     public void updateVare(Vare vare, String navn) {
         vare.setNavn(navn);

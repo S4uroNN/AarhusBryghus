@@ -6,11 +6,11 @@ import application.model.VareGruppe;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Optional;
 
 
 public class VarePane extends GridPane {
@@ -51,8 +51,10 @@ public class VarePane extends GridPane {
         btnDeleteVare.setPrefWidth(120);
         btnDeleteVareGruppe = new Button("Slet Vare Gruppe");
         btnDeleteVareGruppe.setPrefWidth(120);
+        btnDeleteVareGruppe.setOnAction(event -> sletActionVareGruppe());
         btnEditVareGruppe = new Button("Ret VareGruppe");
         btnEditVareGruppe.setPrefWidth(120);
+        btnEditVareGruppe.setOnAction(event -> retActionVareGruppe());
         btnEditVare = new Button("Ret Vare");
         btnEditVare.setPrefWidth(120);
         VBox vbox = new VBox();
@@ -104,5 +106,28 @@ public class VarePane extends GridPane {
         int index = lbwvareGruppe.getItems().size() -1;
         lbwvareGruppe.getSelectionModel().select(index);
 
+    }
+    private void sletActionVareGruppe() {
+        VareGruppe vareGruppe = lbwvareGruppe.getSelectionModel().getSelectedItem();
+        if (vareGruppe != null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Slet VareGruppe");
+            alert.setHeaderText("Er du sikker?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if ((result.isPresent()) && (result.get()==ButtonType.OK)) {
+                controller.deleteVareGruppe(vareGruppe);
+                lbwvareGruppe.getItems().setAll(controller.getVareGrupper());
+            }
+        }
+    }
+    private void retActionVareGruppe(){
+        VareGruppe vareGruppe = lbwvareGruppe.getSelectionModel().getSelectedItem();
+        if (vareGruppe != null) {
+
+            TilføjVareGruppeWindow dia = new TilføjVareGruppeWindow("Ret VareGruppe", vareGruppe);
+            dia.showAndWait();
+        }
+
+        lbwvareGruppe.getItems().setAll(controller.getVareGrupper());
     }
 }

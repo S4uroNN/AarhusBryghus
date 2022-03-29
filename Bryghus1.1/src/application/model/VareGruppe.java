@@ -34,6 +34,10 @@ public class VareGruppe {
         }
     }
 
+    public void setPant(int pant) {
+        this.pant = pant;
+    }
+
     public HashSet<Vare> getVarer() {
         return new HashSet<>(varer);
     }

@@ -105,8 +105,15 @@ public class TilføjVareGruppeWindow extends Stage {
         } else if (pant.length()== 0) {
             lblError.setText("Pant er ikke angivet");
         } else {
-            pantint = Integer.parseInt(pant);
-            controller.createVareGruppe(navn, pantint);
+            if (vareGruppe != null){
+                pantint = Integer.parseInt(pant);
+                controller.updateVareGruppe(vareGruppe,navn,pantint);
+            }
+            else {
+                pantint = Integer.parseInt(pant);
+                controller.createVareGruppe(navn, pantint);
+
+            }
             this.hide();
         }
 
