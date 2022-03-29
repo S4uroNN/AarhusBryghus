@@ -30,4 +30,8 @@ public class Prisliste {
     public Map<Vare, Double> getPriser() {
         return priser;
     }
+
+    public String toString(){
+        return navn;
+    }
 }

@@ -68,7 +68,7 @@ public class Controller {
         return storage.getVaregrupper();
     }
 
-    public HashSet<Prisliste> getPrisliste(){
+    public HashSet<Prisliste> getPrislister(){
         return storage.getPrislister();
     }
 
