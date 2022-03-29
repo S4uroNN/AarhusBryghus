@@ -44,6 +44,7 @@ public class StartVindue extends Application {
         PrislistePane prislistePane = new PrislistePane();
         tabPrisliste.setContent(prislistePane);
 
+
         tabPane.getTabs().add(tabOpret);
         tabPane.getTabs().add(tabOpretUdl);
         tabPane.getTabs().add(tabVisUdl);

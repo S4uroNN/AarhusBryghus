@@ -41,9 +41,10 @@ public class VarePane extends GridPane {
 
         btnAddVare = new Button("Tilføj Vare");
         btnAddVare.setPrefWidth(120);
+        btnAddVare.setOnAction(event -> tilføjActionVare());
         btnAddVareGruppe = new Button("Tilføj Vare Gruppe");
         btnAddVareGruppe.setPrefWidth(120);
-        btnAddVareGruppe.setOnAction(event -> this.tilføjActionVareGruppe());
+        btnAddVareGruppe.setOnAction(event -> tilføjActionVareGruppe());
         btnDeleteVare = new Button("Slet Vare");
         btnDeleteVare.setPrefWidth(120);
         btnDeleteVareGruppe = new Button("Slet Vare Gruppe");
@@ -64,6 +65,11 @@ public class VarePane extends GridPane {
 
     }
 
+    private void tilføjActionVare() {
+        TilføjVareWindow tilføjVareWindow = new TilføjVareWindow(null);
+        tilføjVareWindow.showAndWait();
+    }
+
     private void tilføjActionVareGruppe() {
         TilføjVareGruppeWindow dia = new TilføjVareGruppeWindow("Tilføj VareGruppe");
         dia.showAndWait();
@@ -71,6 +77,8 @@ public class VarePane extends GridPane {
         lbwvareGruppe.getItems().setAll(controller.getVareGrupper());
         int index = lbwvareGruppe.getItems().size() -1;
         lbwvareGruppe.getSelectionModel().select(index);
+
+
 
     }
 }
