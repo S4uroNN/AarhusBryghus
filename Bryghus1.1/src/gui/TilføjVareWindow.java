@@ -1,6 +1,8 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.VareGruppe;
+import com.sun.javafx.image.BytePixelSetter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,8 +16,10 @@ import org.w3c.dom.Text;
 
 public class TilføjVareWindow extends Stage {
     private final VareGruppe vareGruppe;
+    private Controller controller;
 
     private TextField txfNavn;
+    private Label lblError;
     private Button btnOpretVare, btnCancel;
 
 
@@ -44,6 +48,10 @@ public class TilføjVareWindow extends Stage {
         txfNavn = new TextField();
         pane.add(txfNavn,1,1);
 
+        lblError = new Label();
+        pane.add(lblError, 0, 3, 2, 1);
+        lblError.setStyle("-fx-text-fill: red");
+
         btnOpretVare = new Button("Opret Vare");
         btnCancel = new Button("Fortryd");
 
@@ -59,6 +67,14 @@ public class TilføjVareWindow extends Stage {
 
     }
     private void opretVare(){
+        String navn = txfNavn.getText().trim();
+        if (navn.length() == 0) {
+            lblError.setText("Navn er ikke angivet");
+        }
+        else{
+            controller.createVare(navn);
+        }
+
 
     }
 

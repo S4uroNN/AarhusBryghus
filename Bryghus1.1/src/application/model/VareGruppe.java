@@ -23,11 +23,15 @@ public class VareGruppe {
     }
 
     public void addVare(Vare vare) {
-        varer.add(vare);
+        if (!varer.contains(vare)) {
+            varer.add(vare);
+        }
     }
 
     public void removeVare(Vare vare) {
-        varer.remove(vare);
+        if (varer.contains(vare)) {
+            varer.remove(vare);
+        }
     }
 
     public HashSet<Vare> getVarer() {
