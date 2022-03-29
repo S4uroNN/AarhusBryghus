@@ -58,21 +58,21 @@ public class TilføjVareGruppeWindow extends Stage {
         txfPant.setPrefWidth(200);
 
         Button btnCancelVareGruppe = new Button("Fortryd");
-        pane.add(btnCancelVareGruppe, 0, 1);
+        pane.add(btnCancelVareGruppe, 0, 2);
         btnCancelVareGruppe.setOnAction(event -> this.cancelActionVareGruppe());
 
         Button btnOKVareGruppe = new Button("Opret Varegruppe");
-        pane.add(btnOKVareGruppe,1,1);
+        pane.add(btnOKVareGruppe,1,2);
         btnOKVareGruppe.setOnAction(event -> this.okActionVareGruppe());
 
         lblError = new Label();
-        pane.add(lblError,0,2);
+        pane.add(lblError,0,3);
         lblError.setStyle("-fx-text-fill: red");
 
         HBox hBox = new HBox();
         hBox.getChildren().add(btnOKVareGruppe);
         hBox.getChildren().add(btnCancelVareGruppe);
-        pane.add(hBox,1,1);
+        pane.add(hBox,1,2);
 
         this.initControls();
     }
