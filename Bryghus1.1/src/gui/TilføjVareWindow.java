@@ -36,7 +36,6 @@ public class TilføjVareWindow extends Stage {
 
         this.initContent(pane);
 
-
     }
     private void initContent(GridPane pane){
         pane.setPadding(new Insets(10));
