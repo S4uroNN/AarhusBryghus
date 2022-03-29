@@ -15,7 +15,7 @@ public class VarePane extends GridPane {
     private ListView<Vare> lbwvarer = new ListView<>();
     private ListView<VareGruppe> lbwvareGruppe = new ListView<>();
 
-    private Button btnAddVare,btnAddVareGruppe, btnDeleteVare, btnDeleteVareGruppe;
+    private Button btnAddVare,btnAddVareGruppe, btnDeleteVare, btnDeleteVareGruppe, btnEditVareGruppe, btnEditVare;
 
     public VarePane(){
         this.setPadding(new Insets(20));
@@ -42,16 +42,19 @@ public class VarePane extends GridPane {
         btnDeleteVare.setPrefWidth(120);
         btnDeleteVareGruppe = new Button("Slet Vare Gruppe");
         btnDeleteVareGruppe.setPrefWidth(120);
+        btnEditVareGruppe = new Button("Ret VareGruppe");
+        btnEditVareGruppe.setPrefWidth(120);
+        btnEditVare = new Button("Ret Vare");
+        btnEditVare.setPrefWidth(120);
         VBox vbox = new VBox();
         vbox.getChildren().add(btnAddVare);
         vbox.getChildren().add(btnDeleteVare);
+        vbox.getChildren().add(btnEditVare);
         vbox.getChildren().add(btnAddVareGruppe);
         vbox.getChildren().add(btnDeleteVareGruppe);
+        vbox.getChildren().add(btnEditVareGruppe);
         vbox.setSpacing(10);
         this.add(vbox,2,1);
-
-
-
 
     }
 }
