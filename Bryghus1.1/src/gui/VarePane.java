@@ -82,7 +82,6 @@ public class VarePane extends GridPane {
 
         if (vareGruppe != null) {
             lbwvarer.getItems().setAll(vareGruppe.getVarer());
-        } else {
         }
     }
 
