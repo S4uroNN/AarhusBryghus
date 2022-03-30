@@ -21,7 +21,7 @@ public class StartVindue extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Aarhus Bryghus - Salg");
+        stage.setTitle("Aarhus Bryghus - Aarhus Erhversakademi 1.1");
         BorderPane pane = new BorderPane();
         this.initContent(pane);
 
