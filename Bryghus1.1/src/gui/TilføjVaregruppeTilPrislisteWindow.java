@@ -93,6 +93,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         if (selected != null) {
             controller.addVareGruppeToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
         }
+        lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
     }
 
     private void removeAction() {
