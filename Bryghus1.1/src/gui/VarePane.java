@@ -48,6 +48,7 @@ public class VarePane extends GridPane {
         btnAddVareGruppe.setPrefWidth(120);
         btnAddVareGruppe.setOnAction(event -> tilføjActionVareGruppe());
         btnDeleteVare = new Button("Slet Vare");
+        btnDeleteVare.setOnAction(event -> sletVareAction());
         btnDeleteVare.setPrefWidth(120);
         btnDeleteVareGruppe = new Button("Slet Vare Gruppe");
         btnDeleteVareGruppe.setPrefWidth(120);
@@ -92,9 +93,26 @@ public class VarePane extends GridPane {
         TilføjVareWindow tilføjVareWindow = new TilføjVareWindow(vareGruppe);
         tilføjVareWindow.showAndWait();
 
-        lbwvarer.getItems().setAll(vareGruppe.getVarer());
-        int index = lbwvarer.getItems().size() -1;
-        lbwvarer.getSelectionModel().select(index);
+        if(vareGruppe!=null){
+            lbwvarer.getItems().setAll(vareGruppe.getVarer());
+        }
+
+    }
+
+    private void sletVareAction() {
+        Vare vare = lbwvarer.getSelectionModel().getSelectedItem();
+        VareGruppe vareGruppe = lbwvareGruppe.getSelectionModel().getSelectedItem();
+        if (vare != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Slet Vare");
+            alert.setHeaderText("Er du sikker?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+                controller.removeVareFromGruppe(vare,vareGruppe);
+                lbwvarer.getItems().setAll(vareGruppe.getVarer());
+            }
+        }
+        updateControls();
     }
 
     private void tilføjActionVareGruppe() {
@@ -102,15 +120,14 @@ public class VarePane extends GridPane {
         dia.showAndWait();
 
         lbwvareGruppe.getItems().setAll(controller.getVareGrupper());
-        int index = lbwvareGruppe.getItems().size() -1;
-        lbwvareGruppe.getSelectionModel().select(index);
+
 
     }
     private void sletActionVareGruppe() {
         VareGruppe vareGruppe = lbwvareGruppe.getSelectionModel().getSelectedItem();
         if (vareGruppe != null){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Slet VareGruppe");
+            alert.setTitle("Slet Vare Gruppe");
             alert.setHeaderText("Er du sikker?");
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get()==ButtonType.OK)) {
