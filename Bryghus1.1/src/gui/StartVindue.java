@@ -25,7 +25,7 @@ public class StartVindue extends Application {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.setHeight(500);
-        stage.setWidth(800);
+        stage.setWidth(1050);
         stage.show();
     }
     private void initTabPane(TabPane tabPane) {

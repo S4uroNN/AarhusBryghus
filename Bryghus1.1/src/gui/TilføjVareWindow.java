@@ -27,9 +27,7 @@ public class TilføjVareWindow extends Stage {
     private Label lblError;
 
 
-    public TilføjVareWindow(VareGruppe vareGruppe){
-        this.vareGruppe = vareGruppe;
-
+    public TilføjVareWindow(){
         this.setTitle("Tilføj Vare");
         GridPane pane = new GridPane();
         Scene scene = new Scene(pane);
@@ -115,7 +113,6 @@ public class TilføjVareWindow extends Stage {
             lblError.setText("Navn er ikke angivet");
         }else{
             Vare vare = controller.createVare(navn);
-            controller.addVareToVareGruppe(vare, vareGruppe);
             this.hide();
         }
     }
