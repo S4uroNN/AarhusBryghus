@@ -45,6 +45,10 @@ public class Controller {
         vareGruppe.removeVare(vare);
     }
 
+    public void addVareToVareGruppe(Vare vare, VareGruppe vareGruppe){
+        vareGruppe.addVare(vare);
+    }
+
     public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris){
         prisliste.addVare(vare,pris);
     }
@@ -63,7 +67,7 @@ public class Controller {
         prisliste.setPris(vare,pris);
     }
 
-    public void updateVareGruppe(VareGruppe vareGruppe, String navn) {
+    public void updateVareGruppe(VareGruppe vareGruppe, String navn, int pant) {
         vareGruppe.setNavn(navn);
         vareGruppe.setPant(pant);
     }
