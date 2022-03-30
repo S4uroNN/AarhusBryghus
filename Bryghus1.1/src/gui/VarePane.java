@@ -22,8 +22,7 @@ public class VarePane extends GridPane {
     private Controller controller;
 
     public VarePane(){
-
-        controller = Controller.getController();
+        
 
         this.setPadding(new Insets(20));
         setHgap(40);
