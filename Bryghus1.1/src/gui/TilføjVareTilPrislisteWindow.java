@@ -5,6 +5,7 @@ import application.model.Prisliste;
 import application.model.Vare;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,7 +47,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(600);
-        pane.setPrefHeight(500);
+        pane.setPrefHeight(400);
 
         Label lblAlleVarer = new Label("Alle Varer");
         pane.add(lblAlleVarer, 0, 0);
@@ -69,25 +70,32 @@ public class TilføjVareTilPrislisteWindow extends Stage {
         txfPris = new TextField();
         pane.add(txfPris, 2, 1);
 
+        int width = 130;
         Button btnAdd = new Button("Tilføj");
         btnAdd.setOnAction(event -> addAction());
+        btnAdd.setPrefWidth(width);
 
         Button btnRemove = new Button("Fjern");
         btnRemove.setOnAction(event -> removeAction());
+        btnRemove.setPrefWidth(width);
 
         Button btnEdit = new Button("Rediger");
         btnEdit.setOnAction(event -> editAction());
+        btnEdit.setPrefWidth(width);
+
+        Button btnOk = new Button("Ok");
+        btnOk.setOnAction(event -> okAction());
+        btnOk.setPrefWidth(width);
 
         VBox vbox = new VBox();
         vbox.getChildren().add(btnAdd);
         vbox.getChildren().add(btnRemove);
         vbox.getChildren().add(btnEdit);
+        vbox.getChildren().add(btnOk);
         vbox.setSpacing(10);
+        vbox.setAlignment(Pos.BOTTOM_CENTER);
         pane.add(vbox, 2, 2);
 
-        Button btnOk = new Button("Ok");
-        pane.add(btnOk, 2, 3);
-        btnOk.setOnAction(event -> okAction());
 
     }
 

@@ -6,6 +6,7 @@ import application.model.VareGruppe;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -53,8 +54,8 @@ public class TilføjVareWindow extends Stage {
         pane2.setGridLinesVisible(false);
         pane2.setPrefWidth(250);
 
-        pane2.add(new Label("Vare" + vare),0,0,2,1);
-        pane2.add(new Label("Navn: "),1,1);
+        pane2.add(new Label("Vare: " + vare),0,0,2,1);
+        pane2.add(new Label("Navn: "),0,1);
 
         txfNavn2 = new TextField();
         pane2.add(txfNavn2,1,1);
@@ -82,7 +83,6 @@ public class TilføjVareWindow extends Stage {
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(250);
 
-        pane.add(new Label("VareGruppe: " + vareGruppe),0,0,2,1);
         pane.add(new Label("Navn"),0,1);
 
         txfNavn = new TextField();
@@ -92,7 +92,7 @@ public class TilføjVareWindow extends Stage {
         btnCancel = new Button("Fortryd");
 
         HBox hBox = new HBox();
-        hBox.setPadding(new Insets(10));
+        hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.getChildren().add(btnOpretVare);
         hBox.getChildren().add(btnCancel);
@@ -118,12 +118,15 @@ public class TilføjVareWindow extends Stage {
     }
     private void retVare(){
         String navn = txfNavn2.getText().trim();
-        if(navn.length() == 0){
-            lblError.setText("Navn er ikke angivet");
-        }else{
-            vare.setNavn(navn);
-            this.hide();
+        if(vare != null){
+            if(navn.length() == 0){
+                lblError.setText("Navn er ikke angivet");
+            }else{
+                vare.setNavn(navn);
+                this.hide();
+            }
         }
+
 
     }
 

@@ -60,7 +60,7 @@ public class PrisListeWindow extends Stage {
         btnOpret.setOnAction(event -> this.okAction());
 
         lblError = new Label();
-        pane.add(lblError, 0, 5);
+        pane.add(lblError, 0, 2,2,1);
         lblError.setStyle("-fx-text-fill: red");
     }
 
