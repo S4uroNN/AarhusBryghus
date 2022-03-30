@@ -137,6 +137,8 @@ public class PrislistePane extends GridPane {
         if (selectedPrisliste != null && selectedVare != null){
             controller.fjernVarefromPrisliste(selectedPrisliste,selectedVare);
         }
+
+        lvwVarer.getItems().setAll(selectedPrisliste.getTilføjedeVarer());
     }
 
 

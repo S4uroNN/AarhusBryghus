@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Prisliste;
 import application.model.Vare;
 import application.model.VareGruppe;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -63,6 +64,9 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         pane.add(lvwTilføjedeVarer, 1, 1, 1, 2);
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
 
+        ChangeListener<Vare> vareListener = (ov, oldVare, newVare) -> this.selectedVareChanged();
+        lvwTilføjedeVarer.getSelectionModel().selectedItemProperty().addListener(vareListener);
+
         txfPris = new TextField();
         pane.add(txfPris, 2, 1);
 
@@ -112,6 +116,11 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
 
     private void okAction() {
         this.hide();
+    }
+
+    private void selectedVareChanged() {
+        Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
+        txfPris.setText(selected.getPris(prisliste) + "");
     }
 
 
