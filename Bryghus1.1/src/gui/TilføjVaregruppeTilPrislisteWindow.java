@@ -104,13 +104,15 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
             controller.fjernVarefromPrisliste(prisliste, selected);
+            lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
+
         }
     }
 
     private void editAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.updatePris(prisliste, selected, Integer.parseInt(txfPris.getText()));
+            controller.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
         }
     }
 
@@ -120,8 +122,9 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
 
     private void selectedVareChanged() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
-        txfPris.setText(selected.getPris(prisliste) + "");
+        if (selected != null) {
+            txfPris.setText(selected.getPris(prisliste) + "");
+        }
     }
-
 
 }
