@@ -1,5 +1,6 @@
 package application.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +28,24 @@ public class Prisliste {
         priser.put(vare, pris);
     }
 
+    public void removeVare(Vare vare){
+        priser.remove(vare);
+    }
+
+    public void setPris(Vare vare, double pris){
+        priser.replace(vare,pris);
+    }
+
     public Map<Vare, Double> getPriser() {
         return priser;
+    }
+
+    public ArrayList<Vare> getTilføjedeVarer(){
+        ArrayList<Vare> tilføjedeVarer = new ArrayList();
+        for (Vare vare : priser.keySet()){
+            tilføjedeVarer.add(vare);
+        }
+        return  tilføjedeVarer;
     }
 
     public String toString(){

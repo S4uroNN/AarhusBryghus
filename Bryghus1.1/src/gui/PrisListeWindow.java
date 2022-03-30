@@ -46,7 +46,7 @@ public class PrisListeWindow extends Stage {
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(250);
-        pane.setPrefHeight(100);
+        pane.setPrefHeight(50);
 
         Label lblNavn = new Label("Navn");
         pane.add(lblNavn, 0, 0);

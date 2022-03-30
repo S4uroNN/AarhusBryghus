@@ -45,11 +45,25 @@ public class Controller {
         vareGruppe.removeVare(vare);
     }
 
-    public void addVareToVareGruppe(Vare vare, VareGruppe vareGruppe) {
-        vareGruppe.addVare(vare);
+    public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris){
+        prisliste.addVare(vare,pris);
     }
 
-    public void updateVareGruppe(VareGruppe vareGruppe, String navn, int pant) {
+    public void addVareGruppeToPrisliste(Prisliste prisliste, VareGruppe vareGruppe, double pris){
+        for (Vare vare : vareGruppe.getVarer()){
+            prisliste.addVare(vare,pris);
+        }
+    }
+
+    public void fjernVarefromPrisliste(Prisliste prisliste, Vare vare){
+        prisliste.removeVare(vare);
+    }
+
+    public void updatePris(Prisliste prisliste, Vare vare, double pris){
+        prisliste.setPris(vare,pris);
+    }
+
+    public void updateVareGruppe(VareGruppe vareGruppe, String navn) {
         vareGruppe.setNavn(navn);
         vareGruppe.setPant(pant);
     }
@@ -58,15 +72,13 @@ public class Controller {
         vare.setNavn(navn);
     }
 
-    public void updatePrisliste(Prisliste prisliste, String navn) {
+    public void updatePrisliste(Prisliste prisliste, String navn){
         prisliste.setNavn(navn);
     }
-
-    public void deleteVare(Vare vare) {
+    public void deleteVare(Vare vare){
         storage.removeVare(vare);
     }
-
-    public void deleteVareGruppe(VareGruppe vareGruppe) {
+    public void deleteVareGruppe(VareGruppe vareGruppe){
         storage.removeVareGruppe(vareGruppe);
     }
 
@@ -85,6 +97,14 @@ public class Controller {
     public HashSet<Prisliste> getPrislister() {
         return storage.getPrislister();
     }
+
+
+
+
+
+
+
+
 
 
 }
