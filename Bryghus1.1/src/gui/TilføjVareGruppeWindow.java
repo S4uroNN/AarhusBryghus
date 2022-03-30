@@ -77,6 +77,7 @@ public class TilføjVareGruppeWindow extends Stage {
         lblError.setStyle("-fx-text-fill: red");
 
         HBox hBox = new HBox();
+        hBox.setSpacing(10);
         hBox.getChildren().add(btnOKVareGruppe);
         hBox.getChildren().add(btnCancelVareGruppe);
         pane.add(hBox, 1, 2);
@@ -87,6 +88,9 @@ public class TilføjVareGruppeWindow extends Stage {
     private void initControls() {
         if (vareGruppe != null) {
             txfNavn.setText(vareGruppe.getNavn());
+            if(vareGruppe.getPant()>0){
+                txfPant.setText(vareGruppe.getPant() + "");
+            }
         } else {
             txfNavn.clear();
         }

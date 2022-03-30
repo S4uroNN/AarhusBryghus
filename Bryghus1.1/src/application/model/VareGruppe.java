@@ -38,6 +38,10 @@ public class VareGruppe {
         this.pant = pant;
     }
 
+    public int getPant() {
+        return pant;
+    }
+
     public HashSet<Vare> getVarer() {
         return new HashSet<>(varer);
     }
@@ -45,7 +49,7 @@ public class VareGruppe {
     @Override
     public String toString() {
         if (pant != 0) {
-            return navn + " " + pant;
+            return navn + "; Pant: " + pant ;
         } else
             return navn;
 
