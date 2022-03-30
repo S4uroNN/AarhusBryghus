@@ -7,12 +7,13 @@ import java.util.List;
 
 public class Dagsproduktion {
     private LocalDate dato;
-    private LocalTime tid;
     private double omsætning;
 
-    private final List<Salg> salgs = new ArrayList<>();
+    private final List<Salg> dagensSalg = new ArrayList<>();
 
-    public Dagsproduktion(LocalDate dato, LocalTime tid) {
+
+    public Dagsproduktion() {
+        this.dato = LocalDate.now();
         this.omsætning = 0;
     }
 
@@ -24,14 +25,6 @@ public class Dagsproduktion {
         this.dato = dato;
     }
 
-    public LocalTime getTid() {
-        return tid;
-    }
-
-    public void setTid(LocalTime tid) {
-        this.tid = tid;
-    }
-
     public double getOmsætning() {
         return omsætning;
     }
@@ -40,15 +33,14 @@ public class Dagsproduktion {
         this.omsætning = omsætning;
     }
 
-    public Salg createSalg(int id) {
+    public Salg createSalg() {
         Salg salg = new Salg();
-        salgs.add(salg);
+        dagensSalg.add(salg);
         return salg;
     }
 
     public ArrayList<Salg> getSalg() {
-        return new ArrayList<Salg>(salgs);
+        return new ArrayList<Salg>(dagensSalg);
     }
-    //TODO oversigt? smth smth print out shit
-    //TODO klippekortStat (controller?)
+
 }

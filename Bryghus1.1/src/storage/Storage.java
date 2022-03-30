@@ -1,5 +1,6 @@
 package storage;
 
+import application.model.Dagsproduktion;
 import application.model.Prisliste;
 import application.model.Vare;
 import application.model.VareGruppe;
@@ -14,6 +15,7 @@ public class Storage implements Serializable {
     private Set<Vare> varer = new HashSet<>();
     private Set<Prisliste> prislister = new HashSet<>();
     private Set<VareGruppe> varegrupper = new HashSet<>();
+    private Set<Dagsproduktion> dagsproduktioner = new HashSet<>();
 
     private Storage() {
     }
@@ -60,6 +62,18 @@ public class Storage implements Serializable {
 
     public void removeVareGruppe(VareGruppe varegruppe){
         varegrupper.remove(varegruppe);
+    }
+
+    public HashSet<Dagsproduktion> getDagsproduktioner(){
+        return new HashSet<>(dagsproduktioner);
+    }
+
+    public void addDagsproduktion(Dagsproduktion dagsproduktion){
+        dagsproduktioner.add(dagsproduktion);
+    }
+
+    public void removeDagsproduktion(Dagsproduktion dagsproduktion){
+        dagsproduktioner.remove(dagsproduktion);
     }
 
 }

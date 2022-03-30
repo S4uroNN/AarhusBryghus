@@ -15,7 +15,6 @@ public class StartVindue extends Application {
 
     private void initContent(BorderPane pane) {
         controller = Controller.getController();
-        controller.initStorage();
         TabPane tabPane = new TabPane();
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);
