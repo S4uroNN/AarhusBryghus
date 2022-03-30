@@ -57,6 +57,7 @@ public class VarePane extends GridPane {
         btnEditVareGruppe.setPrefWidth(120);
         btnEditVareGruppe.setOnAction(event -> retActionVareGruppe());
         btnEditVare = new Button("Ret Vare");
+        btnEditVare.setOnAction(event -> retVareAction());
         btnEditVare.setPrefWidth(120);
         VBox vbox = new VBox();
         VBox vbox2 = new VBox();
@@ -97,6 +98,13 @@ public class VarePane extends GridPane {
             lbwvarer.getItems().setAll(vareGruppe.getVarer());
         }
 
+    }
+    private void retVareAction(){
+        Vare vare = lbwvarer.getSelectionModel().getSelectedItem();
+        TilføjVareWindow ret = new TilføjVareWindow(vare);
+        ret.showAndWait();
+
+        updateControls();
     }
 
     private void sletVareAction() {

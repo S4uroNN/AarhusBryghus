@@ -15,7 +15,7 @@ public class PrislistePane extends GridPane {
     private ListView<Prisliste> lvwPrislister = new ListView<>();
     private ListView<Vare> lvwVarer = new ListView<>();
 
-    private Button btnAddPrisliste, btnDeletePrisliste, btnEditPrisliste, btnTilføjVare, btntilføjVareGruppe, btnFjernVare;
+    private Button btnAddPrisliste, btnDeletePrisliste, btnEditPrisliste, btnTilføjVare, btnTilføjVareGruppe, btnFjernVare;
     private Controller controller;
 
     public PrislistePane() {
@@ -61,16 +61,19 @@ public class PrislistePane extends GridPane {
 
         btnTilføjVare = new Button("Tilføj Vare");
         btnTilføjVare.setPrefWidth(120);
+        btnTilføjVare.setOnAction(event -> tilføjVareAction());
 
-        btntilføjVareGruppe = new Button("Slet Vare");
-        btntilføjVareGruppe.setPrefWidth(120);
+        btnTilføjVareGruppe = new Button("Tilføj Varegruppe");
+        btnTilføjVareGruppe.setPrefWidth(120);
+        btnTilføjVareGruppe.setOnAction(event -> tilføjVaregruppeAction());
 
         btnFjernVare = new Button("Fjern Vare");
         btnFjernVare.setPrefWidth(120);
+        btnFjernVare.setOnAction(event -> fjernVareAction());
 
         VBox lowerVbox = new VBox();
-        lowerVbox.getChildren().add(btntilføjVareGruppe);
         lowerVbox.getChildren().add(btnTilføjVare);
+        lowerVbox.getChildren().add(btnTilføjVareGruppe);
         lowerVbox.getChildren().add(btnFjernVare);
         lowerVbox.setSpacing(10);
         this.add(lowerVbox, 2, 2);
@@ -105,6 +108,30 @@ public class PrislistePane extends GridPane {
             ret.showAndWait();
 
             lvwPrislister.getItems().setAll(controller.getPrislister());
+        }
+    }
+
+    private void tilføjVareAction(){
+        Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            TilføjVareTilPrislisteWindow tilføj = new TilføjVareTilPrislisteWindow("Tilføj til prisliste", selected);
+            tilføj.showAndWait();
+        }
+    }
+
+    private void tilføjVaregruppeAction(){
+        Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            TilføjVaregruppeTilPrislisteWindow tilføj = new TilføjVaregruppeTilPrislisteWindow("Tilføj til prisliste", selected);
+            tilføj.showAndWait();
+        }
+    }
+
+    private void fjernVareAction(){
+        Prisliste selectedPrisliste = lvwPrislister.getSelectionModel().getSelectedItem();
+        Vare selectedVare = lvwVarer.getSelectionModel().getSelectedItem();
+        if (selectedPrisliste != null && selectedVare != null){
+            controller.fjernVarefromPrisliste(selectedPrisliste,selectedVare);
         }
     }
 
