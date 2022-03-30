@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.Prisliste;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -10,11 +11,14 @@ import javafx.stage.Stage;
 
 public class StartVindue extends Application {
 
+    private Controller controller;
+
     private void initContent(BorderPane pane) {
+        controller = Controller.getController();
+        controller.initStorage();
         TabPane tabPane = new TabPane();
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);
-
     }
 
     public void start(Stage stage) throws Exception {
@@ -25,9 +29,10 @@ public class StartVindue extends Application {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.setHeight(500);
-        stage.setWidth(800);
+        stage.setWidth(1050);
         stage.show();
     }
+
     private void initTabPane(TabPane tabPane) {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
@@ -51,7 +56,6 @@ public class StartVindue extends Application {
         tabPane.getTabs().add(tabStatistik);
         tabPane.getTabs().add(tabVisVare);
         tabPane.getTabs().add(tabPrisliste);
-
 
 
     }
