@@ -15,7 +15,7 @@ public class Controller {
         storage = Storage.getInstance();
     }
 
-    public static Controller getController(){
+    public static Controller getController() {
         if (controller == null) {
             controller = new Controller();
         }
@@ -23,23 +23,27 @@ public class Controller {
     }
 
 
-    public Vare createVare(String navn){
+    public Vare createVare(String navn) {
         Vare vare = new Vare(navn);
         storage.addVare(vare);
         return vare;
     }
-    public VareGruppe createVareGruppe(String navn, int pant){
-        VareGruppe vareGruppe = new VareGruppe(navn,pant);
+
+    public VareGruppe createVareGruppe(String navn, int pant) {
+        VareGruppe vareGruppe = new VareGruppe(navn, pant);
         storage.addVareGruppe(vareGruppe);
         return vareGruppe;
     }
-    public Prisliste createPrisliste(String navn){
+
+    public Prisliste createPrisliste(String navn) {
         Prisliste prisliste = new Prisliste(navn);
         storage.addPrisliste(prisliste);
         return prisliste;
     }
 
-    public void addVareToVareGruppe(Vare vare, VareGruppe vareGruppe){vareGruppe.addVare(vare);}
+    public void removeVareFromGruppe(Vare vare, VareGruppe vareGruppe){
+        vareGruppe.removeVare(vare);
+    }
 
     public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris){
         prisliste.addVare(vare,pris);
@@ -61,6 +65,7 @@ public class Controller {
 
     public void updateVareGruppe(VareGruppe vareGruppe, String navn) {
         vareGruppe.setNavn(navn);
+        vareGruppe.setPant(pant);
     }
 
     public void updateVare(Vare vare, String navn) {
@@ -70,28 +75,26 @@ public class Controller {
     public void updatePrisliste(Prisliste prisliste, String navn){
         prisliste.setNavn(navn);
     }
-
     public void deleteVare(Vare vare){
         storage.removeVare(vare);
     }
-
     public void deleteVareGruppe(VareGruppe vareGruppe){
         storage.removeVareGruppe(vareGruppe);
     }
 
-    public void deletePrisliste(Prisliste prisliste){
+    public void deletePrisliste(Prisliste prisliste) {
         storage.removePrisliste(prisliste);
     }
 
-    public HashSet<Vare> getVarer(){
+    public HashSet<Vare> getVarer() {
         return storage.getVarer();
     }
 
-    public HashSet<VareGruppe> getVareGrupper(){
+    public HashSet<VareGruppe> getVareGrupper() {
         return storage.getVaregrupper();
     }
 
-    public HashSet<Prisliste> getPrislister(){
+    public HashSet<Prisliste> getPrislister() {
         return storage.getPrislister();
     }
 

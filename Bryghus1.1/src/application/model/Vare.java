@@ -1,5 +1,7 @@
 package application.model;
 
+import javafx.scene.control.skin.TooltipSkin;
+
 public class Vare {
     private String navn;
 
@@ -13,6 +15,11 @@ public class Vare {
 
     public void setNavn(String navn) {
         this.navn = navn;
+    }
+
+    @Override
+    public String toString() {
+        return navn;
     }
 
     public double getPris(Prisliste prisliste){
