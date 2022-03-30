@@ -65,9 +65,11 @@ public class PrislistePane extends GridPane {
 
         btnTilføjVareGruppe = new Button("Tilføj Varegruppe");
         btnTilføjVareGruppe.setPrefWidth(120);
+        btnTilføjVareGruppe.setOnAction(event -> tilføjVaregruppeAction());
 
         btnFjernVare = new Button("Fjern Vare");
         btnFjernVare.setPrefWidth(120);
+        btnFjernVare.setOnAction(event -> fjernVareAction());
 
         VBox lowerVbox = new VBox();
         lowerVbox.getChildren().add(btnTilføjVare);
@@ -114,6 +116,22 @@ public class PrislistePane extends GridPane {
         if (selected != null) {
             TilføjVareTilPrislisteWindow tilføj = new TilføjVareTilPrislisteWindow("Tilføj til prisliste", selected);
             tilføj.showAndWait();
+        }
+    }
+
+    private void tilføjVaregruppeAction(){
+        Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            TilføjVaregruppeTilPrislisteWindow tilføj = new TilføjVaregruppeTilPrislisteWindow("Tilføj til prisliste", selected);
+            tilføj.showAndWait();
+        }
+    }
+
+    private void fjernVareAction(){
+        Prisliste selectedPrisliste = lvwPrislister.getSelectionModel().getSelectedItem();
+        Vare selectedVare = lvwVarer.getSelectionModel().getSelectedItem();
+        if (selectedPrisliste != null && selectedVare != null){
+            controller.fjernVarefromPrisliste(selectedPrisliste,selectedVare);
         }
     }
 
