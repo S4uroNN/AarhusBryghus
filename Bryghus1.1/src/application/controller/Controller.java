@@ -86,5 +86,51 @@ public class Controller {
         return storage.getPrislister();
     }
 
+    //------------------------------------------------------------------------------------------------
+
+    public static void initStorage(){
+        VareGruppe fustage = controller.createVareGruppe("Fustage",200);
+        VareGruppe fadøl = controller.createVareGruppe("Fadøl, 40cl",0);
+        VareGruppe flaske = controller.createVareGruppe("Flaske",0);
+        VareGruppe spiritus = controller.createVareGruppe("Spiritus",0);
+        VareGruppe kulsyre = controller.createVareGruppe("Kulsyre",1000);
+        VareGruppe malt = controller.createVareGruppe("Malt",0);
+        VareGruppe beklædning = controller.createVareGruppe("Beklædning",0);
+        VareGruppe anlæg = controller.createVareGruppe("Anlæg",0);
+        VareGruppe glas = controller.createVareGruppe("Glas",0);
+        VareGruppe sampakninger = controller.createVareGruppe("Sampakninger",0);
+
+        Vare klosterbryg = controller.createVare("Klosterbryg");
+        Vare sweetGeorgiaBrown = controller.createVare("Sweet Georgia Brown");
+        Vare extraPilsner = controller.createVare("Extra Pilsner");
+        Vare forårsbryg = controller.createVare("Forårsbryg");
+        Vare whisky4550cl = controller.createVare("Whiskey 45% 50 cl rør");
+        Vare sixkgKulsyre = controller.createVare("6kg");
+        Vare twentyfivekgsæk = controller.createVare("25 kg sæk");
+        Vare polo = controller.createVare("Polo");
+        Vare barmedflerehaner = controller.createVare("Bar med flere haner");
+        Vare glasUansetStørrelse = controller.createVare("Glas");
+        Vare gaveæske4øl = controller.createVare("Gaveæske 4 øl");
+        Vare rundvisning10prs = controller.createVare("Rundvisning 10 personer");
+
+        controller.addVareToVareGruppe(klosterbryg, flaske);
+        controller.addVareToVareGruppe(klosterbryg,fustage);
+        controller.addVareToVareGruppe(extraPilsner,fadøl);
+        controller.addVareToVareGruppe(sweetGeorgiaBrown,flaske);
+        controller.addVareToVareGruppe(forårsbryg,flaske);
+        controller.addVareToVareGruppe(forårsbryg,fadøl);
+        controller.addVareToVareGruppe(forårsbryg,fustage);
+        controller.addVareToVareGruppe(whisky4550cl,spiritus);
+        controller.addVareToVareGruppe(sixkgKulsyre,kulsyre);
+        controller.addVareToVareGruppe(twentyfivekgsæk,malt);
+        controller.addVareToVareGruppe(polo,beklædning);
+        controller.addVareToVareGruppe(barmedflerehaner,anlæg);
+        controller.addVareToVareGruppe(glasUansetStørrelse,glas);
+        controller.addVareToVareGruppe(gaveæske4øl,sampakninger);
+
+
+
+    }
+
 
 }
