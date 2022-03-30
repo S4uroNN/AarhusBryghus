@@ -116,6 +116,8 @@ public class PrislistePane extends GridPane {
         if (selected != null) {
             TilføjVareTilPrislisteWindow tilføj = new TilføjVareTilPrislisteWindow("Tilføj til prisliste", selected);
             tilføj.showAndWait();
+
+            lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
         }
     }
 
@@ -124,6 +126,8 @@ public class PrislistePane extends GridPane {
         if (selected != null) {
             TilføjVaregruppeTilPrislisteWindow tilføj = new TilføjVaregruppeTilPrislisteWindow("Tilføj til prisliste", selected);
             tilføj.showAndWait();
+
+            lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
         }
     }
 

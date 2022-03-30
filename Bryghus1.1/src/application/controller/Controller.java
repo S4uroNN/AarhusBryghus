@@ -104,7 +104,7 @@ public class Controller {
 
     //------------------------------------------------------------------------------------------------
 
-    public static void initStorage(){
+    public void initStorage(){
         VareGruppe fustage = controller.createVareGruppe("Fustage",200);
         VareGruppe fadøl = controller.createVareGruppe("Fadøl, 40cl",0);
         VareGruppe flaske = controller.createVareGruppe("Flaske",0);
