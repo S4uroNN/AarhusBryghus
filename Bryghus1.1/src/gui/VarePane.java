@@ -23,11 +23,15 @@ public class VarePane extends GridPane {
     private Button btnAddVare,btnAddVareGruppe, btnDeleteVare, btnDeleteVareGruppe, btnEditVareGruppe, btnEditVare, btnTilføjTilVareGruppe;
     private Button btnFjernVare;
 
-    private Controller controller;
+    private Controller controller = Controller.getController();
     private Storage storage = Storage.getInstance();
 
     public VarePane(){
-        
+
+        controller.initStorage();
+        lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
+        lvwAlleVare.getItems().setAll(storage.getVarer());
+        updateControls();
 
         this.setPadding(new Insets(20));
         setHgap(40);
