@@ -41,30 +41,30 @@ public class Controller {
         return prisliste;
     }
 
-    public void removeVareFromGruppe(Vare vare, VareGruppe vareGruppe){
+    public void removeVareFromGruppe(Vare vare, VareGruppe vareGruppe) {
         vareGruppe.removeVare(vare);
     }
 
-    public void addVareToVareGruppe(Vare vare, VareGruppe vareGruppe){
+    public void addVareToVareGruppe(Vare vare, VareGruppe vareGruppe) {
         vareGruppe.addVare(vare);
     }
 
-    public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris){
-        prisliste.addVare(vare,pris);
+    public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris) {
+        prisliste.addVare(vare, pris);
     }
 
-    public void addVareGruppeToPrisliste(Prisliste prisliste, VareGruppe vareGruppe, double pris){
-        for (Vare vare : vareGruppe.getVarer()){
-            prisliste.addVare(vare,pris);
+    public void addVareGruppeToPrisliste(Prisliste prisliste, VareGruppe vareGruppe, double pris) {
+        for (Vare vare : vareGruppe.getVarer()) {
+            prisliste.addVare(vare, pris);
         }
     }
 
-    public void fjernVarefromPrisliste(Prisliste prisliste, Vare vare){
+    public void fjernVarefromPrisliste(Prisliste prisliste, Vare vare) {
         prisliste.removeVare(vare);
     }
 
-    public void updatePris(Prisliste prisliste, Vare vare, double pris){
-        prisliste.setPris(vare,pris);
+    public void updatePris(Prisliste prisliste, Vare vare, double pris) {
+        prisliste.setPris(vare, pris);
     }
 
     public void updateVareGruppe(VareGruppe vareGruppe, String navn, int pant) {
@@ -76,13 +76,15 @@ public class Controller {
         vare.setNavn(navn);
     }
 
-    public void updatePrisliste(Prisliste prisliste, String navn){
+    public void updatePrisliste(Prisliste prisliste, String navn) {
         prisliste.setNavn(navn);
     }
-    public void deleteVare(Vare vare){
+
+    public void deleteVare(Vare vare) {
         storage.removeVare(vare);
     }
-    public void deleteVareGruppe(VareGruppe vareGruppe){
+
+    public void deleteVareGruppe(VareGruppe vareGruppe) {
         storage.removeVareGruppe(vareGruppe);
     }
 
@@ -104,17 +106,17 @@ public class Controller {
 
     //------------------------------------------------------------------------------------------------
 
-    public void initStorage(){
-        VareGruppe fustage = controller.createVareGruppe("Fustage",200);
-        VareGruppe fadøl = controller.createVareGruppe("Fadøl, 40cl",0);
-        VareGruppe flaske = controller.createVareGruppe("Flaske",0);
-        VareGruppe spiritus = controller.createVareGruppe("Spiritus",0);
-        VareGruppe kulsyre = controller.createVareGruppe("Kulsyre",1000);
-        VareGruppe malt = controller.createVareGruppe("Malt",0);
-        VareGruppe beklædning = controller.createVareGruppe("Beklædning",0);
-        VareGruppe anlæg = controller.createVareGruppe("Anlæg",0);
-        VareGruppe glas = controller.createVareGruppe("Glas",0);
-        VareGruppe sampakninger = controller.createVareGruppe("Sampakninger",0);
+    public void initStorage() {
+        VareGruppe fustage = controller.createVareGruppe("Fustage", 200);
+        VareGruppe fadøl = controller.createVareGruppe("Fadøl, 40cl", 0);
+        VareGruppe flaske = controller.createVareGruppe("Flaske", 0);
+        VareGruppe spiritus = controller.createVareGruppe("Spiritus", 0);
+        VareGruppe kulsyre = controller.createVareGruppe("Kulsyre", 1000);
+        VareGruppe malt = controller.createVareGruppe("Malt", 0);
+        VareGruppe beklædning = controller.createVareGruppe("Beklædning", 0);
+        VareGruppe anlæg = controller.createVareGruppe("Anlæg", 0);
+        VareGruppe glas = controller.createVareGruppe("Glas", 0);
+        VareGruppe sampakninger = controller.createVareGruppe("Sampakninger", 0);
 
         Vare klosterbryg = controller.createVare("Klosterbryg");
         Vare sweetGeorgiaBrown = controller.createVare("Sweet Georgia Brown");
@@ -130,31 +132,22 @@ public class Controller {
         Vare rundvisning10prs = controller.createVare("Rundvisning 10 personer");
 
         controller.addVareToVareGruppe(klosterbryg, flaske);
-        controller.addVareToVareGruppe(klosterbryg,fustage);
-        controller.addVareToVareGruppe(extraPilsner,fadøl);
-        controller.addVareToVareGruppe(sweetGeorgiaBrown,flaske);
-        controller.addVareToVareGruppe(forårsbryg,flaske);
-        controller.addVareToVareGruppe(forårsbryg,fadøl);
-        controller.addVareToVareGruppe(forårsbryg,fustage);
-        controller.addVareToVareGruppe(whisky4550cl,spiritus);
-        controller.addVareToVareGruppe(sixkgKulsyre,kulsyre);
-        controller.addVareToVareGruppe(twentyfivekgsæk,malt);
-        controller.addVareToVareGruppe(polo,beklædning);
-        controller.addVareToVareGruppe(barmedflerehaner,anlæg);
-        controller.addVareToVareGruppe(glasUansetStørrelse,glas);
-        controller.addVareToVareGruppe(gaveæske4øl,sampakninger);
-
+        controller.addVareToVareGruppe(klosterbryg, fustage);
+        controller.addVareToVareGruppe(extraPilsner, fadøl);
+        controller.addVareToVareGruppe(sweetGeorgiaBrown, flaske);
+        controller.addVareToVareGruppe(forårsbryg, flaske);
+        controller.addVareToVareGruppe(forårsbryg, fadøl);
+        controller.addVareToVareGruppe(forårsbryg, fustage);
+        controller.addVareToVareGruppe(whisky4550cl, spiritus);
+        controller.addVareToVareGruppe(sixkgKulsyre, kulsyre);
+        controller.addVareToVareGruppe(twentyfivekgsæk, malt);
+        controller.addVareToVareGruppe(polo, beklædning);
+        controller.addVareToVareGruppe(barmedflerehaner, anlæg);
+        controller.addVareToVareGruppe(glasUansetStørrelse, glas);
+        controller.addVareToVareGruppe(gaveæske4øl, sampakninger);
 
 
     }
-
-
-
-
-
-
-
-
 
 
 }

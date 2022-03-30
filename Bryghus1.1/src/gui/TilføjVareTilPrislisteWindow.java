@@ -55,7 +55,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
         pane.add(lblTilføjedeVarer, 1, 0);
 
         Label lblPris = new Label("Pris");
-        pane.add(lblPris,2,0);
+        pane.add(lblPris, 2, 0);
 
         pane.add(lvwAlleVarer, 0, 1, 1, 2);
         lvwAlleVarer.getItems().setAll(controller.getVarer());
@@ -86,7 +86,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
         pane.add(vbox, 2, 2);
 
         Button btnOk = new Button("Ok");
-        pane.add(btnOk,2,3);
+        pane.add(btnOk, 2, 3);
         btnOk.setOnAction(event -> okAction());
 
     }
@@ -94,22 +94,23 @@ public class TilføjVareTilPrislisteWindow extends Stage {
     private void addAction() {
         Vare selected = lvwAlleVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.addVareToPrisliste(prisliste,selected,Integer.parseInt(txfPris.getText()));
+            controller.addVareToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
         }
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
     }
 
     private void removeAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
-        if (selected != null){
-            controller.fjernVarefromPrisliste(prisliste,selected);
+        if (selected != null) {
+            controller.fjernVarefromPrisliste(prisliste, selected);
         }
+        lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
     }
 
-    private void editAction(){
+    private void editAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
-        if (selected != null){
-            controller.updatePris(prisliste,selected,Integer.parseInt(txfPris.getText()));
+        if (selected != null) {
+            controller.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
         }
     }
 
@@ -119,7 +120,9 @@ public class TilføjVareTilPrislisteWindow extends Stage {
 
     private void selectedVareChanged() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
-        txfPris.setText(selected.getPris(prisliste) + "");
+        if (selected != null) {
+            txfPris.setText(selected.getPris(prisliste) + "");
+        }
     }
 
 }
