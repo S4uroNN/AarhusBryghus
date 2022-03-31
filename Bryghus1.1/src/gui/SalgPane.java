@@ -12,12 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
-public class SalgPane extends GridPane {
+public class
+SalgPane extends GridPane {
     private ListView<Vare> lvwOrdre = new ListView<>();
     private Button btnTilføjVare, btnFjernVare;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
-    private RadioButton rbFastProcent, rbUserDefined, rbNoDiscount;
+    private RadioButton rbFast, rbProcent, rbUserDefined, rbNoDiscount;
     private TextField txfRabat, txfSamletPris;
     private SalgController salgController;
     private Storage storage = Storage.getInstance();
@@ -37,11 +38,18 @@ public class SalgPane extends GridPane {
         Label lblBetalingsform = new Label("Betalingsform:");
         this.add(lblBetalingsform,0,2);
 
+        ToggleGroup toggleGroup = new ToggleGroup();
+
         rbDankort = new RadioButton("Dankort");
+        rbDankort.setToggleGroup(toggleGroup);
         rbMobilepay = new RadioButton("Mobliepay");
+        rbMobilepay.setToggleGroup(toggleGroup);
         rbKontant = new RadioButton("Kontant");
+        rbKontant.setToggleGroup(toggleGroup);
         rbRegning = new RadioButton("Regning");
+        rbRegning.setToggleGroup(toggleGroup);
         rbKlippekort = new RadioButton("Klippekort");
+        rbKlippekort.setToggleGroup(toggleGroup);
         HBox betalingsformRadioButtons = new HBox();
         betalingsformRadioButtons.getChildren().add(rbDankort);
         betalingsformRadioButtons.getChildren().add(rbMobilepay);
@@ -51,6 +59,7 @@ public class SalgPane extends GridPane {
         betalingsformRadioButtons.setSpacing(10);
         betalingsformRadioButtons.setAlignment(Pos.BOTTOM_CENTER);
         this.add(betalingsformRadioButtons,0,3);
+
 
         btnTilføjVare = new Button("Tilføj");
         btnFjernVare = new Button("Fjern");
@@ -62,13 +71,19 @@ public class SalgPane extends GridPane {
         OrdreButtons.prefWidth(500);
         this.add(OrdreButtons,1,1);
 
+        ToggleGroup toggleGroupRabat = new ToggleGroup();
         Label lblPrisliste = new Label("Prisliste:");
         prislisteComboBox = new ComboBox<>();
         Label lblRabat = new Label("Rabat:");
         HBox rabatBox = new HBox();
-        rbFastProcent = new RadioButton("Fast Procent");
+        rbFast = new RadioButton("Fast");
+        rbFast.setToggleGroup(toggleGroupRabat);
+        rbProcent = new RadioButton("Procent");
+        rbProcent.setToggleGroup(toggleGroupRabat);
         rbUserDefined = new RadioButton("User Defined");
+        rbUserDefined.setToggleGroup(toggleGroupRabat);
         rbNoDiscount = new RadioButton("No Discount");
+        rbNoDiscount.setToggleGroup(toggleGroupRabat);
         txfRabat = new TextField();
         Label lblSamletPris = new Label("Samlet Pris:");
         txfSamletPris = new TextField();
@@ -78,10 +93,11 @@ public class SalgPane extends GridPane {
         prisBox.getChildren().add(prislisteComboBox);
         prisBox.getChildren().add(lblRabat);
         prisBox.getChildren().add(rabatBox);
-        rabatBox.getChildren().add(rbFastProcent);
+        rabatBox.getChildren().add(rbFast);
+        rabatBox.getChildren().add(rbProcent);
         rabatBox.getChildren().add(rbUserDefined);
         rabatBox.getChildren().add(rbNoDiscount);
-        rabatBox.setSpacing(20);
+        rabatBox.setSpacing(10);
         rabatBox.setAlignment(Pos.TOP_CENTER);
         prisBox.getChildren().add(txfRabat);
         prisBox.getChildren().add(lblSamletPris);
