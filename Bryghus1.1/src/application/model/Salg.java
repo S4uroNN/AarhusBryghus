@@ -4,39 +4,63 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Salg {
-    private int id = 0;
+    private int id;
     private Betalingsform betalingsform;
     private int ordrelinjenr;
+    private int idCount = 0;
 
-    //Måske tilføje betalingsform?
-    private final Set<OrdreLinje> ordrelinjer = new HashSet<>();
+    private final Set<Ordrelinje> ordrelinjer = new HashSet<>();
 
     public Salg(){
-        this.id = id;
-        id++;
+        this.id = idCount;
+        idCount++;
         this.ordrelinjenr = 0;
     }
 
-    public OrdreLinje createOrdreLinje(int ordrelinjenr, int antal, Vare vare){
-        OrdreLinje ordreLinje = new OrdreLinje(id, antal, vare);
-        ordrelinjer.add(ordreLinje);
-        return ordreLinje;
+    public Ordrelinje createOrdreLinje(int ordrelinjenr, int antal, Vare vare){
+        Ordrelinje ordrelinje = new Ordrelinje(ordrelinjenr, antal, vare);
+        ordrelinjer.add(ordrelinje);
+        return ordrelinje;
     }
 
      public void setBetalingsform(Betalingsform betalingsform){
         this.betalingsform = betalingsform;
      }
 
-    public Set<OrdreLinje> getOrdrer() {
+    public Set<Ordrelinje> getOrdrer() {
         return new HashSet<>(ordrelinjer);
     }
 
     public double samletPris(Prisliste prisliste){
         double samletpris = 0;
-        for(OrdreLinje ordreLinje : ordrelinjer){
+        for(Ordrelinje ordreLinje : ordrelinjer){
             samletpris = ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();
         }
         return samletpris;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Betalingsform getBetalingsform() {
+        return betalingsform;
+    }
+
+    public int getOrdrelinjenr() {
+        return ordrelinjenr;
+    }
+
+    public void setOrdrelinjenr(int ordrelinjenr) {
+        this.ordrelinjenr = ordrelinjenr;
+    }
+
+    public Set<Ordrelinje> getOrdrelinjer() {
+        return  new HashSet<>(ordrelinjer);
     }
 }
 
