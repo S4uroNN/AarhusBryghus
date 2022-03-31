@@ -1,9 +1,6 @@
 package storage;
 
-import application.model.Dagsproduktion;
-import application.model.Prisliste;
-import application.model.Vare;
-import application.model.VareGruppe;
+import application.model.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -16,6 +13,7 @@ public class Storage implements Serializable {
     private Set<Prisliste> prislister = new HashSet<>();
     private Set<VareGruppe> varegrupper = new HashSet<>();
     private Set<Dagsproduktion> dagsproduktioner = new HashSet<>();
+    private Set<Udlejning> udlejninger = new HashSet<>();
 
     private Storage() {
     }
@@ -52,6 +50,7 @@ public class Storage implements Serializable {
         prislister.remove(prisliste);
     }
 
+
     public HashSet<VareGruppe> getVaregrupper() {
         return new HashSet<>(varegrupper);
     }
@@ -64,6 +63,7 @@ public class Storage implements Serializable {
         varegrupper.remove(varegruppe);
     }
 
+
     public HashSet<Dagsproduktion> getDagsproduktioner(){
         return new HashSet<>(dagsproduktioner);
     }
@@ -74,6 +74,19 @@ public class Storage implements Serializable {
 
     public void removeDagsproduktion(Dagsproduktion dagsproduktion){
         dagsproduktioner.remove(dagsproduktion);
+    }
+
+
+    public HashSet<Udlejning> getUdlejninger(){
+        return new HashSet<>(udlejninger);
+    }
+
+    public void addUdlejning(Udlejning udlejning){
+        udlejninger.add(udlejning);
+    }
+
+    public void removeUdlejning (Udlejning udlejning){
+        udlejninger.remove(udlejning);
     }
 
 }
