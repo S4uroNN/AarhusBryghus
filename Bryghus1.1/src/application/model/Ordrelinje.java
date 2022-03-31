@@ -28,4 +28,9 @@ public class Ordrelinje {
     public void setVare(Vare vare) {
         this.vare = vare;
     }
+
+    @Override
+    public String toString() {
+        return vare + " , Antal: " + antal;
+    }
 }

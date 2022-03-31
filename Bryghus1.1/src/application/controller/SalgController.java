@@ -4,6 +4,9 @@ import application.model.*;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SalgController {
     private Storage storage;
@@ -40,6 +43,7 @@ public class SalgController {
     public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion){
         dagsproduktion.addafsluttetUdlejning(udlejning);
         udlejning.setAsAfsluttet();
+        storage.removeUdlejning(udlejning);
         return udlejning;
     }
 
@@ -57,6 +61,20 @@ public class SalgController {
         dagsproduktion.updateOmsætning();
     }
 
-
+    public Map<Vare, Integer> getUdlejedeVarer(){
+        Map<Vare, Integer> udlejedeVarer = new HashMap<>();
+        for (Udlejning udlejning : storage.getAktiveUdlejninger()){
+            for (Ordrelinje ordrelinje: udlejning.getOrdrelinjer()){
+                Vare vare = ordrelinje.getVare();
+                int antal = ordrelinje.getAntal();
+                if (!udlejedeVarer.containsKey(vare)){
+                    udlejedeVarer.put(vare, antal);
+                } else {
+                    udlejedeVarer.replace(vare, udlejedeVarer.get(vare) + antal);
+                }
+            }
+        }
+        return udlejedeVarer;
+    }
 
 }

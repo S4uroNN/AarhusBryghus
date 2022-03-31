@@ -3,6 +3,7 @@ package gui;
 import application.controller.VareController;
 import application.model.Prisliste;
 import application.model.Vare;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -40,8 +41,10 @@ public class PrislistePane extends GridPane {
         this.add(lvwPrislister, 0, 1, 1, 2);
         lvwPrislister.getItems().setAll(vareController.getPrislister());
 
-        this.add(lvwVarer, 1, 1, 1, 2);
+        ChangeListener<Prisliste> prislisteListener = (ov, oldPrisliste, newPrisliste) -> this.selectedPrislisteChanged();
+        lvwPrislister.getSelectionModel().selectedItemProperty().addListener(prislisteListener);
 
+        this.add(lvwVarer, 1, 1, 1, 2);
 
         btnAddPrisliste = new Button("Tilføj Prisliste");
         btnAddPrisliste.setPrefWidth(130);
@@ -162,6 +165,11 @@ public class PrislistePane extends GridPane {
             alert.setHeaderText("Du har ikke valgt en vare eller prisliste!");
             alert.showAndWait();
         }
+    }
+
+    private void selectedPrislisteChanged(){
+        Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
+        lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
     }
 
 

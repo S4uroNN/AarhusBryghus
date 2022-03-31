@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.model.Dagsproduktion;
 import application.model.Prisliste;
 import application.model.Vare;
 import application.model.VareGruppe;
@@ -49,13 +50,13 @@ public class VareController {
         vareGruppe.addVare(vare);
     }
 
-    public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris) {
-        prisliste.addVare(vare, pris);
+    public void addVareToPrisliste(Prisliste prisliste, Vare vare, double pris, int klip) {
+        prisliste.addVare(vare, pris, klip);
     }
 
-    public void addVareGruppeToPrisliste(Prisliste prisliste, VareGruppe vareGruppe, double pris) {
+    public void addVareGruppeToPrisliste(Prisliste prisliste, VareGruppe vareGruppe, double pris, int klip) {
         for (Vare vare : vareGruppe.getVarer()) {
-            prisliste.addVare(vare, pris);
+            prisliste.addVare(vare, pris, klip);
         }
     }
 
@@ -63,8 +64,8 @@ public class VareController {
         prisliste.removeVare(vare);
     }
 
-    public void updatePris(Prisliste prisliste, Vare vare, double pris) {
-        prisliste.setPris(vare, pris);
+    public void updatePris(Prisliste prisliste, Vare vare, double pris, int klip) {
+        prisliste.setPris(vare, pris, klip);
     }
 
     public void updateVareGruppe(VareGruppe vareGruppe, String navn, int pant) {
@@ -149,13 +150,15 @@ public class VareController {
         vareController.addVareToVareGruppe(glasUansetStørrelse, glas);
         vareController.addVareToVareGruppe(gaveæske4øl, sampakninger);
 
-        vareController.addVareGruppeToPrisliste(butik,fadøl,20);
-        vareController.addVareGruppeToPrisliste(butik,flaske,17);
-        vareController.addVareGruppeToPrisliste(butik,kulsyre,1000);
+        vareController.addVareGruppeToPrisliste(butik,fadøl,20,2);
+        vareController.addVareGruppeToPrisliste(butik,flaske,17, 2);
+        vareController.addVareGruppeToPrisliste(butik,kulsyre,1000,20);
 
-        vareController.addVareGruppeToPrisliste(fredagsweehoo,fadøl,40);
-        vareController.addVareGruppeToPrisliste(fredagsweehoo,flaske,70);
-        vareController.addVareGruppeToPrisliste(fredagsweehoo,spiritus, 1000);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo,fadøl,40, 4);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo,flaske,70, 4);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo,spiritus, 1000, 40);
+
+        Dagsproduktion dagsproduktion = SalgController.getSalgController().createDagsproduktion();
     }
 
 

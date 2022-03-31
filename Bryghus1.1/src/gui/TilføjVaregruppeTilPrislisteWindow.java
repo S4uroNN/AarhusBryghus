@@ -35,9 +35,10 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
 
 
     private VareController vareController;
-    private TextField txfPris;
+    private TextField txfPris, txfKlip;
     private ListView<VareGruppe> lvwAlleVareGrupper = new ListView<>();
     private ListView<Vare> lvwTilføjedeVarer = new ListView<>();
+    private int buttonWidth = 130;
 
     private void initContent(GridPane pane) {
         vareController = VareController.getController();
@@ -57,10 +58,13 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         Label lblPris = new Label("Pris");
         pane.add(lblPris, 2, 0);
 
-        pane.add(lvwAlleVareGrupper, 0, 1, 1, 2);
+        Label lblKlip = new Label("Klip");
+        pane.add(lblKlip,2,2);
+
+        pane.add(lvwAlleVareGrupper, 0, 1, 1, 4);
         lvwAlleVareGrupper.getItems().setAll(vareController.getVareGrupper());
 
-        pane.add(lvwTilføjedeVarer, 1, 1, 1, 2);
+        pane.add(lvwTilføjedeVarer, 1, 1, 1, 4);
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
 
         ChangeListener<Vare> vareListener = (ov, oldVare, newVare) -> this.selectedVareChanged();
@@ -69,22 +73,24 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         txfPris = new TextField();
         pane.add(txfPris, 2, 1);
 
-        int width = 130;
+        txfKlip = new TextField();
+        pane.add(txfKlip,2,3);
+
         Button btnAdd = new Button("Tilføj");
         btnAdd.setOnAction(event -> addAction());
-        btnAdd.setPrefWidth(width);
+        btnAdd.setPrefWidth(buttonWidth);
 
         Button btnRemove = new Button("Fjern");
         btnRemove.setOnAction(event -> removeAction());
-        btnRemove.setPrefWidth(width);
+        btnRemove.setPrefWidth(buttonWidth);
 
         Button btnEdit = new Button("Rediger");
         btnEdit.setOnAction(event -> editAction());
-        btnEdit.setPrefWidth(width);
+        btnEdit.setPrefWidth(buttonWidth);
 
         Button btnOk = new Button("Ok");
         btnOk.setOnAction(event -> okAction());
-        btnOk.setPrefWidth(width);
+        btnOk.setPrefWidth(buttonWidth);
 
         VBox vbox = new VBox();
         vbox.getChildren().add(btnAdd);
@@ -93,7 +99,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         vbox.getChildren().add(btnOk);
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.BOTTOM_CENTER);
-        pane.add(vbox, 2, 2);
+        pane.add(vbox, 2, 4);
 
 
 
@@ -102,7 +108,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
     private void addAction() {
         VareGruppe selected = lvwAlleVareGrupper.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            vareController.addVareGruppeToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
+            vareController.addVareGruppeToPrisliste(prisliste, selected, Double.parseDouble(txfPris.getText()), Integer.parseInt(txfKlip.getText()));
             lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -127,7 +133,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
     private void editAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            vareController.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
+            vareController.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()), Integer.parseInt(txfKlip.getText()));
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en vare!");
@@ -143,6 +149,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
             txfPris.setText(selected.getPris(prisliste) + "");
+            txfKlip.setText(selected.getKlipPris(prisliste) + "");
         }
     }
 

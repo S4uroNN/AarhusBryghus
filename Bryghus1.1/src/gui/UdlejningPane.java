@@ -1,6 +1,7 @@
 package gui;
 
-import application.model.Ordrelinje;
+import application.controller.SalgController;
+import application.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -8,20 +9,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
-import javax.swing.plaf.basic.BasicViewportUI;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class UdlejningPane extends GridPane {
     private ListView<Ordrelinje> lvwOrder = new ListView<>();
     private TextField txfStartDato, txfNavn, txfEmail, txfTlfnr, txfRabat, txfPris;
     private DatePicker dtpSlutDato;
-    private Button btnTilføj, btnFjern;
+    private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning;
     private RadioButton rdbDankort, rdbMobilepay, rdbKontant, rdbRegning, rdbKlippekort;
     private RadioButton rdbFast, rdbProcent, rdbUserDefined, rdbNoRabat;
     private ComboBox cbPrisliste;
 
     private Storage storage = Storage.getInstance();
+    private SalgController salgController = SalgController.getSalgController();
+
+    private Udlejning udlejning;
 
     public UdlejningPane() {
 
@@ -46,13 +48,21 @@ public class UdlejningPane extends GridPane {
 
         dtpSlutDato = new DatePicker();
 
-        btnFjern = new Button("Tilføj");
-        btnFjern.setPrefWidth(100);
-        btnTilføj = new Button("Fjern");
-        btnTilføj.setPrefWidth(100);
+        btnFjern = new Button("Fjern");
+        btnFjern.setPrefWidth(120);
+        btnFjern.setOnAction(event -> fjernVareAction());
+        btnTilføj = new Button("Tilføj");
+        btnTilføj.setPrefWidth(120);
+        btnTilføj.setOnAction(event -> tilføjVareAction());
+        btnOpretUdlejning = new Button("Opret Udlejning");
+        btnOpretUdlejning.setPrefWidth(120);
+        btnOpretUdlejning.setOnAction(event -> opretUdlejningAction());
+        btnAfslutUdlejning = new Button("Afslut Udlejning");
+        btnAfslutUdlejning.setPrefWidth(120);
+
 
         cbPrisliste = new ComboBox<>();
-        cbPrisliste.getItems().setAll(storage.getVarer());
+        cbPrisliste.getItems().setAll(storage.getPrislister());
 
         VBox vBoxLabel = new VBox();
         vBoxLabel.setSpacing(15);
@@ -74,6 +84,7 @@ public class UdlejningPane extends GridPane {
 
         VBox vboxTilføj = new VBox();
         vboxTilføj.setSpacing(10);
+        vboxTilføj.getChildren().add(btnOpretUdlejning);
         vboxTilføj.getChildren().add(btnTilføj);
         vboxTilføj.getChildren().add(btnFjern);
         this.add(vboxTilføj, 1, 1);
@@ -142,5 +153,70 @@ public class UdlejningPane extends GridPane {
         this.add(vboxRabat,2,2);
 
 
+    }
+    private void opretUdlejningAction(){
+        LocalDate startDato = LocalDate.parse(txfStartDato.getText().trim());
+        LocalDate slutDato = dtpSlutDato.getValue();
+        String kontaktPerson = txfNavn.getText().trim();
+        String email = txfEmail.getText().trim();
+        String telefonr = txfTlfnr.getText().trim();
+        Prisliste prisliste = (Prisliste) cbPrisliste.getSelectionModel().getSelectedItem();
+
+        if(startDato == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en startdato!");
+            alert.showAndWait();
+        }else if(slutDato == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en slutdato!");
+            alert.showAndWait();
+        }else if(kontaktPerson.length() == 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en kontaktperson!");
+            alert.showAndWait();
+        }else if(email.length() == 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en email!");
+            alert.showAndWait();
+        }else if(telefonr.length() == 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en telefon nummer!");
+            alert.showAndWait();
+        }else if(prisliste == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en prisliste!");
+            alert.showAndWait();
+        }else{
+            udlejning = salgController.createUdlejning(startDato,slutDato,kontaktPerson,email,telefonr,prisliste);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Udlejning oprettet");
+            alert.showAndWait();
+        }
+
+    }
+    private void afslutUdlejningAction(){
+
+    }
+
+    private void updateControls(){
+        if(udlejning.getOrdrelinjer().size() > 0){
+            lvwOrder.getItems().setAll(udlejning.getOrdrelinjer());
+        }
+        txfPris.setText(udlejning.samletPris() + "");
+    }
+
+    private void tilføjVareAction(){
+        TilføjTilOrdreWindow opret = new TilføjTilOrdreWindow("Tilføj",udlejning);
+        opret.showAndWait();
+
+        updateControls();
+
+    }
+    private void fjernVareAction(){
+        Ordrelinje ordrelinje = lvwOrder.getSelectionModel().getSelectedItem();
+        if(ordrelinje != null){
+            udlejning.removeOrdreLinje(ordrelinje);
+        }
+        updateControls();
     }
 }
