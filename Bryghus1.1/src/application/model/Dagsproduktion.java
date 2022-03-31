@@ -9,6 +9,7 @@ public class Dagsproduktion {
     private LocalDate dato;
     private double omsætning;
 
+
     private final List<Salg> dagensSalg = new ArrayList<>();
     private final List<Udlejning> dagensAfsluttedeUdlejninger = new ArrayList<>();
 
@@ -20,10 +21,6 @@ public class Dagsproduktion {
 
     public LocalDate getDato() {
         return dato;
-    }
-
-    public void setDato(LocalDate dato) {
-        this.dato = dato;
     }
 
     public double getOmsætning() {

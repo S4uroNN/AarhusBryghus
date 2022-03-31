@@ -25,4 +25,9 @@ public class Vare {
     public double getPris(Prisliste prisliste){
         return prisliste.getVarePris(this);
     }
+
+    public int getKlipPris(Prisliste prisliste){
+        return prisliste.getKlipPris(this);
+    }
+
 }
