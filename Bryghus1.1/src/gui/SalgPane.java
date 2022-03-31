@@ -1,9 +1,13 @@
 package gui;
 
 import application.controller.SalgController;
+import application.controller.VareController;
 import application.model.Prisliste;
 import application.model.Salg;
 import application.model.Vare;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -21,6 +25,7 @@ SalgPane extends GridPane {
     private RadioButton rbFast, rbProcent, rbUserDefined, rbNoDiscount;
     private TextField txfRabat, txfSamletPris;
     private SalgController salgController;
+    private VareController vareController;
     private Storage storage = Storage.getInstance();
     public SalgPane(){
         setHgap(20);
@@ -29,6 +34,7 @@ SalgPane extends GridPane {
         this.setGridLinesVisible(false);
 
         salgController = SalgController.getSalgController();
+        vareController = VareController.getController();
 
         Label lblOrdre = new Label("Ordre:");
         this.add(lblOrdre,0,0);
@@ -72,8 +78,12 @@ SalgPane extends GridPane {
         this.add(OrdreButtons,1,1);
 
         ToggleGroup toggleGroupRabat = new ToggleGroup();
+
         Label lblPrisliste = new Label("Prisliste:");
+
         prislisteComboBox = new ComboBox<>();
+        prislisteComboBox.getItems().setAll(storage.getPrislister());
+
         Label lblRabat = new Label("Rabat:");
         HBox rabatBox = new HBox();
         rbFast = new RadioButton("Fast");
