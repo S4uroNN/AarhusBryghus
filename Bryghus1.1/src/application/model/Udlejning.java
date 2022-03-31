@@ -37,6 +37,9 @@ public class Udlejning {
         ordrelinjer.add(ordrelinje);
         return ordrelinje;
     }
+    public void removeOrdreLinje(Ordrelinje ordrelinje){
+        ordrelinjer.remove(ordrelinje);
+    }
 
     public double samletPris(){
         double samletpris = 0;
