@@ -6,6 +6,7 @@ import java.util.Set;
 public class Salg {
     private int id = 0;
     private Betalingsform betalingsform;
+    private int ordrelinjenr;
 
     //Måske tilføje betalingsform?
     private final Set<OrdreLinje> ordrelinjer = new HashSet<>();
@@ -13,9 +14,10 @@ public class Salg {
     public Salg(){
         this.id = id;
         id++;
+        this.ordrelinjenr = 0;
     }
 
-    public OrdreLinje createOrdreLinje(int id, int antal, Vare vare){
+    public OrdreLinje createOrdreLinje(int ordrelinjenr, int antal, Vare vare){
         OrdreLinje ordreLinje = new OrdreLinje(id, antal, vare);
         ordrelinjer.add(ordreLinje);
         return ordreLinje;
