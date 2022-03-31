@@ -7,11 +7,13 @@ public class Salg {
     private int id;
     private Betalingsform betalingsform;
     private int ordrelinjenr;
+    private Prisliste prisliste;
     private int idCount = 0;
 
     private final Set<Ordrelinje> ordrelinjer = new HashSet<>();
 
-    public Salg(){
+    public Salg(Prisliste prisliste){
+        this.prisliste = prisliste;
         this.id = idCount;
         idCount++;
     }
@@ -30,7 +32,7 @@ public class Salg {
         return new HashSet<>(ordrelinjer);
     }
 
-    public double samletPris(Prisliste prisliste){
+    public double samletPris(){
         double samletpris = 0;
         for(Ordrelinje ordreLinje : ordrelinjer){
             samletpris = ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();

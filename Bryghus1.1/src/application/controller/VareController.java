@@ -131,6 +131,8 @@ public class VareController {
         Vare gaveæske4øl = vareController.createVare("Gaveæske 4 øl");
         Vare rundvisning10prs = vareController.createVare("Rundvisning 10 personer");
 
+        Prisliste butik = vareController.createPrisliste("Butik");
+
         vareController.addVareToVareGruppe(klosterbryg, flaske);
         vareController.addVareToVareGruppe(klosterbryg, fustage);
         vareController.addVareToVareGruppe(extraPilsner, fadøl);
@@ -146,7 +148,7 @@ public class VareController {
         vareController.addVareToVareGruppe(glasUansetStørrelse, glas);
         vareController.addVareToVareGruppe(gaveæske4øl, sampakninger);
 
-
+        vareController.addVareGruppeToPrisliste(butik,fadøl,20);
     }
 
 

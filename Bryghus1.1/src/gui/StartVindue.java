@@ -50,6 +50,9 @@ public class StartVindue extends Application {
         SalgPane salgPane = new SalgPane();
         tabOpret.setContent(salgPane);
 
+        UdlejningPane udlejningPane = new UdlejningPane();
+        tabOpretUdl.setContent(udlejningPane);
+
 
         tabPane.getTabs().add(tabOpret);
         tabPane.getTabs().add(tabOpretUdl);
