@@ -14,10 +14,9 @@ public class Salg {
     public Salg(){
         this.id = idCount;
         idCount++;
-        this.ordrelinjenr = 0;
     }
 
-    public Ordrelinje createOrdreLinje(int ordrelinjenr, int antal, Vare vare){
+    public Ordrelinje createOrdreLinje(int antal, Vare vare){
         Ordrelinje ordrelinje = new Ordrelinje(ordrelinjenr, antal, vare);
         ordrelinjer.add(ordrelinje);
         return ordrelinje;
