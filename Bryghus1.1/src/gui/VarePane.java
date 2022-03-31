@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Vare;
 import application.model.VareGruppe;
 import javafx.beans.value.ChangeListener;
@@ -21,12 +21,12 @@ public class VarePane extends GridPane {
 
     private Button btnAddVareGruppe, btnDeleteVareGruppe, btnEditVareGruppe, btnÆndreVareGruppe;
 
-    private Controller controller = Controller.getController();
+    private VareController vareController = VareController.getController();
     private Storage storage = Storage.getInstance();
 
     public VarePane() {
 
-        controller.initStorage();
+        vareController.initStorage();
         updateLists();
 
         this.setPadding(new Insets(20));
@@ -116,7 +116,7 @@ public class VarePane extends GridPane {
             alert.setHeaderText("Er du sikker?");
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-                controller.deleteVareGruppe(vareGruppe);
+                vareController.deleteVareGruppe(vareGruppe);
                 lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
             }
         } else {

@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Prisliste;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -36,11 +36,11 @@ public class PrisListeWindow extends Stage {
     }
 
     private TextField txfNavn;
-    private Controller controller;
+    private VareController vareController;
     private Label lblError;
 
     private void initContent(GridPane pane) {
-        controller = Controller.getController();
+        vareController = VareController.getController();
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -79,9 +79,9 @@ public class PrisListeWindow extends Stage {
             lblError.setText("Navn er tomt");
         } else {
             if (prisliste != null) {
-                controller.updatePrisliste(prisliste, name);
+                vareController.updatePrisliste(prisliste, name);
             } else {
-                controller.createPrisliste(txfNavn.getText());
+                vareController.createPrisliste(txfNavn.getText());
             }
             this.hide();
         }

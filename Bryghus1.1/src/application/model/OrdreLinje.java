@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrdreLinje {
-    private int id;
+    private int linjenummer;
     private int antal;
 
     private Vare vare;
 
-    public OrdreLinje(int id, int antal, Vare vare){
-        this.id = id;
+    public OrdreLinje(int linjenummer, int antal, Vare vare){
+        this.linjenummer = linjenummer;
         this.antal = antal;
         this.vare = vare;
     }
@@ -19,7 +19,7 @@ public class OrdreLinje {
         return antal;
     }
     public int getId() {
-        return id;
+        return linjenummer;
     }
     public Vare getVare() {
         return vare;

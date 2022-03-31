@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Vare;
 import application.model.VareGruppe;
 import javafx.geometry.Insets;
@@ -13,14 +13,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import storage.Storage;
 
-import java.util.List;
 import java.util.Optional;
 
 public class TilføjVareTilVareGruppeWindow extends Stage {
     private Vare vare;
     private VareGruppe vareGruppe;
 
-    private Controller controller = Controller.getController();
+    private VareController vareController = VareController.getController();
     private Storage storage = Storage.getInstance();
 
     private ListView<Vare> lvwvareGruppeVare = new ListView<>();
@@ -119,7 +118,7 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
             alert.setHeaderText("Er du sikker?");
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-                controller.deleteVare(vare);
+                vareController.deleteVare(vare);
                 lvwalleVarer.getItems().setAll(storage.getVarer());
             }
 
