@@ -17,7 +17,7 @@ public class Salg {
     }
 
     public Ordrelinje createOrdreLinje(int antal, Vare vare){
-        Ordrelinje ordrelinje = new Ordrelinje(ordrelinjenr, antal, vare);
+        Ordrelinje ordrelinje = new Ordrelinje(antal, vare);
         ordrelinjer.add(ordrelinje);
         return ordrelinje;
     }
