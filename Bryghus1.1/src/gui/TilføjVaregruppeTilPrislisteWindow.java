@@ -33,6 +33,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         this.setScene(scene);
     }
 
+
     private VareController vareController;
     private TextField txfPris;
     private ListView<VareGruppe> lvwAlleVareGrupper = new ListView<>();
