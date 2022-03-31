@@ -133,7 +133,7 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
     private void vareTilVareGruppeAction(){
         Vare vare = lvwalleVarer.getSelectionModel().getSelectedItem();
         if(vare != null){
-            controller.addVareToVareGruppe(vare, vareGruppe);
+            vareController.addVareToVareGruppe(vare, vareGruppe);
             updateLists();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -144,7 +144,7 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
     private void fjernvareTilVareGruppeAction(){
         Vare vare = lvwvareGruppeVare.getSelectionModel().getSelectedItem();
         if(vare != null){
-            controller.removeVareFromGruppe(vare, vareGruppe);
+            vareController.removeVareFromGruppe(vare, vareGruppe);
             updateLists();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);

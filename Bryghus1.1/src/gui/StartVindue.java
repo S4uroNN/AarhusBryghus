@@ -27,7 +27,7 @@ public class StartVindue extends Application {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.setHeight(500);
-        stage.setWidth(700);
+        stage.setWidth(850);
         stage.show();
     }
 
@@ -46,6 +46,9 @@ public class StartVindue extends Application {
 
         PrislistePane prislistePane = new PrislistePane();
         tabPrisliste.setContent(prislistePane);
+
+        SalgPane salgPane = new SalgPane();
+        tabOpret.setContent(salgPane);
 
 
         tabPane.getTabs().add(tabOpret);
