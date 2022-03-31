@@ -13,7 +13,7 @@ public class Storage implements Serializable {
     private Set<Prisliste> prislister = new HashSet<>();
     private Set<VareGruppe> varegrupper = new HashSet<>();
     private Set<Dagsproduktion> dagsproduktioner = new HashSet<>();
-    private Set<Udlejning> udlejninger = new HashSet<>();
+    private Set<Udlejning> aktiveUdlejninger = new HashSet<>();
 
     private Storage() {
     }
@@ -77,16 +77,16 @@ public class Storage implements Serializable {
     }
 
 
-    public HashSet<Udlejning> getUdlejninger(){
-        return new HashSet<>(udlejninger);
+    public HashSet<Udlejning> getAktiveUdlejninger(){
+        return new HashSet<>(aktiveUdlejninger);
     }
 
     public void addUdlejning(Udlejning udlejning){
-        udlejninger.add(udlejning);
+        aktiveUdlejninger.add(udlejning);
     }
 
     public void removeUdlejning (Udlejning udlejning){
-        udlejninger.remove(udlejning);
+        aktiveUdlejninger.remove(udlejning);
     }
 
 }

@@ -40,6 +40,7 @@ public class SalgController {
     public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion){
         dagsproduktion.addafsluttetUdlejning(udlejning);
         udlejning.setAsAfsluttet();
+        storage.removeUdlejning(udlejning);
         return udlejning;
     }
 
@@ -56,7 +57,6 @@ public class SalgController {
     public void updateOmsætning(Dagsproduktion dagsproduktion){
         dagsproduktion.updateOmsætning();
     }
-
 
 
 }
