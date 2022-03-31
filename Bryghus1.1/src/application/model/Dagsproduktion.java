@@ -10,6 +10,7 @@ public class Dagsproduktion {
     private double omsætning;
 
     private final List<Salg> dagensSalg = new ArrayList<>();
+    private final List<Udlejning> dagensAfsluttedeUdlejninger = new ArrayList<>();
 
 
     public Dagsproduktion() {
@@ -29,12 +30,8 @@ public class Dagsproduktion {
         return omsætning;
     }
 
-    public void setOmsætning(double omsætning) {
-        this.omsætning = omsætning;
-    }
-
-    public Salg createSalg() {
-        Salg salg = new Salg();
+    public Salg createSalg(Prisliste prisliste) {
+        Salg salg = new Salg(prisliste);
         dagensSalg.add(salg);
         return salg;
     }
@@ -43,6 +40,25 @@ public class Dagsproduktion {
         return new ArrayList<Salg>(dagensSalg);
     }
 
+    public ArrayList<Udlejning> getDagensAfsluttedeUdlejninger() {
+        return new ArrayList<>(dagensAfsluttedeUdlejninger);
+    }
 
+    public void addafsluttetUdlejning(Udlejning udlejning){
+        dagensAfsluttedeUdlejninger.add(udlejning);
+    }
 
+    public void removeAfsluttetUdlejning(Udlejning udlejning){
+        dagensAfsluttedeUdlejninger.remove(udlejning);
+    }
+
+    public void updateOmsætning(){
+        int omsætning = 0;
+        for (Salg salg : dagensSalg){
+            omsætning += salg.samletPris();
+        }
+        for (Udlejning udlejning : dagensAfsluttedeUdlejninger){
+            omsætning += udlejning.samletPris();
+        }
+    }
 }

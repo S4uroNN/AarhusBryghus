@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ordrelinje {
-    private int linjenummer;
     private int antal;
 
     private Vare vare;
 
-    public Ordrelinje(int linjenummer, int antal, Vare vare){
-        this.linjenummer = linjenummer;
+    public Ordrelinje(int antal, Vare vare){
         this.antal = antal;
         this.vare = vare;
     }
@@ -19,16 +17,8 @@ public class Ordrelinje {
         return antal;
     }
 
-    public int getLinjenummer() {
-        return linjenummer;
-    }
-
     public Vare getVare() {
         return vare;
-    }
-
-    public void setLinjenummer(int linjenummer) {
-        this.linjenummer = linjenummer;
     }
 
     public void setAntal(int antal) {
