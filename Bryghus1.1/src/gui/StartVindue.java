@@ -1,7 +1,6 @@
 package gui;
 
-import application.controller.Controller;
-import application.model.Prisliste;
+import application.controller.VareController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -11,10 +10,10 @@ import javafx.stage.Stage;
 
 public class StartVindue extends Application {
 
-    private Controller controller;
+    private VareController vareController;
 
     private void initContent(BorderPane pane) {
-        controller = Controller.getController();
+        vareController = VareController.getController();
         TabPane tabPane = new TabPane();
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);

@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Vare;
 import application.model.VareGruppe;
 import javafx.geometry.Insets;
@@ -13,14 +13,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import storage.Storage;
 
-import java.util.List;
 import java.util.Optional;
 
 public class TilføjVareTilVareGruppeWindow extends Stage {
     private Vare vare;
     private VareGruppe vareGruppe;
 
-    private Controller controller = Controller.getController();
+    private VareController vareController = VareController.getController();
     private Storage storage = Storage.getInstance();
 
     private ListView<Vare> lvwvareGruppeVare = new ListView<>();
@@ -68,8 +67,10 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
         btnFjernVare.setOnAction(event -> sletVareAction());
         btnTilføjTilGruppe = new Button("Tilføj til gruppe");
         btnTilføjTilGruppe.setPrefWidth(width);
+        btnTilføjTilGruppe.setOnAction(event -> vareTilVareGruppeAction() );
         btnFjernFraGruppe = new Button("Fjern fra gruppe");
         btnFjernFraGruppe.setPrefWidth(width);
+        btnFjernFraGruppe.setOnAction(event -> fjernvareTilVareGruppeAction());
 
         VBox vbox = new VBox();
         vbox.getChildren().add(btnTilføjVare);
@@ -117,7 +118,7 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
             alert.setHeaderText("Er du sikker?");
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-                controller.deleteVare(vare);
+                vareController.deleteVare(vare);
                 lvwalleVarer.getItems().setAll(storage.getVarer());
             }
 
@@ -127,6 +128,29 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
             alert.showAndWait();
         }
         updateLists();
+    }
+
+    private void vareTilVareGruppeAction(){
+        Vare vare = lvwalleVarer.getSelectionModel().getSelectedItem();
+        if(vare != null){
+            controller.addVareToVareGruppe(vare, vareGruppe);
+            updateLists();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en vare!");
+            alert.showAndWait();
+        }
+    }
+    private void fjernvareTilVareGruppeAction(){
+        Vare vare = lvwvareGruppeVare.getSelectionModel().getSelectedItem();
+        if(vare != null){
+            controller.removeVareFromGruppe(vare, vareGruppe);
+            updateLists();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Du har ikke valgt en vare!");
+            alert.showAndWait();
+        }
     }
 
 

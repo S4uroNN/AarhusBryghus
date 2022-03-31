@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Prisliste;
 import application.model.Vare;
 import application.model.VareGruppe;
@@ -33,13 +33,13 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         this.setScene(scene);
     }
 
-    private Controller controller;
+    private VareController vareController;
     private TextField txfPris;
     private ListView<VareGruppe> lvwAlleVareGrupper = new ListView<>();
     private ListView<Vare> lvwTilføjedeVarer = new ListView<>();
 
     private void initContent(GridPane pane) {
-        controller = Controller.getController();
+        vareController = VareController.getController();
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -57,7 +57,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
         pane.add(lblPris, 2, 0);
 
         pane.add(lvwAlleVareGrupper, 0, 1, 1, 2);
-        lvwAlleVareGrupper.getItems().setAll(controller.getVareGrupper());
+        lvwAlleVareGrupper.getItems().setAll(vareController.getVareGrupper());
 
         pane.add(lvwTilføjedeVarer, 1, 1, 1, 2);
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
@@ -101,7 +101,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
     private void addAction() {
         VareGruppe selected = lvwAlleVareGrupper.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.addVareGruppeToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
+            vareController.addVareGruppeToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
             lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -114,7 +114,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
     private void removeAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.fjernVarefromPrisliste(prisliste, selected);
+            vareController.fjernVarefromPrisliste(prisliste, selected);
             lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -126,7 +126,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
     private void editAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
+            vareController.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en vare!");

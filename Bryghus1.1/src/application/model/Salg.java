@@ -1,41 +1,66 @@
 package application.model;
 
-import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Salg {
-    private int id = 0;
+    private int id;
     private Betalingsform betalingsform;
+    private int ordrelinjenr;
+    private int idCount = 0;
 
-    //Måske tilføje betalingsform?
-    private final Set<OrdreLinje> ordrer = new HashSet<>();
+    private final Set<Ordrelinje> ordrelinjer = new HashSet<>();
 
     public Salg(){
-        this.id = id;
-        id++;
+        this.id = idCount;
+        idCount++;
+        this.ordrelinjenr = 0;
     }
 
-    public OrdreLinje createOrdreLinje(int id, int antal, Vare vare){
-        OrdreLinje ordreLinje = new OrdreLinje(id, antal, vare);
-        ordrer.add(ordreLinje);
-        return ordreLinje;
+    public Ordrelinje createOrdreLinje(int ordrelinjenr, int antal, Vare vare){
+        Ordrelinje ordrelinje = new Ordrelinje(ordrelinjenr, antal, vare);
+        ordrelinjer.add(ordrelinje);
+        return ordrelinje;
     }
 
      public void setBetalingsform(Betalingsform betalingsform){
         this.betalingsform = betalingsform;
      }
 
-    public Set<OrdreLinje> getOrdrer() {
-        return new HashSet<>(ordrer);
+    public Set<Ordrelinje> getOrdrer() {
+        return new HashSet<>(ordrelinjer);
     }
 
-    public double samletPris(){
+    public double samletPris(Prisliste prisliste){
         double samletpris = 0;
-        for(OrdreLinje o : ordrer){
-            o.getVare().getPris(null);
+        for(Ordrelinje ordreLinje : ordrelinjer){
+            samletpris = ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();
         }
         return samletpris;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Betalingsform getBetalingsform() {
+        return betalingsform;
+    }
+
+    public int getOrdrelinjenr() {
+        return ordrelinjenr;
+    }
+
+    public void setOrdrelinjenr(int ordrelinjenr) {
+        this.ordrelinjenr = ordrelinjenr;
+    }
+
+    public Set<Ordrelinje> getOrdrelinjer() {
+        return  new HashSet<>(ordrelinjer);
     }
 }
 
