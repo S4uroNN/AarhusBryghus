@@ -10,28 +10,89 @@ public class Udlejning {
     private String kontaktPerson;
     private String telefonnr;
     private String email;
-    private int id = 0;
+    private int id;
+    private int idCount = 0;
 
 
     private Betalingsform betalingsform;
-    private final Set<OrdreLinje> ordrer = new HashSet<>();
+    private final Set<Ordrelinje> ordrelinjer = new HashSet<>();
 
     public Udlejning(LocalDate startDato, LocalDate slutDato, String kontaktPerson, String telefonnr, String email){
         this.startDato = startDato;
         this.slutDato = slutDato;
-        this.id = id;
+        this.id = idCount;
         this.kontaktPerson = kontaktPerson;
         this.telefonnr = telefonnr;
         this.email = email;
 
-        id++;
+        idCount++;
     }
 
-    public double samletPris(){
+    public double samletPris(Prisliste prisliste){
         double samletpris = 0;
-        for(OrdreLinje o : ordrer){
-           o.getVare().getPris(null);
+        for(Ordrelinje ordrelinje : ordrelinjer){
+           samletpris = ordrelinje.getVare().getPris(prisliste) * ordrelinje.getAntal();
         }
         return samletpris;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public void setStartDato(LocalDate startDato) {
+        this.startDato = startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public void setSlutDato(LocalDate slutDato) {
+        this.slutDato = slutDato;
+    }
+
+    public String getKontaktPerson() {
+        return kontaktPerson;
+    }
+
+    public void setKontaktPerson(String kontaktPerson) {
+        this.kontaktPerson = kontaktPerson;
+    }
+
+    public String getTelefonnr() {
+        return telefonnr;
+    }
+
+    public void setTelefonnr(String telefonnr) {
+        this.telefonnr = telefonnr;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Betalingsform getBetalingsform() {
+        return betalingsform;
+    }
+
+    public void setBetalingsform(Betalingsform betalingsform) {
+        this.betalingsform = betalingsform;
+    }
+
+    public Set<Ordrelinje> getOrdrelinjer() {
+        return new HashSet<>(ordrelinjer);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
