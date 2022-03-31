@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Prisliste;
 import application.model.Vare;
 import javafx.geometry.Insets;
@@ -17,7 +17,7 @@ public class PrislistePane extends GridPane {
     private ListView<Vare> lvwVarer = new ListView<>();
 
     private Button btnAddPrisliste, btnDeletePrisliste, btnEditPrisliste, btnTilføjVare, btnTilføjVareGruppe, btnFjernVare;
-    private Controller controller;
+    private VareController vareController;
     private Storage storage = Storage.getInstance();
 
     public PrislistePane() {
@@ -27,7 +27,7 @@ public class PrislistePane extends GridPane {
         setGridLinesVisible(false);
         setMaxWidth(700);
 
-        controller = Controller.getController();
+        vareController = VareController.getController();
         lvwPrislister.getItems().setAll(storage.getPrislister());
 
         Label lblVareGruppe = new Label("Prislister");
@@ -38,7 +38,7 @@ public class PrislistePane extends GridPane {
         this.add(lblVarer, 1, 0);
 
         this.add(lvwPrislister, 0, 1, 1, 2);
-        lvwPrislister.getItems().setAll(controller.getPrislister());
+        lvwPrislister.getItems().setAll(vareController.getPrislister());
 
         this.add(lvwVarer, 1, 1, 1, 2);
 
@@ -87,7 +87,7 @@ public class PrislistePane extends GridPane {
         PrisListeWindow tilføj = new PrisListeWindow("Tilføj Prisliste");
         tilføj.showAndWait();
 
-        lvwPrislister.getItems().setAll(controller.getPrislister());
+        lvwPrislister.getItems().setAll(vareController.getPrislister());
     }
 
     private void sletAction() {
@@ -98,8 +98,8 @@ public class PrislistePane extends GridPane {
             alert.setHeaderText("Vil du slette prislisten?");
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-                controller.deletePrisliste(selected);
-                lvwPrislister.getItems().setAll(controller.getPrislister());
+                vareController.deletePrisliste(selected);
+                lvwPrislister.getItems().setAll(vareController.getPrislister());
                 lvwVarer.getItems().clear();
             }
         }else{
@@ -115,7 +115,7 @@ public class PrislistePane extends GridPane {
             PrisListeWindow ret = new PrisListeWindow("Ret Prisliste", selected);
             ret.showAndWait();
 
-            lvwPrislister.getItems().setAll(controller.getPrislister());
+            lvwPrislister.getItems().setAll(vareController.getPrislister());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en prisliste!");
@@ -155,7 +155,7 @@ public class PrislistePane extends GridPane {
         Prisliste selectedPrisliste = lvwPrislister.getSelectionModel().getSelectedItem();
         Vare selectedVare = lvwVarer.getSelectionModel().getSelectedItem();
         if (selectedPrisliste != null && selectedVare != null){
-            controller.fjernVarefromPrisliste(selectedPrisliste,selectedVare);
+            vareController.fjernVarefromPrisliste(selectedPrisliste,selectedVare);
             lvwVarer.getItems().setAll(selectedPrisliste.getTilføjedeVarer());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);

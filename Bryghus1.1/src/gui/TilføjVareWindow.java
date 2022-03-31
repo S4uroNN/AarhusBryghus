@@ -1,26 +1,22 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Vare;
 import application.model.VareGruppe;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
-
-import java.awt.image.renderable.ContextualRenderedImageFactory;
 
 public class TilføjVareWindow extends Stage {
     private VareGruppe vareGruppe;
     private Vare vare;
-    private Controller controller = Controller.getController();
+    private VareController vareController = VareController.getController();
 
     private TextField txfNavn,txfNavn2;
     private Button btnOpretVare, btnCancel,btnCancel2,btnRet;
@@ -112,7 +108,7 @@ public class TilføjVareWindow extends Stage {
         if(navn.length() == 0){
             lblError.setText("Navn er ikke angivet");
         }else{
-            Vare vare = controller.createVare(navn);
+            Vare vare = vareController.createVare(navn);
             this.hide();
         }
     }

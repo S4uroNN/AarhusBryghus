@@ -1,9 +1,8 @@
 package gui;
 
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.VareGruppe;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +17,7 @@ import javafx.stage.StageStyle;
 public class TilføjVareGruppeWindow extends Stage {
     private VareGruppe vareGruppe;
 
-    private Controller controller;
+    private VareController vareController;
 
 
     public TilføjVareGruppeWindow(String title, VareGruppe vareGruppe) {
@@ -26,7 +25,7 @@ public class TilføjVareGruppeWindow extends Stage {
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
 
-        controller = Controller.getController();
+        vareController = VareController.getController();
 
         this.vareGruppe = vareGruppe;
 
@@ -111,11 +110,11 @@ public class TilføjVareGruppeWindow extends Stage {
         } else {
             if (vareGruppe != null){
                 pantint = Integer.parseInt(pant);
-                controller.updateVareGruppe(vareGruppe,navn,pantint);
+                vareController.updateVareGruppe(vareGruppe,navn,pantint);
             }
             else {
                 pantint = Integer.parseInt(pant);
-                controller.createVareGruppe(navn, pantint);
+                vareController.createVareGruppe(navn, pantint);
 
             }
             this.hide();

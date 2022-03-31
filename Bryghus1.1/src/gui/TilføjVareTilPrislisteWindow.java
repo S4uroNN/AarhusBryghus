@@ -1,6 +1,6 @@
 package gui;
 
-import application.controller.Controller;
+import application.controller.VareController;
 import application.model.Prisliste;
 import application.model.Vare;
 import javafx.beans.value.ChangeListener;
@@ -35,13 +35,13 @@ public class TilføjVareTilPrislisteWindow extends Stage {
         this.setScene(scene);
     }
 
-    private Controller controller;
+    private VareController vareController;
     private TextField txfPris;
     private ListView<Vare> lvwAlleVarer = new ListView<>();
     private ListView<Vare> lvwTilføjedeVarer = new ListView<>();
 
     private void initContent(GridPane pane) {
-        controller = Controller.getController();
+        vareController = VareController.getController();
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -59,7 +59,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
         pane.add(lblPris, 2, 0);
 
         pane.add(lvwAlleVarer, 0, 1, 1, 2);
-        lvwAlleVarer.getItems().setAll(controller.getVarer());
+        lvwAlleVarer.getItems().setAll(vareController.getVarer());
 
         pane.add(lvwTilføjedeVarer, 1, 1, 1, 2);
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
@@ -102,7 +102,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
     private void addAction() {
         Vare selected = lvwAlleVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.addVareToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
+            vareController.addVareToPrisliste(prisliste, selected, Integer.parseInt(txfPris.getText()));
         }
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
     }
@@ -110,7 +110,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
     private void removeAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.fjernVarefromPrisliste(prisliste, selected);
+            vareController.fjernVarefromPrisliste(prisliste, selected);
         }
         lvwTilføjedeVarer.getItems().setAll(prisliste.getTilføjedeVarer());
     }
@@ -118,7 +118,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
     private void editAction() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            controller.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
+            vareController.updatePris(prisliste, selected, Double.parseDouble(txfPris.getText()));
         }
     }
 
