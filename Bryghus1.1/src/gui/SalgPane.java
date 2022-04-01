@@ -2,10 +2,7 @@ package gui;
 
 import application.controller.SalgController;
 import application.controller.VareController;
-import application.model.Dagsproduktion;
-import application.model.Prisliste;
-import application.model.Salg;
-import application.model.Vare;
+import application.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -21,7 +18,7 @@ import java.time.LocalDate;
 
 public class
 SalgPane extends GridPane {
-    private ListView<Vare> lvwOrdre = new ListView<>();
+    private ListView<Ordrelinje> lvwOrdre = new ListView<>();
     private Button btnTilføjVare, btnFjernVare, btnStartSalg;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
@@ -130,21 +127,13 @@ SalgPane extends GridPane {
 
     private void startSalg() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
-        for (Dagsproduktion d : storage.getDagsproduktioner()) {
-            if (d.getDato() == LocalDate.now()) {
-                dagsproduktion = d;
-                salg = salgController.createSalg(d, prisliste);
-            }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Der er ikke oprettet en Dagsproduktion til i dag");
-                alert.showAndWait();
-            }
-        }
+        salg = salgController.createSalg(salgController.getDagsproduktion(),prisliste);
     }
     private void tilføjVareAction(){
         TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg);
         dia.showAndWait();
 
-
+        lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
+        txfSamletPris.setText(String.valueOf(salg.samletPris()));
     }
 }

@@ -32,6 +32,7 @@ public class TilføjTilSalgOrdreWindow extends Stage {
         Scene scene = new Scene(pane);
         this.setScene(scene);
         this.initContent(pane);
+        this.salg = salg;
 
 
 
@@ -89,10 +90,9 @@ public class TilføjTilSalgOrdreWindow extends Stage {
             }
             else{
                 salgController.createOrdrelinjeSalg(salg,antal,vare);
+                this.hide();
             }
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Du har ikke valgt en vare!");
-            alert.showAndWait();
+
         }
 
     }
