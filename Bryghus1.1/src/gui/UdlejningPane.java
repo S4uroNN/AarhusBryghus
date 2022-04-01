@@ -51,18 +51,22 @@ public class UdlejningPane extends GridPane {
         btnFjern = new Button("Fjern");
         btnFjern.setPrefWidth(120);
         btnFjern.setOnAction(event -> fjernVareAction());
+        btnFjern.setDisable(true);
         btnTilføj = new Button("Tilføj");
         btnTilføj.setPrefWidth(120);
         btnTilføj.setOnAction(event -> tilføjVareAction());
+        btnTilføj.setDisable(true);
         btnOpretUdlejning = new Button("Opret Udlejning");
         btnOpretUdlejning.setPrefWidth(120);
         btnOpretUdlejning.setOnAction(event -> opretUdlejningAction());
         btnAfslutUdlejning = new Button("Afslut Udlejning");
         btnAfslutUdlejning.setPrefWidth(120);
+        btnAfslutUdlejning.setOnAction(event -> afslutUdlejningAction());
 
 
         cbPrisliste = new ComboBox<>();
         cbPrisliste.getItems().setAll(storage.getPrislister());
+
 
         VBox vBoxLabel = new VBox();
         vBoxLabel.setSpacing(15);
@@ -189,10 +193,47 @@ public class UdlejningPane extends GridPane {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Udlejning oprettet");
             alert.showAndWait();
+            btnTilføj.setDisable(false);
+            btnFjern.setDisable(false);
+            cbPrisliste.setDisable(true);
         }
+
 
     }
     private void afslutUdlejningAction(){
+        Dagsproduktion dagsproduktion = null;
+        Betalingsform betalingsform = null;
+        if(rdbDankort.isSelected()){
+            betalingsform = Betalingsform.DANKORT;
+        }else if(rdbMobilepay.isSelected()){
+            betalingsform = Betalingsform.MOBILEPAY;
+        }else if(rdbRegning.isSelected()) {
+            betalingsform = Betalingsform.REGNING;
+        }else if(rdbKontant.isSelected()){
+            betalingsform=Betalingsform.KONTANT;
+        }
+
+        for(Dagsproduktion d : storage.getDagsproduktioner()){
+            if(d.getDato() == udlejning.getSlutDato()){
+                dagsproduktion = d;
+                salgController.afslutUdlejning(udlejning,dagsproduktion,betalingsform);
+                dagsproduktion.updateOmsætning();
+            }
+        }
+
+        if(dagsproduktion != null){
+            lvwOrder.getItems().clear();
+            txfEmail.clear();
+            txfNavn.clear();
+            txfPris.clear();
+            txfRabat.clear();
+            txfTlfnr.clear();
+            txfEmail.clear();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Udlejning afsluttet");
+            alert.showAndWait();
+        }
 
     }
 

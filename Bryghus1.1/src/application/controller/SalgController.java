@@ -37,7 +37,8 @@ public class SalgController {
         return udlejning;
     }
 
-    public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion){
+    public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion,Betalingsform betalingsform){
+        udlejning.setBetalingsform(betalingsform);
         dagsproduktion.addafsluttetUdlejning(udlejning);
         udlejning.setAsAfsluttet();
         storage.removeUdlejning(udlejning);
