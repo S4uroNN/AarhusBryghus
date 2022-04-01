@@ -1,5 +1,7 @@
 package application.model;
 
+import storage.Storage;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class Dagsproduktion {
 
     private static Dagsproduktion dagsproduktion;
 
-
+    private Storage storage;
     private final List<Salg> dagensSalg = new ArrayList<>();
     private final List<Udlejning> dagensAfsluttedeUdlejninger = new ArrayList<>();
 
@@ -19,6 +21,16 @@ public class Dagsproduktion {
     private Dagsproduktion() {
         this.dato = LocalDate.now();
         this.omsætning = 0;
+    }
+
+    public static Dagsproduktion getDagsproduktion() {
+        if (dagsproduktion == null) {
+            dagsproduktion = new Dagsproduktion();
+        } else if (dagsproduktion.getDato() != LocalDate.now()){
+            Storage.getInstance().addDagsproduktion(dagsproduktion);
+            dagsproduktion = new Dagsproduktion();
+        }
+        return dagsproduktion;
     }
 
     public LocalDate getDato() {
@@ -43,20 +55,20 @@ public class Dagsproduktion {
         return new ArrayList<>(dagensAfsluttedeUdlejninger);
     }
 
-    public void addafsluttetUdlejning(Udlejning udlejning){
+    public void addafsluttetUdlejning(Udlejning udlejning) {
         dagensAfsluttedeUdlejninger.add(udlejning);
     }
 
-    public void removeAfsluttetUdlejning(Udlejning udlejning){
+    public void removeAfsluttetUdlejning(Udlejning udlejning) {
         dagensAfsluttedeUdlejninger.remove(udlejning);
     }
 
-    public void updateOmsætning(){
+    public void updateOmsætning() {
         int omsætning = 0;
-        for (Salg salg : dagensSalg){
+        for (Salg salg : dagensSalg) {
             omsætning += salg.samletPris();
         }
-        for (Udlejning udlejning : dagensAfsluttedeUdlejninger){
+        for (Udlejning udlejning : dagensAfsluttedeUdlejninger) {
             omsætning += udlejning.samletPris();
         }
     }
