@@ -87,6 +87,7 @@ public class UdlejningPane extends GridPane {
         vboxTilføj.getChildren().add(btnOpretUdlejning);
         vboxTilføj.getChildren().add(btnTilføj);
         vboxTilføj.getChildren().add(btnFjern);
+        vboxTilføj.getChildren().add(btnAfslutUdlejning);
         this.add(vboxTilføj, 1, 1);
 
         HBox hBox = new HBox();
@@ -116,8 +117,6 @@ public class UdlejningPane extends GridPane {
         rdbMobilepay.setToggleGroup(toggleGroup);
         rdbRegning = new RadioButton("Regning");
         rdbRegning.setToggleGroup(toggleGroup);
-        rdbKlippekort = new RadioButton("Klippekort");
-        rdbKlippekort.setToggleGroup(toggleGroup);
 
         txfPris = new TextField();
 
@@ -127,7 +126,6 @@ public class UdlejningPane extends GridPane {
         hboxRadio.getChildren().add(rdbMobilepay);
         hboxRadio.getChildren().add(rdbRegning);
         hboxRadio.getChildren().add(rdbKontant);
-        hboxRadio.getChildren().add(rdbKlippekort);
 
         HBox hBoxRadioRabat = new HBox();
         hBoxRadioRabat.setSpacing(10);

@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.SalgController;
 import application.controller.VareController;
+import application.model.Dagsproduktion;
 import application.model.Prisliste;
 import application.model.Salg;
 import application.model.Vare;
@@ -16,16 +17,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
+import java.time.LocalDate;
+
 public class
 SalgPane extends GridPane {
     private ListView<Vare> lvwOrdre = new ListView<>();
-    private Button btnTilføjVare, btnFjernVare;
+    private Button btnTilføjVare, btnFjernVare, btnStartSalg;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
     private RadioButton rbFast, rbProcent, rbUserDefined, rbNoDiscount;
     private TextField txfRabat, txfSamletPris;
     private SalgController salgController;
     private VareController vareController;
+    private Dagsproduktion dagsproduktion;
+    private Salg salg;
     private Storage storage = Storage.getInstance();
     public SalgPane(){
         setHgap(20);
@@ -38,8 +43,8 @@ SalgPane extends GridPane {
 
         Label lblOrdre = new Label("Ordre:");
         this.add(lblOrdre,0,0);
-
         this.add(lvwOrdre,0,1);
+
 
         Label lblBetalingsform = new Label("Betalingsform:");
         this.add(lblBetalingsform,0,2);
@@ -65,6 +70,10 @@ SalgPane extends GridPane {
         betalingsformRadioButtons.setSpacing(10);
         betalingsformRadioButtons.setAlignment(Pos.BOTTOM_CENTER);
         this.add(betalingsformRadioButtons,0,3);
+
+        btnStartSalg = new Button("Start Salg");
+        this.add(btnStartSalg,0,4);
+        btnStartSalg.setOnAction(event -> startSalg());
 
 
         btnTilføjVare = new Button("Tilføj");
@@ -115,19 +124,9 @@ SalgPane extends GridPane {
         prisBox.setSpacing(20);
         prisBox.setAlignment(Pos.TOP_LEFT);
         this.add(prisBox,2,1);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+    private void startSalg(){
+        Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
+        salgController.createSalg(dagsproduktion ,prisliste);
     }
 }
