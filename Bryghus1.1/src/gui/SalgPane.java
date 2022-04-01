@@ -51,14 +51,19 @@ SalgPane extends GridPane {
 
         rbDankort = new RadioButton("Dankort");
         rbDankort.setToggleGroup(toggleGroup);
+        rbDankort.setOnAction(event -> dankortAction());
         rbMobilepay = new RadioButton("Mobliepay");
         rbMobilepay.setToggleGroup(toggleGroup);
+        rbMobilepay.setOnAction(event -> mobilepayAction());
         rbKontant = new RadioButton("Kontant");
         rbKontant.setToggleGroup(toggleGroup);
+        rbKontant.setOnAction(event -> kontantAction());
         rbRegning = new RadioButton("Regning");
         rbRegning.setToggleGroup(toggleGroup);
+        rbRegning.setOnAction(event -> regningAction());
         rbKlippekort = new RadioButton("Klippekort");
         rbKlippekort.setToggleGroup(toggleGroup);
+        rbKlippekort.setOnAction(event -> klippekortAction());
         HBox betalingsformRadioButtons = new HBox();
         betalingsformRadioButtons.getChildren().add(rbDankort);
         betalingsformRadioButtons.getChildren().add(rbMobilepay);
@@ -127,13 +132,57 @@ SalgPane extends GridPane {
 
     private void startSalg() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
-        salg = salgController.createSalg(salgController.getDagsproduktion(),prisliste);
+        if (prisliste != null){
+            salg = salgController.createSalg(salgController.getDagsproduktion(),prisliste);
+            lvwOrdre.getItems().clear();
+            txfSamletPris.clear();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Salg Oprettet!");
+            alert.showAndWait();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Prisliste er ikke valgt!");
+            alert.showAndWait();
+        }
+
     }
     private void tilføjVareAction(){
-        TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg);
-        dia.showAndWait();
+        if (salg != null) {
+            TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg);
+            dia.showAndWait();
+            lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
+            txfSamletPris.setText(String.valueOf(salg.samletPris()));
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Salg er ikke oprettet!");
+            alert.showAndWait();
 
-        lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
-        txfSamletPris.setText(String.valueOf(salg.samletPris()));
+        }
     }
+    private void dankortAction(){
+        if (rbDankort.isSelected()){
+            salg.setBetalingsform(Betalingsform.DANKORT);
+        }
+    }
+    private void mobilepayAction(){
+        if (rbMobilepay.isSelected()){
+            salg.setBetalingsform(Betalingsform.MOBILEPAY);
+        }
+    }
+    private void kontantAction(){
+        if (rbKontant.isSelected()){
+            salg.setBetalingsform(Betalingsform.KONTANT);
+        }
+    }
+    private void regningAction(){
+        if (rbRegning.isSelected()){
+            salg.setBetalingsform(Betalingsform.REGNING);
+        }
+    }
+    private  void klippekortAction(){
+        if (rbKlippekort.isSelected()){
+            salg.setBetalingsform(Betalingsform.KLIPPEKORT);
+        }
+    }
+
 }
