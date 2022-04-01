@@ -22,6 +22,7 @@ public class UdlejningPane extends GridPane {
 
     private Storage storage = Storage.getInstance();
     private SalgController salgController = SalgController.getSalgController();
+    private Dagsproduktion dagsproduktion = SalgController.getDagsproduktion();
 
     private Udlejning udlejning;
 
@@ -201,7 +202,6 @@ public class UdlejningPane extends GridPane {
 
     }
     private void afslutUdlejningAction(){
-        Dagsproduktion dagsproduktion = null;
         Betalingsform betalingsform = null;
         if(rdbDankort.isSelected()){
             betalingsform = Betalingsform.DANKORT;
@@ -213,15 +213,9 @@ public class UdlejningPane extends GridPane {
             betalingsform=Betalingsform.KONTANT;
         }
 
-        for(Dagsproduktion d : storage.getDagsproduktioner()){
-            if(d.getDato() == udlejning.getSlutDato()){
-                dagsproduktion = d;
-                salgController.afslutUdlejning(udlejning,dagsproduktion,betalingsform);
-                dagsproduktion.updateOmsætning();
-            }
-        }
-
         if(dagsproduktion != null){
+            salgController.afslutUdlejning(udlejning,dagsproduktion,betalingsform);
+            System.out.println(dagsproduktion.getDagensAfsluttedeUdlejninger());
             lvwOrder.getItems().clear();
             txfEmail.clear();
             txfNavn.clear();
@@ -245,11 +239,10 @@ public class UdlejningPane extends GridPane {
     }
 
     private void tilføjVareAction(){
-        TilføjTilOrdreWindow opret = new TilføjTilOrdreWindow("Tilføj",udlejning);
-        opret.showAndWait();
+        TilføjTilOrdreWindow tilføj = new TilføjTilOrdreWindow("Test",udlejning);
+        tilføj.showAndWait();
 
         updateControls();
-
     }
     private void fjernVareAction(){
         Ordrelinje ordrelinje = lvwOrder.getSelectionModel().getSelectedItem();
