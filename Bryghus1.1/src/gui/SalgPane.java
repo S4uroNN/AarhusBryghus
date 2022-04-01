@@ -29,6 +29,7 @@ SalgPane extends GridPane {
     private Dagsproduktion dagsproduktion;
     private Salg salg;
     private Storage storage = Storage.getInstance();
+    ToggleGroup toggleGroup = new ToggleGroup();
 
     public SalgPane() {
         setHgap(20);
@@ -47,7 +48,6 @@ SalgPane extends GridPane {
         Label lblBetalingsform = new Label("Betalingsform:");
         this.add(lblBetalingsform, 0, 2);
 
-        ToggleGroup toggleGroup = new ToggleGroup();
 
         rbDankort = new RadioButton("Dankort");
         rbDankort.setToggleGroup(toggleGroup);
@@ -136,6 +136,7 @@ SalgPane extends GridPane {
             salg = salgController.createSalg(salgController.getDagsproduktion(),prisliste);
             lvwOrdre.getItems().clear();
             txfSamletPris.clear();
+            toggleGroup.selectToggle(null);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Salg Oprettet!");
             alert.showAndWait();
