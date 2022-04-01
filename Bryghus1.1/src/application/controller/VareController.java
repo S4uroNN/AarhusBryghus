@@ -158,7 +158,7 @@ public class VareController {
         vareController.addVareGruppeToPrisliste(fredagsweehoo,flaske,70, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,spiritus, 1000, 40);
 
-        Dagsproduktion dagsproduktion = SalgController.getSalgController().createDagsproduktion();
+        Dagsproduktion dagsproduktion = SalgController.getSalgController().getDagsproduktion();
     }
 
 

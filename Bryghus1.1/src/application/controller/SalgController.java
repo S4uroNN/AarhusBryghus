@@ -77,4 +77,6 @@ public class SalgController {
         return udlejedeVarer;
     }
 
+
+
 }

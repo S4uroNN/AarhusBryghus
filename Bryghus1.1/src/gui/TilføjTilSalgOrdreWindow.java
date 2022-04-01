@@ -23,6 +23,7 @@ public class TilføjTilSalgOrdreWindow extends Stage {
     private Dagsproduktion dagsproduktion;
     private Salg salg;
     private SalgController salgController = SalgController.getSalgController();
+    private VareController vareController = VareController.getController();
 
 
     public TilføjTilSalgOrdreWindow(String title,Salg salg){
@@ -56,7 +57,7 @@ public class TilføjTilSalgOrdreWindow extends Stage {
 
         pane.add(new Label("Vare:"),0,0);
         pane.add(lvwVare,0,1);
-   //     lvwVare.getItems().setAll(storage.getVarer());
+        lvwVare.getItems().setAll(vareController.getVarer());
 
         ChangeListener<Vare> vareListener = (ov, oldVare, newVare) -> this.selectedVareChanged();
         lvwVare.getSelectionModel().selectedItemProperty().addListener(vareListener);
