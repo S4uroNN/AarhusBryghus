@@ -23,9 +23,8 @@ public class SalgController {
         return controller;
     }
 
-    public Dagsproduktion createDagsproduktion() {
-        Dagsproduktion dagsproduktion = new Dagsproduktion();
-        storage.addDagsproduktion(dagsproduktion);
+    public Dagsproduktion getDagsproduktion() {
+        Dagsproduktion dagsproduktion = Dagsproduktion.getDagsproduktion();
         return dagsproduktion;
     }
 
