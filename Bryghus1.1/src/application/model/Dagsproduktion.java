@@ -9,12 +9,14 @@ public class Dagsproduktion {
     private LocalDate dato;
     private double omsætning;
 
+    private static Dagsproduktion dagsproduktion;
+
 
     private final List<Salg> dagensSalg = new ArrayList<>();
     private final List<Udlejning> dagensAfsluttedeUdlejninger = new ArrayList<>();
 
 
-    public Dagsproduktion() {
+    private Dagsproduktion() {
         this.dato = LocalDate.now();
         this.omsætning = 0;
     }
