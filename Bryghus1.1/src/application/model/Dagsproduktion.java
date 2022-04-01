@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Dagsproduktion {
     private LocalDate dato;
@@ -26,7 +27,8 @@ public class Dagsproduktion {
     public static Dagsproduktion getDagsproduktion() {
         if (dagsproduktion == null) {
             dagsproduktion = new Dagsproduktion();
-        } else if (dagsproduktion.getDato() != LocalDate.now()){
+        }
+        if (!Objects.equals(dagsproduktion.getDato(), LocalDate.now())){
             Storage.getInstance().addDagsproduktion(dagsproduktion);
             dagsproduktion = new Dagsproduktion();
         }
@@ -71,5 +73,6 @@ public class Dagsproduktion {
         for (Udlejning udlejning : dagensAfsluttedeUdlejninger) {
             omsætning += udlejning.samletPris();
         }
+        this.omsætning = omsætning;
     }
 }
