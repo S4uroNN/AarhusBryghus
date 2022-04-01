@@ -32,7 +32,8 @@ SalgPane extends GridPane {
     private Dagsproduktion dagsproduktion;
     private Salg salg;
     private Storage storage = Storage.getInstance();
-    public SalgPane(){
+
+    public SalgPane() {
         setHgap(20);
         setVgap(10);
         this.setPadding(new Insets(20));
@@ -42,12 +43,12 @@ SalgPane extends GridPane {
         vareController = VareController.getController();
 
         Label lblOrdre = new Label("Ordre:");
-        this.add(lblOrdre,0,0);
-        this.add(lvwOrdre,0,1);
+        this.add(lblOrdre, 0, 0);
+        this.add(lvwOrdre, 0, 1);
 
 
         Label lblBetalingsform = new Label("Betalingsform:");
-        this.add(lblBetalingsform,0,2);
+        this.add(lblBetalingsform, 0, 2);
 
         ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -69,14 +70,15 @@ SalgPane extends GridPane {
         betalingsformRadioButtons.getChildren().add(rbKlippekort);
         betalingsformRadioButtons.setSpacing(10);
         betalingsformRadioButtons.setAlignment(Pos.BOTTOM_CENTER);
-        this.add(betalingsformRadioButtons,0,3);
+        this.add(betalingsformRadioButtons, 0, 3);
 
         btnStartSalg = new Button("Start Salg");
-        this.add(btnStartSalg,0,4);
+        this.add(btnStartSalg, 0, 4);
         btnStartSalg.setOnAction(event -> startSalg());
 
 
         btnTilføjVare = new Button("Tilføj");
+        btnTilføjVare.setOnAction(event -> tilføjVareAction());
         btnFjernVare = new Button("Fjern");
         VBox OrdreButtons = new VBox();
         OrdreButtons.getChildren().add(btnTilføjVare);
@@ -84,7 +86,7 @@ SalgPane extends GridPane {
         OrdreButtons.setSpacing(10);
         OrdreButtons.setAlignment(Pos.TOP_CENTER);
         OrdreButtons.prefWidth(500);
-        this.add(OrdreButtons,1,1);
+        this.add(OrdreButtons, 1, 1);
 
         ToggleGroup toggleGroupRabat = new ToggleGroup();
 
@@ -123,10 +125,26 @@ SalgPane extends GridPane {
         prisBox.getChildren().add(txfSamletPris);
         prisBox.setSpacing(20);
         prisBox.setAlignment(Pos.TOP_LEFT);
-        this.add(prisBox,2,1);
+        this.add(prisBox, 2, 1);
     }
-    private void startSalg(){
+
+    private void startSalg() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
-        salgController.createSalg(dagsproduktion ,prisliste);
+        for (Dagsproduktion d : storage.getDagsproduktioner()) {
+            if (d.getDato() == LocalDate.now()) {
+                dagsproduktion = d;
+                salg = salgController.createSalg(d, prisliste);
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Der er ikke oprettet en Dagsproduktion til i dag");
+                alert.showAndWait();
+            }
+        }
+    }
+    private void tilføjVareAction(){
+        TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg);
+        dia.showAndWait();
+
+
     }
 }
