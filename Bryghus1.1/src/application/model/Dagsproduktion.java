@@ -71,5 +71,6 @@ public class Dagsproduktion {
         for (Udlejning udlejning : dagensAfsluttedeUdlejninger) {
             omsætning += udlejning.samletPris();
         }
+        this.omsætning = omsætning;
     }
 }
