@@ -23,7 +23,7 @@ public class SalgController {
         return controller;
     }
 
-    public Dagsproduktion getDagsproduktion() {
+    public static Dagsproduktion getDagsproduktion() {
         Dagsproduktion dagsproduktion = Dagsproduktion.getDagsproduktion();
         return dagsproduktion;
     }
