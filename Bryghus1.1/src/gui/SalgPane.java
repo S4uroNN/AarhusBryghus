@@ -20,7 +20,7 @@ import java.util.Optional;
 public class
 SalgPane extends GridPane {
     private ListView<Ordrelinje> lvwOrdre = new ListView<>();
-    private Button btnTilføjVare, btnFjernVare, btnStartSalg;
+    private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
     private RadioButton rbFast, rbProcent, rbUserDefined, rbNoDiscount;
@@ -38,8 +38,10 @@ SalgPane extends GridPane {
         this.setPadding(new Insets(20));
         this.setGridLinesVisible(false);
 
+
         salgController = SalgController.getSalgController();
         vareController = VareController.getController();
+        dagsproduktion = Dagsproduktion.getDagsproduktion();
 
         Label lblOrdre = new Label("Ordre:");
         this.add(lblOrdre, 0, 0);
@@ -78,6 +80,11 @@ SalgPane extends GridPane {
         btnStartSalg = new Button("Start Salg");
         this.add(btnStartSalg, 0, 4);
         btnStartSalg.setOnAction(event -> startSalg());
+
+        btnAfslutSalg = new Button("Afslut Salg");
+        this.add(btnAfslutSalg, 2,4);
+        btnAfslutSalg.setOnAction(event -> afslutSalg());
+
 
 
         btnTilføjVare = new Button("Tilføj");
@@ -136,18 +143,34 @@ SalgPane extends GridPane {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         if (prisliste != null){
             salg = salgController.createSalg(salgController.getDagsproduktion(),prisliste);
-            lvwOrdre.getItems().clear();
-            txfSamletPris.clear();
-            toggleGroup.selectToggle(null);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Salg Oprettet!");
             alert.showAndWait();
+            btnStartSalg.setDisable(true);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Prisliste er ikke valgt!");
             alert.showAndWait();
         }
 
+    }
+    private void afslutSalg(){
+        if (salg.getBetalingsform() != null) {
+            lvwOrdre.getItems().clear();
+            txfSamletPris.clear();
+            toggleGroup.selectToggle(null);
+            btnStartSalg.setDisable(false);
+            prislisteComboBox.getSelectionModel().clearSelection();
+            salgController.updateOmsætning(dagsproduktion);
+            salg = null;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Salg er afsluttet");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Betalingsform er ikke valgt!");
+            alert.showAndWait();
+        }
     }
     private void tilføjVareAction(){
         if (salg != null) {
@@ -186,28 +209,53 @@ SalgPane extends GridPane {
 
 
     private void dankortAction(){
-        if (rbDankort.isSelected()){
+        if (rbDankort.isSelected() && salg != null){
             salg.setBetalingsform(Betalingsform.DANKORT);
+        } else {
+            toggleGroup.selectToggle(null);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Salg er ikke oprettet!");
+            alert.showAndWait();
         }
     }
     private void mobilepayAction(){
-        if (rbMobilepay.isSelected()){
+        if (rbMobilepay.isSelected() && salg != null){
             salg.setBetalingsform(Betalingsform.MOBILEPAY);
+        } else {
+            toggleGroup.selectToggle(null);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Salg er ikke oprettet!");
+            alert.showAndWait();
         }
     }
     private void kontantAction(){
-        if (rbKontant.isSelected()){
+        if (rbKontant.isSelected() && salg != null){
             salg.setBetalingsform(Betalingsform.KONTANT);
+        } else {
+            toggleGroup.selectToggle(null);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Salg er ikke oprettet!");
+            alert.showAndWait();
         }
     }
     private void regningAction(){
-        if (rbRegning.isSelected()){
+        if (rbRegning.isSelected() && salg != null){
             salg.setBetalingsform(Betalingsform.REGNING);
+        } else {
+            toggleGroup.selectToggle(null);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Salg er ikke oprettet!");
+            alert.showAndWait();
         }
     }
     private  void klippekortAction(){
-        if (rbKlippekort.isSelected()){
+        if (rbKlippekort.isSelected() && salg != null){
             salg.setBetalingsform(Betalingsform.KLIPPEKORT);
+        }else {
+            toggleGroup.selectToggle(null);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Salg er ikke oprettet!");
+            alert.showAndWait();
         }
     }
 
