@@ -7,7 +7,7 @@ public class VareGruppe {
     private String navn;
     private int pant;
 
-    private final Set varer = new HashSet();
+    private final Set<Vare> varer = new HashSet<>();
 
     public VareGruppe(String navn, int pant) {
         this.navn = navn;
@@ -23,15 +23,13 @@ public class VareGruppe {
     }
 
     public void addVare(Vare vare) {
-        if (!varer.contains(vare)) {
-            varer.add(vare);
-        }
+        varer.add(vare);
+        vare.setVareGruppe(this);
     }
 
     public void removeVare(Vare vare) {
-        if (varer.contains(vare)) {
-            varer.remove(vare);
-        }
+        varer.remove(vare);
+        vare.setVareGruppe(null);
     }
 
     public void setPant(int pant) {
@@ -49,7 +47,7 @@ public class VareGruppe {
     @Override
     public String toString() {
         if (pant != 0) {
-            return navn + "; Pant: " + pant ;
+            return navn + "; Pant: " + pant;
         } else
             return navn;
 

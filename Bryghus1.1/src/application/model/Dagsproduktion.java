@@ -29,7 +29,7 @@ public class Dagsproduktion {
             dagsproduktion = new Dagsproduktion();
         }
         if (!Objects.equals(dagsproduktion.getDato(), LocalDate.now())){
-            Storage.getInstance().addDagsproduktion(dagsproduktion);
+            Storage.getInstance().addDagsproduktion(dagsproduktion.getDato(), dagsproduktion);
             dagsproduktion = new Dagsproduktion();
         }
         return dagsproduktion;
