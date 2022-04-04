@@ -52,10 +52,19 @@ public class SalgController {
         return ordrelinje;
     }
 
+    public void removeOrdrelinjeSalg(Salg salg, Ordrelinje ordrelinje){
+        salg.removeOrdrelinje(ordrelinje);
+    }
+
     public Ordrelinje createOrdrelinjeUdlejning(Udlejning udlejning, int antal, Vare vare) {
         Ordrelinje ordrelinje = udlejning.createOrdreLinje(antal, vare);
         return ordrelinje;
     }
+
+    public void removeOrdrelinjeUdlejning(Udlejning udlejning, Ordrelinje ordrelinje){
+        udlejning.removeOrdreLinje(ordrelinje);
+    }
+
 
     public void updateOmsætning(Dagsproduktion dagsproduktion) {
         dagsproduktion.updateOmsætning();

@@ -63,5 +63,9 @@ public class Salg {
     public Set<Ordrelinje> getOrdrelinjer() {
         return  new HashSet<>(ordrelinjer);
     }
+
+    public void removeOrdrelinje(Ordrelinje ordrelinje){
+        ordrelinjer.remove(ordrelinje);
+    }
 }
 
