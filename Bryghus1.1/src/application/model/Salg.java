@@ -34,8 +34,8 @@ public class Salg {
 
     public double samletPris() {
         double samletpris = 0;
-        for (Ordrelinje ordreLinje : ordrelinjer) {
-            samletpris = ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();
+        for(Ordrelinje ordreLinje : ordrelinjer){
+            samletpris += ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();
         }
         return samletpris;
     }
