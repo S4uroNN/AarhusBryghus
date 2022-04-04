@@ -161,11 +161,13 @@ public class VareController {
         Udlejning udlejning = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
         udlejning.createOrdreLinje(5,extraPilsner);
 
+        Udlejning udlejning1 = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
+        udlejning1.createOrdreLinje(5,extraPilsner);
+
         salgController.afslutUdlejning(udlejning,dagsproduktion,Betalingsform.DANKORT);
         salgController.updateOmsætning(dagsproduktion);
-        System.out.println(dagsproduktion.getDagensAfsluttedeUdlejninger());
-        System.out.println(dagsproduktion.getOmsætning());
-        System.out.println(dagsproduktion);
+
+
     }
 
 
