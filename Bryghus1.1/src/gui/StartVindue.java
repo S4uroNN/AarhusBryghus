@@ -55,6 +55,9 @@ public class StartVindue extends Application {
         VisUdlejningPane visUdlejningPane = new VisUdlejningPane();
         tabVisUdl.setContent(visUdlejningPane);
 
+        VisStatistikPane visStatistikPane = new VisStatistikPane();
+        tabStatistik.setContent(visStatistikPane);
+
 
         tabPane.getTabs().add(tabOpret);
         tabPane.getTabs().add(tabOpretUdl);

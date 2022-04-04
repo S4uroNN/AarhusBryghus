@@ -48,7 +48,7 @@ public class TilføjTilSalgOrdreWindow extends Stage {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         pane.setVgap(10);
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
         pane.setPrefWidth(500);
 
         pane.add(new Label("Antal:"),1 ,0);

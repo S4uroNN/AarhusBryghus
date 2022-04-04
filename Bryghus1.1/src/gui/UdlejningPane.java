@@ -16,7 +16,7 @@ public class UdlejningPane extends GridPane {
     private TextField txfStartDato, txfNavn, txfEmail, txfTlfnr, txfRabat, txfPris;
     private DatePicker dtpSlutDato;
     private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning, btnNyUdlejning;
-    private RadioButton rdbDankort, rdbMobilepay, rdbKontant, rdbRegning, rdbKlippekort;
+    private RadioButton rdbDankort, rdbMobilepay, rdbKontant, rdbRegning;
     private RadioButton rdbFast, rdbProcent, rdbUserDefined, rdbNoRabat;
     private ComboBox cbPrisliste;
 
@@ -33,8 +33,8 @@ public class UdlejningPane extends GridPane {
         setHgap(10);
         setGridLinesVisible(false);
 
-        Label lblOrder = new Label("Order");
-        this.add(lblOrder, 0, 0);
+
+        this.add(new Label("Ordre"), 0, 0);
         this.add(lvwOrder, 0, 1);
 
         txfStartDato = new TextField();
@@ -66,6 +66,7 @@ public class UdlejningPane extends GridPane {
         btnAfslutUdlejning.setOnAction(event -> afslutUdlejningAction());
         btnNyUdlejning = new Button("Ny Udlejning");
         btnNyUdlejning.setPrefWidth(120);
+        btnAfslutUdlejning.setDisable(true);
         btnNyUdlejning.setOnAction(event -> nyUdlejningAction());
 
 
@@ -202,6 +203,7 @@ public class UdlejningPane extends GridPane {
             alert.showAndWait();
             btnTilføj.setDisable(false);
             btnFjern.setDisable(false);
+            btnNyUdlejning.setDisable(false);
             cbPrisliste.setDisable(true);
         }
 
