@@ -12,32 +12,40 @@ public class Salg {
 
     private final Set<Ordrelinje> ordrelinjer = new HashSet<>();
 
-    public Salg(Prisliste prisliste){
+    public Salg(Prisliste prisliste) {
         this.prisliste = prisliste;
         this.id = idCount;
         idCount++;
     }
 
-    public Ordrelinje createOrdreLinje(int antal, Vare vare){
+    public Ordrelinje createOrdreLinje(int antal, Vare vare) {
         Ordrelinje ordrelinje = new Ordrelinje(antal, vare);
         ordrelinjer.add(ordrelinje);
         return ordrelinje;
     }
 
-     public void setBetalingsform(Betalingsform betalingsform){
+    public void setBetalingsform(Betalingsform betalingsform) {
         this.betalingsform = betalingsform;
-     }
+    }
 
     public Set<Ordrelinje> getOrdrer() {
         return new HashSet<>(ordrelinjer);
     }
 
-    public double samletPris(){
+    public double samletPris() {
         double samletpris = 0;
-        for(Ordrelinje ordreLinje : ordrelinjer){
+        for (Ordrelinje ordreLinje : ordrelinjer) {
             samletpris = ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();
         }
         return samletpris;
+    }
+
+    public int samletPrisKlip() {
+        int antalklip = 0;
+        for (Ordrelinje ordreLinje : ordrelinjer) {
+            antalklip = ordreLinje.getVare().getKlipPris(prisliste) * ordreLinje.getAntal();
+        }
+        return antalklip;
     }
 
     public int getId() {
@@ -61,10 +69,10 @@ public class Salg {
     }
 
     public Set<Ordrelinje> getOrdrelinjer() {
-        return  new HashSet<>(ordrelinjer);
+        return new HashSet<>(ordrelinjer);
     }
 
-    public void removeOrdrelinje(Ordrelinje ordrelinje){
+    public void removeOrdrelinje(Ordrelinje ordrelinje) {
         ordrelinjer.remove(ordrelinje);
     }
 }

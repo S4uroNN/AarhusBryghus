@@ -52,7 +52,7 @@ public class SalgController {
         return ordrelinje;
     }
 
-    public void removeOrdrelinjeSalg(Salg salg, Ordrelinje ordrelinje){
+    public void removeOrdrelinjeSalg(Salg salg, Ordrelinje ordrelinje) {
         salg.removeOrdrelinje(ordrelinje);
     }
 
@@ -61,7 +61,7 @@ public class SalgController {
         return ordrelinje;
     }
 
-    public void removeOrdrelinjeUdlejning(Udlejning udlejning, Ordrelinje ordrelinje){
+    public void removeOrdrelinjeUdlejning(Udlejning udlejning, Ordrelinje ordrelinje) {
         udlejning.removeOrdreLinje(ordrelinje);
     }
 
@@ -87,18 +87,38 @@ public class SalgController {
     }
 
 
-    public int getSolgteKlip() {
+    public int getSolgteKlip(LocalDate startdato, LocalDate slutdato) {
         int solgteKlip = 0;
-        for (Dagsproduktion dagsproduktion : controller.storage.getDagsproduktioner()){
-            for (Salg salg : dagsproduktion.getSalg()){
-                for (Ordrelinje ordrelinje : salg.getOrdrelinjer()){
-                    if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")){
+        LocalDate dato = startdato;
+        while (dato.compareTo(slutdato) < 1) {
+            Dagsproduktion dagsproduktion = storage.getDagsproduktioner().get(dato);
+            for (Salg salg : dagsproduktion.getSalg()) {
+                for (Ordrelinje ordrelinje : salg.getOrdrelinjer()) {
+                    if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")) {
                         solgteKlip += ordrelinje.getAntal() * 10;
                     }
                 }
             }
+            dato.plusDays(1);
         }
         return solgteKlip;
     }
+
+    public int getBrugteKlip(LocalDate startdate, LocalDate slutdato){
+        int brugteKlip = 0;
+        LocalDate dato = startdate;
+        while (dato.compareTo(slutdato) < 1) {
+            Dagsproduktion dagsproduktion = storage.getDagsproduktioner().get(dato);
+            for (Salg salg : dagsproduktion.getSalg()) {
+                if (salg.getBetalingsform().equals(Betalingsform.KLIPPEKORT))
+                        brugteKlip += salg.samletPrisKlip();
+
+
+            }
+            dato.plusDays(1);
+        }
+        return brugteKlip;
+    }
+
 
 }

@@ -3,8 +3,8 @@ package storage;
 import application.model.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Storage implements Serializable {
     private static Storage storage;
@@ -12,7 +12,7 @@ public class Storage implements Serializable {
     private Set<Vare> varer = new HashSet<>();
     private Set<Prisliste> prislister = new HashSet<>();
     private Set<VareGruppe> varegrupper = new HashSet<>();
-    private Set<Dagsproduktion> dagsproduktioner = new HashSet<>();
+    private Map<LocalDate, Dagsproduktion> dagsproduktioner = new HashMap<>();
     private Set<Udlejning> aktiveUdlejninger = new HashSet<>();
 
     private Storage() {
@@ -64,16 +64,16 @@ public class Storage implements Serializable {
     }
 
 
-    public HashSet<Dagsproduktion> getDagsproduktioner(){
-        return new HashSet<>(dagsproduktioner);
+    public HashMap<LocalDate, Dagsproduktion> getDagsproduktioner(){
+        return new HashMap<>(dagsproduktioner);
     }
 
-    public void addDagsproduktion(Dagsproduktion dagsproduktion){
-        dagsproduktioner.add(dagsproduktion);
+    public void addDagsproduktion(LocalDate dato, Dagsproduktion dagsproduktion){
+        dagsproduktioner.put(dato, dagsproduktion);
     }
 
-    public void removeDagsproduktion(Dagsproduktion dagsproduktion){
-        dagsproduktioner.remove(dagsproduktion);
+    public void removeDagsproduktion(LocalDate dato){
+        dagsproduktioner.remove(dato);
     }
 
 
