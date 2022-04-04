@@ -33,13 +33,13 @@ public class SalgController {
         return salg;
     }
 
-    public Udlejning createUdlejning(LocalDate startDato, LocalDate slutDato, String kontaktPerson, String telefonnr, String email, Prisliste prisliste){
+    public Udlejning createUdlejning(LocalDate startDato, LocalDate slutDato, String kontaktPerson, String telefonnr, String email, Prisliste prisliste) {
         Udlejning udlejning = new Udlejning(startDato, slutDato, kontaktPerson, telefonnr, email, prisliste);
         storage.addUdlejning(udlejning);
         return udlejning;
     }
 
-    public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion,Betalingsform betalingsform){
+    public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion, Betalingsform betalingsform) {
         udlejning.setBetalingsform(betalingsform);
         dagsproduktion.addafsluttetUdlejning(udlejning);
         udlejning.setAsAfsluttet();
@@ -52,22 +52,31 @@ public class SalgController {
         return ordrelinje;
     }
 
+    public void removeOrdrelinjeSalg(Salg salg, Ordrelinje ordrelinje){
+        salg.removeOrdrelinje(ordrelinje);
+    }
+
     public Ordrelinje createOrdrelinjeUdlejning(Udlejning udlejning, int antal, Vare vare) {
         Ordrelinje ordrelinje = udlejning.createOrdreLinje(antal, vare);
         return ordrelinje;
     }
 
-    public void updateOmsætning(Dagsproduktion dagsproduktion){
+    public void removeOrdrelinjeUdlejning(Udlejning udlejning, Ordrelinje ordrelinje){
+        udlejning.removeOrdreLinje(ordrelinje);
+    }
+
+
+    public void updateOmsætning(Dagsproduktion dagsproduktion) {
         dagsproduktion.updateOmsætning();
     }
 
-    public Map<Vare, Integer> getUdlejedeVarer(){
+    public Map<Vare, Integer> getUdlejedeVarer() {
         Map<Vare, Integer> udlejedeVarer = new HashMap<>();
-        for (Udlejning udlejning : storage.getAktiveUdlejninger()){
-            for (Ordrelinje ordrelinje: udlejning.getOrdrelinjer()){
+        for (Udlejning udlejning : storage.getAktiveUdlejninger()) {
+            for (Ordrelinje ordrelinje : udlejning.getOrdrelinjer()) {
                 Vare vare = ordrelinje.getVare();
                 int antal = ordrelinje.getAntal();
-                if (!udlejedeVarer.containsKey(vare)){
+                if (!udlejedeVarer.containsKey(vare)) {
                     udlejedeVarer.put(vare, antal);
                 } else {
                     udlejedeVarer.replace(vare, udlejedeVarer.get(vare) + antal);
@@ -78,5 +87,18 @@ public class SalgController {
     }
 
 
+    public int getSolgteKlip() {
+        int solgteKlip = 0;
+        for (Dagsproduktion dagsproduktion : controller.storage.getDagsproduktioner()){
+            for (Salg salg : dagsproduktion.getSalg()){
+                for (Ordrelinje ordrelinje : salg.getOrdrelinjer()){
+                    if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")){
+                        solgteKlip += ordrelinje.getAntal() * 10;
+                    }
+                }
+            }
+        }
+        return solgteKlip;
+    }
 
 }

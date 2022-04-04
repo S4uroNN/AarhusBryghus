@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class
 SalgPane extends GridPane {
@@ -82,6 +83,7 @@ SalgPane extends GridPane {
         btnTilføjVare = new Button("Tilføj");
         btnTilføjVare.setOnAction(event -> tilføjVareAction());
         btnFjernVare = new Button("Fjern");
+        btnFjernVare.setOnAction(event -> fjernVareAction());
         VBox OrdreButtons = new VBox();
         OrdreButtons.getChildren().add(btnTilføjVare);
         OrdreButtons.getChildren().add(btnFjernVare);
@@ -160,6 +162,29 @@ SalgPane extends GridPane {
 
         }
     }
+    private void fjernVareAction(){
+        Ordrelinje ordre = lvwOrdre.getSelectionModel().getSelectedItem();
+        if (ordre != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Vare fra ordre");
+            // alert.setContentText("Are you sure?");
+            alert.setHeaderText("Are you sure?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            // Wait for the modal dialog to close
+
+            if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+                salgController.removeOrdrelinjeSalg(salg,ordre);
+                lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
+                txfSamletPris.setText(String.valueOf(salg.samletPris()));
+            }
+        }
+
+    }
+
+
+
+
     private void dankortAction(){
         if (rbDankort.isSelected()){
             salg.setBetalingsform(Betalingsform.DANKORT);
