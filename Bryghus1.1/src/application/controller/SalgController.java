@@ -99,7 +99,7 @@ public class SalgController {
                     }
                 }
             }
-            dato.plusDays(1);
+            dato = dato.plusDays(1);
         }
         return solgteKlip;
     }
@@ -112,13 +112,10 @@ public class SalgController {
             for (Salg salg : dagsproduktion.getSalg()) {
                 if (salg.getBetalingsform().equals(Betalingsform.KLIPPEKORT))
                         brugteKlip += salg.samletPrisKlip();
-
-
             }
-            dato.plusDays(1);
+            dato = dato.plusDays(1);
         }
         return brugteKlip;
     }
-
 
 }
