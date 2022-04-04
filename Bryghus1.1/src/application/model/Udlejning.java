@@ -44,7 +44,7 @@ public class Udlejning {
     public double samletPris(){
         double samletpris = 0;
         for(Ordrelinje ordrelinje : ordrelinjer){
-           samletpris = ordrelinje.getVare().getPris(prisliste) * ordrelinje.getAntal();
+           samletpris += ordrelinje.getVare().getPris(prisliste) * ordrelinje.getAntal();
         }
         return samletpris;
     }
