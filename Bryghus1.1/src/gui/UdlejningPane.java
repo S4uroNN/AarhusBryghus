@@ -15,7 +15,7 @@ public class UdlejningPane extends GridPane {
     private ListView<Ordrelinje> lvwOrder = new ListView<>();
     private TextField txfStartDato, txfNavn, txfEmail, txfTlfnr, txfRabat, txfPris;
     private DatePicker dtpSlutDato;
-    private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning;
+    private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning, btnNyUdlejning;
     private RadioButton rdbDankort, rdbMobilepay, rdbKontant, rdbRegning, rdbKlippekort;
     private RadioButton rdbFast, rdbProcent, rdbUserDefined, rdbNoRabat;
     private ComboBox cbPrisliste;
@@ -49,6 +49,7 @@ public class UdlejningPane extends GridPane {
 
         dtpSlutDato = new DatePicker();
 
+
         btnFjern = new Button("Fjern");
         btnFjern.setPrefWidth(120);
         btnFjern.setOnAction(event -> fjernVareAction());
@@ -63,6 +64,9 @@ public class UdlejningPane extends GridPane {
         btnAfslutUdlejning = new Button("Afslut Udlejning");
         btnAfslutUdlejning.setPrefWidth(120);
         btnAfslutUdlejning.setOnAction(event -> afslutUdlejningAction());
+        btnNyUdlejning = new Button("Ny Udlejning");
+        btnNyUdlejning.setPrefWidth(120);
+        btnNyUdlejning.setOnAction(event -> nyUdlejningAction());
 
 
         cbPrisliste = new ComboBox<>();
@@ -71,12 +75,12 @@ public class UdlejningPane extends GridPane {
 
         VBox vBoxLabel = new VBox();
         vBoxLabel.setSpacing(15);
-        vBoxLabel.getChildren().add(new Label("Priliste"));
-        vBoxLabel.getChildren().add(new Label("StartDato: "));
-        vBoxLabel.getChildren().add(new Label("SlutDato: "));
-        vBoxLabel.getChildren().add(new Label("Navn: "));
-        vBoxLabel.getChildren().add(new Label("Email: "));
-        vBoxLabel.getChildren().add(new Label("Telefon Nr: "));
+        vBoxLabel.getChildren().add(new Label("Prisliste"));
+        vBoxLabel.getChildren().add(new Label("StartDato:"));
+        vBoxLabel.getChildren().add(new Label("SlutDato:"));
+        vBoxLabel.getChildren().add(new Label("Navn:"));
+        vBoxLabel.getChildren().add(new Label("Email:"));
+        vBoxLabel.getChildren().add(new Label("Telefon Nr:"));
 
         VBox vBox = new VBox();
         vBox.setSpacing(5);
@@ -93,6 +97,7 @@ public class UdlejningPane extends GridPane {
         vboxTilføj.getChildren().add(btnTilføj);
         vboxTilføj.getChildren().add(btnFjern);
         vboxTilføj.getChildren().add(btnAfslutUdlejning);
+        vboxTilføj.getChildren().add(btnNyUdlejning);
         this.add(vboxTilføj, 1, 1);
 
         HBox hBox = new HBox();
@@ -153,11 +158,12 @@ public class UdlejningPane extends GridPane {
         vboxRabat.getChildren().add(hBoxRadioRabat);
         vboxRabat.getChildren().add(new Label("Rabat"));
         vboxRabat.getChildren().add(txfRabat);
-        this.add(vboxRabat,2,2);
+        this.add(vboxRabat, 2, 2);
 
 
     }
-    private void opretUdlejningAction(){
+
+    private void opretUdlejningAction() {
         LocalDate startDato = LocalDate.parse(txfStartDato.getText().trim());
         LocalDate slutDato = dtpSlutDato.getValue();
         String kontaktPerson = txfNavn.getText().trim();
@@ -165,32 +171,32 @@ public class UdlejningPane extends GridPane {
         String telefonr = txfTlfnr.getText().trim();
         Prisliste prisliste = (Prisliste) cbPrisliste.getSelectionModel().getSelectedItem();
 
-        if(startDato == null){
+        if (startDato == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en startdato!");
             alert.showAndWait();
-        }else if(slutDato == null){
+        } else if (slutDato == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en slutdato!");
             alert.showAndWait();
-        }else if(kontaktPerson.length() == 0){
+        } else if (kontaktPerson.length() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en kontaktperson!");
             alert.showAndWait();
-        }else if(email.length() == 0){
+        } else if (email.length() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en email!");
             alert.showAndWait();
-        }else if(telefonr.length() == 0){
+        } else if (telefonr.length() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en telefon nummer!");
             alert.showAndWait();
-        }else if(prisliste == null){
+        } else if (prisliste == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en prisliste!");
             alert.showAndWait();
-        }else{
-            udlejning = salgController.createUdlejning(startDato,slutDato,kontaktPerson,email,telefonr,prisliste);
+        } else {
+            udlejning = salgController.createUdlejning(startDato, slutDato, kontaktPerson, email, telefonr, prisliste);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Udlejning oprettet");
             alert.showAndWait();
@@ -201,20 +207,21 @@ public class UdlejningPane extends GridPane {
 
 
     }
-    private void afslutUdlejningAction(){
+
+    private void afslutUdlejningAction() {
         Betalingsform betalingsform = null;
-        if(rdbDankort.isSelected()){
+        if (rdbDankort.isSelected()) {
             betalingsform = Betalingsform.DANKORT;
-        }else if(rdbMobilepay.isSelected()){
+        } else if (rdbMobilepay.isSelected()) {
             betalingsform = Betalingsform.MOBILEPAY;
-        }else if(rdbRegning.isSelected()) {
+        } else if (rdbRegning.isSelected()) {
             betalingsform = Betalingsform.REGNING;
-        }else if(rdbKontant.isSelected()){
-            betalingsform=Betalingsform.KONTANT;
+        } else if (rdbKontant.isSelected()) {
+            betalingsform = Betalingsform.KONTANT;
         }
 
-        if(dagsproduktion != null){
-            salgController.afslutUdlejning(udlejning,dagsproduktion,betalingsform);
+        if (dagsproduktion != null) {
+            salgController.afslutUdlejning(udlejning, dagsproduktion, betalingsform);
             System.out.println(dagsproduktion.getDagensAfsluttedeUdlejninger());
             lvwOrder.getItems().clear();
             txfEmail.clear();
@@ -231,22 +238,59 @@ public class UdlejningPane extends GridPane {
 
     }
 
-    private void updateControls(){
-        if(udlejning.getOrdrelinjer().size() > 0){
+    private void nyUdlejningAction() {
+        Betalingsform betalingsform = null;
+        if (rdbDankort.isSelected()) {
+            betalingsform = Betalingsform.DANKORT;
+        } else if (rdbMobilepay.isSelected()) {
+            betalingsform = Betalingsform.MOBILEPAY;
+        } else if (rdbRegning.isSelected()) {
+            betalingsform = Betalingsform.REGNING;
+        } else if (rdbKontant.isSelected()) {
+            betalingsform = Betalingsform.KONTANT;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Der mangler betalingsmetode");
+            alert.showAndWait();
+        }
+        if (betalingsform != null) {
+            udlejning.setBetalingsform(betalingsform);
+            lvwOrder.getItems().clear();
+            txfEmail.clear();
+            txfNavn.clear();
+            txfPris.clear();
+            txfRabat.clear();
+            txfTlfnr.clear();
+            txfEmail.clear();
+            rdbDankort.setSelected(false);
+            rdbMobilepay.setSelected(false);
+            rdbRegning.setSelected(false);
+            rdbKontant.setSelected(false);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Udlejning parkeret!");
+            alert.showAndWait();
+
+        }
+    }
+
+    private void updateControls() {
+        if (udlejning.getOrdrelinjer().size() > 0) {
             lvwOrder.getItems().setAll(udlejning.getOrdrelinjer());
         }
         txfPris.setText(udlejning.samletPris() + "");
+
     }
 
-    private void tilføjVareAction(){
-        TilføjTilOrdreWindow tilføj = new TilføjTilOrdreWindow("Test",udlejning);
+    private void tilføjVareAction() {
+        TilføjTilOrdreWindow tilføj = new TilføjTilOrdreWindow("Test", udlejning);
         tilføj.showAndWait();
 
         updateControls();
     }
-    private void fjernVareAction(){
+
+    private void fjernVareAction() {
         Ordrelinje ordrelinje = lvwOrder.getSelectionModel().getSelectedItem();
-        if(ordrelinje != null){
+        if (ordrelinje != null) {
             udlejning.removeOrdreLinje(ordrelinje);
         }
         updateControls();
