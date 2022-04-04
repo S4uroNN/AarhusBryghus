@@ -83,6 +83,7 @@ SalgPane extends GridPane {
         btnTilføjVare = new Button("Tilføj");
         btnTilføjVare.setOnAction(event -> tilføjVareAction());
         btnFjernVare = new Button("Fjern");
+        btnFjernVare.setOnAction(event -> fjernVareAction());
         VBox OrdreButtons = new VBox();
         OrdreButtons.getChildren().add(btnTilføjVare);
         OrdreButtons.getChildren().add(btnFjernVare);
@@ -173,7 +174,7 @@ SalgPane extends GridPane {
             // Wait for the modal dialog to close
 
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-
+                salgController.removeOrdrelinjeSalg(salg,ordre);
                 lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
                 txfSamletPris.setText(String.valueOf(salg.samletPris()));
             }
