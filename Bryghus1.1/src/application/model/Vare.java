@@ -1,9 +1,9 @@
 package application.model;
 
-import javafx.scene.control.skin.TooltipSkin;
 
 public class Vare {
     private String navn;
+    private VareGruppe vareGruppe;
 
     public Vare(String navn) {
         this.navn = navn;
@@ -20,6 +20,14 @@ public class Vare {
     @Override
     public String toString() {
         return navn;
+    }
+
+    public VareGruppe getVareGruppe() {
+        return vareGruppe;
+    }
+
+    public void setVareGruppe(VareGruppe vareGruppe) {
+        this.vareGruppe = vareGruppe;
     }
 
     public double getPris(Prisliste prisliste){
