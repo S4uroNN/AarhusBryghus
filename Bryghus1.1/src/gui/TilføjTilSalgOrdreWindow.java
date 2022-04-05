@@ -2,7 +2,6 @@ package gui;
 
 import application.controller.SalgController;
 import application.controller.VareController;
-import application.model.Dagsproduktion;
 import application.model.Salg;
 import application.model.Vare;
 import javafx.beans.value.ChangeListener;
@@ -20,7 +19,6 @@ import java.time.LocalDate;
 public class TilføjTilSalgOrdreWindow extends Stage {
     private Vare vare;
     private Storage storage;
-    private Dagsproduktion dagsproduktion;
     private Salg salg;
     private SalgController salgController = SalgController.getSalgController();
     private VareController vareController = VareController.getController();
