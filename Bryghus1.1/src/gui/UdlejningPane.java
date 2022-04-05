@@ -112,10 +112,6 @@ public class UdlejningPane extends GridPane {
         rdbFast.setToggleGroup(toggleGroupRabat);
         rdbProcent = new RadioButton("Procent");
         rdbProcent.setToggleGroup(toggleGroupRabat);
-        rdbUserDefined = new RadioButton("Andet");
-        rdbUserDefined.setToggleGroup(toggleGroupRabat);
-        rdbNoRabat = new RadioButton("Ingen Rabat");
-        rdbNoRabat.setToggleGroup(toggleGroupRabat);
 
 
         rdbDankort = new RadioButton("Dankort");
@@ -140,8 +136,6 @@ public class UdlejningPane extends GridPane {
         hBoxRadioRabat.setSpacing(10);
         hBoxRadioRabat.getChildren().add(rdbFast);
         hBoxRadioRabat.getChildren().add(rdbProcent);
-        hBoxRadioRabat.getChildren().add(rdbUserDefined);
-        hBoxRadioRabat.getChildren().add(rdbNoRabat);
 
         VBox vboxBetaling = new VBox();
         vboxBetaling.setSpacing(10);
@@ -293,5 +287,13 @@ public class UdlejningPane extends GridPane {
             salgController.removeOrdrelinjeUdlejning(udlejning,ordrelinje);
         }
         updateControls();
+    }
+
+    private void setFastRabatAction(){
+        salgController.setFastRabatUdlejning(udlejning, Double.parseDouble(txfRabat.getText()));
+    }
+
+    private void setProcentRabatAction(){
+        salgController.setProcentRabatUdlejning(udlejning, Double.parseDouble(txfRabat.getText()));
     }
 }

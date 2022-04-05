@@ -262,11 +262,11 @@ SalgPane extends GridPane {
     }
 
     private void setFastRabatAction(){
-        salg.setRabat(new KontantRabat(Double.parseDouble(txfRabat.getText())));
+        salgController.setFastRabatSalg(salg, Double.parseDouble(txfRabat.getText()));
     }
 
     private void setProcentRabatAction(){
-        salg.setRabat(new ProcentRabat(Double.parseDouble(txfRabat.getText())));
+        salgController.setProcentRabatSalg(salg, Double.parseDouble(txfRabat.getText()));
     }
 
 }
