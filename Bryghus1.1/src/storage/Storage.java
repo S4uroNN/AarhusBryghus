@@ -69,7 +69,11 @@ public class Storage implements Serializable {
         return new HashMap<>(alleSalg);
     }
 
-    public void addSalg(LocalDate dato, Salg salg){
+    public void addSalg(Salg salg){
+        LocalDate dato = LocalDate.now();
+        if (alleSalg.get(dato) == null){
+            alleSalg.put(dato,new HashSet<Salg>());
+        }
         alleSalg.get(dato).add(salg);
     }
 

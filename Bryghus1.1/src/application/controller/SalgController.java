@@ -25,7 +25,7 @@ public class SalgController {
 
     public Salg createSalg(Prisliste prisliste) {
         Salg salg = new Salg(prisliste);
-
+        storage.addSalg(salg);
         return salg;
     }
 
@@ -81,8 +81,7 @@ public class SalgController {
         int solgteKlip = 0;
         LocalDate dato = startdato;
         while (dato.compareTo(slutdato) < 1) {
-            Dagsproduktion dagsproduktion = storage.getDagsproduktioner().get(dato);
-            for (Salg salg : dagsproduktion.getSalg()) {
+            for (Salg salg : storage.getSalg().get(dato)) {
                 for (Ordrelinje ordrelinje : salg.getOrdrelinjer()) {
                     if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")) {
                         solgteKlip += ordrelinje.getAntal() * 10;
@@ -98,14 +97,24 @@ public class SalgController {
         int brugteKlip = 0;
         LocalDate dato = startdate;
         while (dato.compareTo(slutdato) < 1) {
-            Dagsproduktion dagsproduktion = storage.getDagsproduktioner().get(dato);
-            for (Salg salg : dagsproduktion.getSalg()) {
+            for (Salg salg : storage.getSalg().get(dato)) {
                 if (salg.getBetalingsform().equals(Betalingsform.KLIPPEKORT))
                         brugteKlip += salg.samletPrisKlip();
             }
             dato = dato.plusDays(1);
         }
         return brugteKlip;
+    }
+
+    public void getOmsætning(LocalDate dato) {
+        int omsætning = 0;
+        for (Salg salg : dagensSalg) {
+            omsætning += salg.samletPris();
+        }
+        for (Udlejning udlejning : dagensAfsluttedeUdlejninger) {
+            omsætning += udlejning.samletPris();
+        }
+        this.omsætning = omsætning;
     }
 
 }

@@ -64,14 +64,5 @@ public class Dagsproduktion {
         dagensAfsluttedeUdlejninger.remove(udlejning);
     }
 
-    public void updateOmsætning() {
-        int omsætning = 0;
-        for (Salg salg : dagensSalg) {
-            omsætning += salg.samletPris();
-        }
-        for (Udlejning udlejning : dagensAfsluttedeUdlejninger) {
-            omsætning += udlejning.samletPris();
-        }
-        this.omsætning = omsætning;
-    }
+
 }
