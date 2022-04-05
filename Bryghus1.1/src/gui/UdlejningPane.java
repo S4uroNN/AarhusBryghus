@@ -201,8 +201,10 @@ public class UdlejningPane extends GridPane {
             alert.showAndWait();
             btnTilføj.setDisable(false);
             btnFjern.setDisable(false);
+            btnAfslutUdlejning.setDisable(false);
             btnNyUdlejning.setDisable(false);
             cbPrisliste.setDisable(true);
+
         }
 
 
