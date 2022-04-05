@@ -2,6 +2,7 @@ package application.model;
 
 import application.controller.SalgController;
 import application.controller.VareController;
+import storage.Storage;
 
 import java.lang.management.MemoryUsage;
 import java.time.LocalDate;
@@ -61,19 +62,13 @@ public class App {
         vareController.addVareGruppeToPrisliste(fredagsweehoo,flaske,70, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,spiritus, 1000, 40);
 
-        Dagsproduktion dagsproduktion = SalgController.getSalgController().getDagsproduktion();
 
-
-        System.out.println(dagsproduktion.getOmsætning());
 
         Udlejning udlejning = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
         udlejning.createOrdreLinje(5,extraPilsner);
 
-        salgController.afslutUdlejning(udlejning,dagsproduktion,Betalingsform.DANKORT);
-        salgController.updateOmsætning(dagsproduktion);
-        System.out.println(dagsproduktion.getDagensAfsluttedeUdlejninger());
-        System.out.println(dagsproduktion.getOmsætning());
-
+        salgController.afslutUdlejning(udlejning,Betalingsform.DANKORT);
+        salgController.getOmsætning(LocalDate.now());
 
 
     }

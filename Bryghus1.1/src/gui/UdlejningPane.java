@@ -22,8 +22,6 @@ public class UdlejningPane extends GridPane {
 
     private Storage storage = Storage.getInstance();
     private SalgController salgController = SalgController.getSalgController();
-    private Dagsproduktion dagsproduktion = SalgController.getDagsproduktion();
-
     private Udlejning udlejning;
 
     public UdlejningPane() {
@@ -222,9 +220,7 @@ public class UdlejningPane extends GridPane {
             betalingsform = Betalingsform.KONTANT;
         }
 
-        if (dagsproduktion != null) {
-            salgController.afslutUdlejning(udlejning, dagsproduktion, betalingsform);
-            System.out.println(dagsproduktion.getDagensAfsluttedeUdlejninger());
+        salgController.afslutUdlejning(udlejning,betalingsform);
             lvwOrder.getItems().clear();
             txfEmail.clear();
             txfNavn.clear();
@@ -238,7 +234,6 @@ public class UdlejningPane extends GridPane {
             alert.showAndWait();
         }
 
-    }
 
     private void nyUdlejningAction() {
         Betalingsform betalingsform = null;
