@@ -11,7 +11,6 @@ public class Udlejning {
     private String telefonnr;
     private String email;
     private Prisliste prisliste;
-    private boolean afsluttet;
     private int id;
     private int idCount = 0;
 
@@ -27,8 +26,6 @@ public class Udlejning {
         this.telefonnr = telefonnr;
         this.email = email;
         this.prisliste = prisliste;
-        this.afsluttet = false;
-
         idCount++;
     }
 
@@ -49,9 +46,6 @@ public class Udlejning {
         return samletpris;
     }
 
-    public void setAsAfsluttet(){
-        this.afsluttet = true;
-    }
 
     public LocalDate getStartDato() {
         return startDato;

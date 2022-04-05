@@ -23,27 +23,22 @@ public class SalgController {
         return controller;
     }
 
-    public static Dagsproduktion getDagsproduktion() {
-        Dagsproduktion dagsproduktion = Dagsproduktion.getDagsproduktion();
-        return dagsproduktion;
-    }
+    public Salg createSalg(Prisliste prisliste) {
+        Salg salg = new Salg(prisliste);
 
-    public Salg createSalg(Dagsproduktion dagsproduktion, Prisliste prisliste) {
-        Salg salg = dagsproduktion.createSalg(prisliste);
         return salg;
     }
 
     public Udlejning createUdlejning(LocalDate startDato, LocalDate slutDato, String kontaktPerson, String telefonnr, String email, Prisliste prisliste) {
         Udlejning udlejning = new Udlejning(startDato, slutDato, kontaktPerson, telefonnr, email, prisliste);
-        storage.addUdlejning(udlejning);
+        storage.addAktivUdlejning(udlejning);
         return udlejning;
     }
 
-    public Udlejning afslutUdlejning(Udlejning udlejning, Dagsproduktion dagsproduktion, Betalingsform betalingsform) {
+    public Udlejning afslutUdlejning(Udlejning udlejning, Betalingsform betalingsform) {
         udlejning.setBetalingsform(betalingsform);
-        dagsproduktion.addafsluttetUdlejning(udlejning);
-        udlejning.setAsAfsluttet();
-        storage.removeUdlejning(udlejning);
+        storage.removeAktivUdlejning(udlejning);
+        storage.addAfsluttetUdlejning(udlejning);
         return udlejning;
     }
 
@@ -63,11 +58,6 @@ public class SalgController {
 
     public void removeOrdrelinjeUdlejning(Udlejning udlejning, Ordrelinje ordrelinje) {
         udlejning.removeOrdreLinje(ordrelinje);
-    }
-
-
-    public void updateOmsætning(Dagsproduktion dagsproduktion) {
-        dagsproduktion.updateOmsætning();
     }
 
     public Map<Vare, Integer> getUdlejedeVarer() {

@@ -12,7 +12,8 @@ public class Storage implements Serializable {
     private Set<Vare> varer = new HashSet<>();
     private Set<Prisliste> prislister = new HashSet<>();
     private Set<VareGruppe> varegrupper = new HashSet<>();
-    private Map<LocalDate, Dagsproduktion> dagsproduktioner = new HashMap<>();
+    private Map<LocalDate, Set<Salg>> alleSalg = new HashMap<>();
+    private Map<LocalDate, Set<Udlejning>> afslutedeUdlejninger = new HashMap<>();
     private Set<Udlejning> aktiveUdlejninger = new HashSet<>();
 
     private Storage() {
@@ -64,16 +65,33 @@ public class Storage implements Serializable {
     }
 
 
-    public HashMap<LocalDate, Dagsproduktion> getDagsproduktioner(){
-        return new HashMap<>(dagsproduktioner);
+    public HashMap<LocalDate, Set<Salg>> getSalg(){
+        return new HashMap<>(alleSalg);
     }
 
-    public void addDagsproduktion(LocalDate dato, Dagsproduktion dagsproduktion){
-        dagsproduktioner.put(dato, dagsproduktion);
+    public void addSalg(LocalDate dato, Salg salg){
+        alleSalg.get(dato).add(salg);
     }
 
-    public void removeDagsproduktion(LocalDate dato){
-        dagsproduktioner.remove(dato);
+    public void removeDagsproduktion(LocalDate dato, Salg salg){
+        alleSalg.get(dato).remove(salg);
+    }
+
+
+    public HashMap<LocalDate, Set<Udlejning>> getAfsluttedeUdlejninger(){
+        return new HashMap<>(afslutedeUdlejninger);
+    }
+
+    public void addAfsluttetUdlejning(Udlejning udlejning){
+        LocalDate dato = LocalDate.now();
+        if (afslutedeUdlejninger.get(dato) == null){
+            afslutedeUdlejninger.put(dato,new HashSet<Udlejning>());
+        }
+        afslutedeUdlejninger.get(dato).add(udlejning);
+    }
+
+    public void removeAfsluttetUdlejning (LocalDate dato, Udlejning udlejning){
+        afslutedeUdlejninger.get(dato).remove(udlejning);
     }
 
 
@@ -81,11 +99,11 @@ public class Storage implements Serializable {
         return new HashSet<>(aktiveUdlejninger);
     }
 
-    public void addUdlejning(Udlejning udlejning){
+    public void addAktivUdlejning(Udlejning udlejning){
         aktiveUdlejninger.add(udlejning);
     }
 
-    public void removeUdlejning (Udlejning udlejning){
+    public void removeAktivUdlejning(Udlejning udlejning){
         aktiveUdlejninger.remove(udlejning);
     }
 
