@@ -293,7 +293,7 @@ public class UdlejningPane extends GridPane {
     private void fjernVareAction() {
         Ordrelinje ordrelinje = lvwOrder.getSelectionModel().getSelectedItem();
         if (ordrelinje != null) {
-            udlejning.removeOrdreLinje(ordrelinje);
+            salgController.removeOrdrelinjeUdlejning(udlejning,ordrelinje);
         }
         updateControls();
     }

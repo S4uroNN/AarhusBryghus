@@ -6,7 +6,6 @@ import java.util.Set;
 public class Salg {
     private int id;
     private Betalingsform betalingsform;
-    private int ordrelinjenr;
     private Prisliste prisliste;
     private int idCount = 0;
 
@@ -58,14 +57,6 @@ public class Salg {
 
     public Betalingsform getBetalingsform() {
         return betalingsform;
-    }
-
-    public int getOrdrelinjenr() {
-        return ordrelinjenr;
-    }
-
-    public void setOrdrelinjenr(int ordrelinjenr) {
-        this.ordrelinjenr = ordrelinjenr;
     }
 
     public Set<Ordrelinje> getOrdrelinjer() {
