@@ -129,4 +129,6 @@ public class SalgController {
         return omsætning;
     }
 
+
+
 }
