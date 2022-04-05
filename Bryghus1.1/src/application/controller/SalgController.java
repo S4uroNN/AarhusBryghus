@@ -117,4 +117,12 @@ public class SalgController {
         return omsætning;
     }
 
+    public double getUdlejningsOmsætning(LocalDate dato){
+        double omsætning = 0;
+        for (Udlejning udlejning : storage.getAfsluttedeUdlejninger().get(dato)) {
+            omsætning += udlejning.samletPris();
+        }
+        return omsætning;
+    }
+
 }
