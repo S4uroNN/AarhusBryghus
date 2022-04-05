@@ -6,7 +6,6 @@ import application.model.Udlejning;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +18,7 @@ public class VisStatistikPane extends GridPane {
 
     private TextField txfOmsætningSalg, txfOmsætningUdl, txfAntalsalg, txfAntalUdl, txfAntalKlipKøbt, txfAntalKlipBrugt;
 
-    private Button btnVisIkkeAfl, btnVisSpecifik, btnOpdaterSalg, getBtnOpdaterKlip;
+    private Button btnVisIkkeAfl, btnVisSpecifik, btnOpdaterSalg, btnOpdaterKlip;
     private int width = 110;
 
 
@@ -51,7 +50,7 @@ public class VisStatistikPane extends GridPane {
         hboxDato.getChildren().add(dpDag);
 
         HBox salgogdato = new HBox();
-        salgogdato.setSpacing(191); //Hej Margrethe :)
+        salgogdato.setSpacing(191);
         salgogdato.getChildren().add(new Label("Salg"));
         salgogdato.getChildren().add(hboxDato);
 
@@ -81,7 +80,7 @@ public class VisStatistikPane extends GridPane {
 
         btnVisIkkeAfl = new Button("Vis ikke afleverede vare");
         btnOpdaterSalg = new Button("Opdater Salg");
-        btnOpdaterSalg.setOnAction(event -> updateSalg());
+        btnOpdaterSalg.setOnAction(event -> updateSalgAction());
 
         HBox hboxButton = new HBox();
         hboxButton.setSpacing(10);
@@ -99,7 +98,7 @@ public class VisStatistikPane extends GridPane {
         VBox vboxUdl = new VBox();
         vboxUdl.setStyle(cssLayout);
         vboxUdl.setPadding(new Insets(5));
-        vboxUdl.setSpacing(18); // Hej Margrethe :)
+        vboxUdl.setSpacing(18);
         vboxUdl.getChildren().add(new Label("Udlejninger"));
         vboxUdl.getChildren().add(hboxUdl);
         vboxUdl.getChildren().add(hboxButton);
@@ -113,14 +112,24 @@ public class VisStatistikPane extends GridPane {
         txfAntalKlipBrugt = new TextField();
 
         btnVisSpecifik = new Button("Vis specifikke vare");
+        btnOpdaterKlip = new Button("Opdater klip");
+        btnOpdaterKlip.setOnAction(event -> updateKlipAction());
+
+        HBox hboxStart = new HBox();
+        hboxStart.setSpacing(5);
+        hboxStart.getChildren().add(new Label("Fra: "));
+        hboxStart.getChildren().add(dpStart);
+        HBox hboxSlut = new HBox();
+        hboxSlut.setSpacing(5);
+        hboxSlut.getChildren().add(new Label("Til: "));
+        hboxSlut.getChildren().add(dpSlut);
 
         HBox hboxKlip = new HBox();
         hboxKlip.setSpacing(10);
-        hboxKlip.getChildren().add(new Label("Klippekort"));
-        hboxKlip.getChildren().add(new Label("Fra: "));
-        hboxKlip.getChildren().add(dpStart);
-        hboxKlip.getChildren().add(new Label("Til: "));
-        hboxKlip.getChildren().add(dpSlut);
+        hboxKlip.getChildren().add(new Label("Klippekort                                                                              "));
+        hboxKlip.getChildren().add(hboxStart);
+        hboxKlip.getChildren().add(hboxSlut);
+        hboxKlip.setAlignment(Pos.TOP_RIGHT);
 
         HBox hboxKlip2 = new HBox();
         hboxKlip2.setSpacing(10);
@@ -129,9 +138,7 @@ public class VisStatistikPane extends GridPane {
         hboxKlip2.getChildren().add(new Label("Bruge klippekort: "));
         hboxKlip2.getChildren().add(txfAntalKlipBrugt);
         hboxKlip2.getChildren().add(btnVisSpecifik);
-
-
-
+        hboxKlip2.getChildren().add(btnOpdaterKlip);
 
         VBox vBoxfuldKlip = new VBox();
         vBoxfuldKlip.setPadding(new Insets(5));
@@ -143,26 +150,35 @@ public class VisStatistikPane extends GridPane {
 
 
     }
-    private void updateSalg(){
+
+    private void updateSalgAction() {
         LocalDate dato = dpDag.getValue();
         Dagsproduktion dagsproduktion;
 
         double udlejningOmsæt = 0;
 
-        if(dpDag.getValue().equals(LocalDate.now())){
+        if (dpDag.getValue().equals(LocalDate.now())) {
             dagsproduktion = Dagsproduktion.getDagsproduktion();
-        }else{
+        } else {
             dagsproduktion = storage.getDagsproduktioner().get(dato);
         }
 
-        for(Udlejning u : dagsproduktion.getDagensAfsluttedeUdlejninger()){
+        for (Udlejning u : dagsproduktion.getDagensAfsluttedeUdlejninger()) {
             udlejningOmsæt += u.samletPris();
         }
         txfOmsætningSalg.setText(dagsproduktion.getOmsætning() + "");
         txfOmsætningUdl.setText(udlejningOmsæt + "");
-        txfAntalsalg.setText(dagsproduktion.getSalg().size()+"");
+        txfAntalsalg.setText(dagsproduktion.getSalg().size() + "");
         txfAntalUdl.setText(dagsproduktion.getDagensAfsluttedeUdlejninger().size() + "");
     }
 
+    private void updateKlipAction() {
+        LocalDate startDato = dpStart.getValue();
+        LocalDate slutDato = dpSlut.getValue();
+
+        txfAntalKlipKøbt.setText(salgController.getSolgteKlip(startDato, slutDato) + "");
+        txfAntalKlipBrugt.setText(salgController.getBrugteKlip(startDato, slutDato) + "");
+
+    }
 }
 
