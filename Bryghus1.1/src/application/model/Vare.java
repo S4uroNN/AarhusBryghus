@@ -30,9 +30,11 @@ public class Vare {
         this.vareGruppe = vareGruppe;
     }
 
-    public double getPris(Prisliste prisliste){
-        return prisliste.getVarePris(this);
+    public double getPrisMedPant(Prisliste prisliste){
+        return prisliste.getVarePris(this) + vareGruppe.getPant();
     }
+
+    public double getPrisUdenPant(Prisliste prisliste) {return prisliste.getVarePris(this);}
 
     public int getKlipPris(Prisliste prisliste){
         return prisliste.getKlipPris(this);

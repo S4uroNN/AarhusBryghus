@@ -2,5 +2,5 @@ package application.model;
 
 public interface Rabat {
 
-    double beregnRabat();
+    double beregnRabat(double pris);
 }

@@ -22,7 +22,7 @@ public class Prisliste {
     }
 
     public double getVarePris(Vare vare){
-        return priser.get(vare) + vare.getVareGruppe().getPant();
+        return priser.get(vare);
     }
 
     public int getKlipPris(Vare vare){
