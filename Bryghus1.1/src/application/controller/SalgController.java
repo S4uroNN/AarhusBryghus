@@ -93,13 +93,13 @@ public class SalgController {
         return solgteKlip;
     }
 
-    public int getBrugteKlip(LocalDate startdate, LocalDate slutdato){
+    public int getBrugteKlip(LocalDate startdate, LocalDate slutdato) {
         int brugteKlip = 0;
         LocalDate dato = startdate;
         while (dato.compareTo(slutdato) < 1) {
             for (Salg salg : storage.getSalg().get(dato)) {
                 if (salg.getBetalingsform().equals(Betalingsform.KLIPPEKORT))
-                        brugteKlip += salg.samletPrisKlip();
+                    brugteKlip += salg.samletPrisKlip();
             }
             dato = dato.plusDays(1);
         }
@@ -108,21 +108,27 @@ public class SalgController {
 
     public double getOmsætning(LocalDate dato) {
         double omsætning = 0;
-        for (Salg salg : storage.getSalg().get(dato)) {
-            omsætning += salg.samletPris();
+        if (storage.getSalg().get(dato) != null) {
+            for (Salg salg : storage.getSalg().get(dato)) {
+                omsætning += salg.samletPris();
+            }
         }
-        for (Udlejning udlejning : storage.getAfsluttedeUdlejninger().get(dato)) {
-            omsætning += udlejning.samletPris();
+        if (storage.getAfsluttedeUdlejninger().get(dato) != null) {
+            for (Udlejning udlejning : storage.getAfsluttedeUdlejninger().get(dato)) {
+                omsætning += udlejning.samletPris();
+            }
         }
         return omsætning;
     }
 
-    public double getUdlejningsOmsætning(LocalDate dato){
+    public double getUdlejningsOmsætning(LocalDate dato) {
         double omsætning = 0;
         for (Udlejning udlejning : storage.getAfsluttedeUdlejninger().get(dato)) {
             omsætning += udlejning.samletPris();
         }
         return omsætning;
     }
+
+
 
 }

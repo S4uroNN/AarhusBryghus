@@ -8,6 +8,7 @@ public class Salg {
     private Betalingsform betalingsform;
     private Prisliste prisliste;
     private int idCount = 0;
+    private Rabat rabat;
 
     private final Set<Ordrelinje> ordrelinjer = new HashSet<>();
 
@@ -57,7 +58,10 @@ public class Salg {
     public double samletPris() {
         double samletpris = 0;
         for(Ordrelinje ordreLinje : ordrelinjer){
-            samletpris += ordreLinje.getVare().getPris(prisliste) * ordreLinje.getAntal();
+            samletpris += ordreLinje.getVare().getPrisMedPant(prisliste) * ordreLinje.getAntal();
+        }
+        if (rabat != null){
+            samletpris = samletpris - rabat.beregnRabat(samletpris);
         }
         return samletpris;
     }
@@ -102,6 +106,14 @@ public class Salg {
      */
     public void removeOrdrelinje(Ordrelinje ordrelinje) {
         ordrelinjer.remove(ordrelinje);
+    }
+
+    public Rabat getRabat() {
+        return rabat;
+    }
+
+    public void setRabat(Rabat rabat) {
+        this.rabat = rabat;
     }
 }
 

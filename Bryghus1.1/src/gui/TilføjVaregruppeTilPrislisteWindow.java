@@ -148,7 +148,7 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
     private void selectedVareChanged() {
         Vare selected = lvwTilføjedeVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            txfPris.setText(selected.getPris(prisliste) + "");
+            txfPris.setText(selected.getPrisUdenPant(prisliste) + "");
             txfKlip.setText(selected.getKlipPris(prisliste) + "");
         }
     }

@@ -9,7 +9,7 @@ public class ProcentRabat implements Rabat{
     }
 
     @Override
-    public double beregnRabat() {
-        return 0;
+    public double beregnRabat(double pris) {
+        return pris * (procent / 100.0);
     }
 }

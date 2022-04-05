@@ -156,7 +156,7 @@ public class VisStatistikPane extends GridPane {
         double udlejningOmsæt = 0;
 
         txfOmsætningSalg.setText(salgController.getOmsætning(dato) + "");
-        txfOmsætningUdl.setText(udlejningOmsæt + "");
+        txfOmsætningUdl.setText(salgController.getUdlejningsOmsætning(dato) + "");
         txfAntalsalg.setText(storage.getSalg().size() + "");
         txfAntalUdl.setText(storage.getAfsluttedeUdlejninger().size() + "");
     }
