@@ -187,11 +187,8 @@ SalgPane extends GridPane {
         if (ordre != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Vare fra ordre");
-            // alert.setContentText("Are you sure?");
             alert.setHeaderText("Are you sure?");
             Optional<ButtonType> result = alert.showAndWait();
-
-            // Wait for the modal dialog to close
 
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
                 salgController.removeOrdrelinjeSalg(salg,ordre);
