@@ -106,15 +106,15 @@ public class SalgController {
         return brugteKlip;
     }
 
-    public void getOmsætning(LocalDate dato) {
-        int omsætning = 0;
-        for (Salg salg : dagensSalg) {
+    public double getOmsætning(LocalDate dato) {
+        double omsætning = 0;
+        for (Salg salg : storage.getSalg().get(dato)) {
             omsætning += salg.samletPris();
         }
-        for (Udlejning udlejning : dagensAfsluttedeUdlejninger) {
+        for (Udlejning udlejning : storage.getAfsluttedeUdlejninger().get(dato)) {
             omsætning += udlejning.samletPris();
         }
-        this.omsætning = omsætning;
+        return omsætning;
     }
 
 }
