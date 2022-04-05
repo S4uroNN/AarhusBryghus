@@ -68,7 +68,7 @@ public class App {
         udlejning.createOrdreLinje(5,extraPilsner);
 
         salgController.afslutUdlejning(udlejning,Betalingsform.DANKORT);
-        salgController.getOmsætning(LocalDate.now());
+
 
 
     }
