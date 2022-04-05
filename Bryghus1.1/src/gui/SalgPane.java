@@ -27,7 +27,6 @@ SalgPane extends GridPane {
     private TextField txfRabat, txfSamletPris;
     private SalgController salgController;
     private VareController vareController;
-    private Dagsproduktion dagsproduktion;
     private Salg salg;
     private Storage storage = Storage.getInstance();
     ToggleGroup toggleGroup = new ToggleGroup();
@@ -41,7 +40,6 @@ SalgPane extends GridPane {
 
         salgController = SalgController.getSalgController();
         vareController = VareController.getController();
-        dagsproduktion = Dagsproduktion.getDagsproduktion();
 
         Label lblOrdre = new Label("Ordre:");
         this.add(lblOrdre, 0, 0);
@@ -142,7 +140,7 @@ SalgPane extends GridPane {
     private void startSalg() {
         Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         if (prisliste != null){
-            salg = salgController.createSalg(salgController.getDagsproduktion(),prisliste);
+            salg = salgController.createSalg(prisliste);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Salg Oprettet!");
             alert.showAndWait();
@@ -161,7 +159,6 @@ SalgPane extends GridPane {
             toggleGroup.selectToggle(null);
             btnStartSalg.setDisable(false);
             prislisteComboBox.getSelectionModel().clearSelection();
-            salgController.updateOmsætning(dagsproduktion);
             salg = null;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Salg er afsluttet");
