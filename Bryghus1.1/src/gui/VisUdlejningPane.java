@@ -2,7 +2,6 @@ package gui;
 
 import application.controller.SalgController;
 import application.model.Betalingsform;
-import application.model.Dagsproduktion;
 import application.model.Udlejning;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -10,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import storage.Storage;
+
+import java.time.LocalDate;
 
 
 public class VisUdlejningPane extends GridPane {
@@ -23,7 +24,6 @@ public class VisUdlejningPane extends GridPane {
 
 
     private Storage storage = Storage.getInstance();
-    private Dagsproduktion dagsproduktion = SalgController.getDagsproduktion();
     private SalgController salgController = SalgController.getSalgController();
 
     private Udlejning udlejning;
@@ -39,7 +39,7 @@ public class VisUdlejningPane extends GridPane {
 
         this.add(new Label("Afsluttede Udlejninger"),1,0);
         this.add(lvwAfsluttedeUdlejninger,1,1);
-        lvwAfsluttedeUdlejninger.getItems().setAll(dagsproduktion.getDagensAfsluttedeUdlejninger());
+        lvwAfsluttedeUdlejninger.getItems().setAll(storage.getAfsluttedeUdlejninger().get(LocalDate.now()));
 
         ChangeListener<Udlejning> listener = (ov, oldArrangement, newArrangement) -> this.selectedAfsluttetUdlejningChanged();
         lvwAfsluttedeUdlejninger.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -88,7 +88,7 @@ public class VisUdlejningPane extends GridPane {
     }
     private void updatelists(){
         lvwaktiveUdlejninger.getItems().setAll(storage.getAktiveUdlejninger());
-        lvwAfsluttedeUdlejninger.getItems().setAll(dagsproduktion.getDagensAfsluttedeUdlejninger());
+        lvwAfsluttedeUdlejninger.getItems().setAll(storage.getAfsluttedeUdlejninger().get(LocalDate.now()));
     }
 
     private void selectedAktiveUdlejningChanged() {
@@ -126,7 +126,7 @@ public class VisUdlejningPane extends GridPane {
     }
     private void afslutUdlejningAction() {
         udlejning = lvwaktiveUdlejninger.getSelectionModel().getSelectedItem();
-        salgController.afslutUdlejning(udlejning,dagsproduktion,udlejning.getBetalingsform());
+        salgController.afslutUdlejning(udlejning,udlejning.getBetalingsform());
 
         updatelists();
     }

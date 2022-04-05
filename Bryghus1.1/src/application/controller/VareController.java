@@ -10,6 +10,7 @@ public class VareController {
     private Storage storage;
     private static VareController vareController;
     private SalgController salgController = SalgController.getSalgController();
+    private Dagsproduktion dagsproduktion = SalgController.getDagsproduktion();
 
     private VareController() {
         storage = Storage.getInstance();
@@ -163,7 +164,8 @@ public class VareController {
         Udlejning udlejning1 = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
         udlejning1.createOrdreLinje(5,extraPilsner);
 
-        salgController.afslutUdlejning(udlejning,Betalingsform.DANKORT);
+        salgController.afslutUdlejning(udlejning,dagsproduktion,Betalingsform.DANKORT);
+        salgController.updateOmsætning(dagsproduktion);
 
 
     }

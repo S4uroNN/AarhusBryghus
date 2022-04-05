@@ -1,7 +1,6 @@
 package gui;
 
 import application.controller.SalgController;
-import application.model.Dagsproduktion;
 import application.model.Udlejning;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -153,23 +152,13 @@ public class VisStatistikPane extends GridPane {
 
     private void updateSalgAction() {
         LocalDate dato = dpDag.getValue();
-        Dagsproduktion dagsproduktion;
 
         double udlejningOmsæt = 0;
 
-        if (dpDag.getValue().equals(LocalDate.now())) {
-            dagsproduktion = Dagsproduktion.getDagsproduktion();
-        } else {
-            dagsproduktion = storage.getDagsproduktioner().get(dato);
-        }
-
-        for (Udlejning u : dagsproduktion.getDagensAfsluttedeUdlejninger()) {
-            udlejningOmsæt += u.samletPris();
-        }
-        txfOmsætningSalg.setText(dagsproduktion.getOmsætning() + "");
+        txfOmsætningSalg.setText(salgController.getOmsætning(dato) + "");
         txfOmsætningUdl.setText(udlejningOmsæt + "");
-        txfAntalsalg.setText(dagsproduktion.getSalg().size() + "");
-        txfAntalUdl.setText(dagsproduktion.getDagensAfsluttedeUdlejninger().size() + "");
+        txfAntalsalg.setText(storage.getSalg().size() + "");
+        txfAntalUdl.setText(storage.getAfsluttedeUdlejninger().size() + "");
     }
 
     private void updateKlipAction() {
