@@ -23,7 +23,7 @@ SalgPane extends GridPane {
     private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
-    private RadioButton rbFast, rbProcent, rbUserDefined, rbNoDiscount;
+    private RadioButton rbFast, rbProcent;
     private TextField txfRabat, txfSamletPris;
     private SalgController salgController;
     private VareController vareController;
@@ -53,18 +53,23 @@ SalgPane extends GridPane {
         rbDankort = new RadioButton("Dankort");
         rbDankort.setToggleGroup(toggleGroup);
         rbDankort.setOnAction(event -> dankortAction());
+
         rbMobilepay = new RadioButton("Mobliepay");
         rbMobilepay.setToggleGroup(toggleGroup);
         rbMobilepay.setOnAction(event -> mobilepayAction());
+
         rbKontant = new RadioButton("Kontant");
         rbKontant.setToggleGroup(toggleGroup);
         rbKontant.setOnAction(event -> kontantAction());
+
         rbRegning = new RadioButton("Regning");
         rbRegning.setToggleGroup(toggleGroup);
         rbRegning.setOnAction(event -> regningAction());
+
         rbKlippekort = new RadioButton("Klippekort");
         rbKlippekort.setToggleGroup(toggleGroup);
         rbKlippekort.setOnAction(event -> klippekortAction());
+
         HBox betalingsformRadioButtons = new HBox();
         betalingsformRadioButtons.getChildren().add(rbDankort);
         betalingsformRadioButtons.getChildren().add(rbMobilepay);
@@ -83,12 +88,12 @@ SalgPane extends GridPane {
         this.add(btnAfslutSalg, 2,4);
         btnAfslutSalg.setOnAction(event -> afslutSalg());
 
-
-
         btnTilføjVare = new Button("Tilføj");
         btnTilføjVare.setOnAction(event -> tilføjVareAction());
+
         btnFjernVare = new Button("Fjern");
         btnFjernVare.setOnAction(event -> fjernVareAction());
+
         VBox OrdreButtons = new VBox();
         OrdreButtons.getChildren().add(btnTilføjVare);
         OrdreButtons.getChildren().add(btnFjernVare);
@@ -106,15 +111,17 @@ SalgPane extends GridPane {
 
         Label lblRabat = new Label("Rabat:");
         HBox rabatBox = new HBox();
+
         rbFast = new RadioButton("Fast");
         rbFast.setToggleGroup(toggleGroupRabat);
+        rbFast.setOnAction(event -> setFastRabatAction());
+
         rbProcent = new RadioButton("Procent");
         rbProcent.setToggleGroup(toggleGroupRabat);
-        rbUserDefined = new RadioButton("User Defined");
-        rbUserDefined.setToggleGroup(toggleGroupRabat);
-        rbNoDiscount = new RadioButton("No Discount");
-        rbNoDiscount.setToggleGroup(toggleGroupRabat);
+        rbProcent.setOnAction(event -> setProcentRabatAction());
+
         txfRabat = new TextField();
+
         Label lblSamletPris = new Label("Samlet Pris:");
         txfSamletPris = new TextField();
         txfSamletPris.setEditable(false);
@@ -125,8 +132,6 @@ SalgPane extends GridPane {
         prisBox.getChildren().add(rabatBox);
         rabatBox.getChildren().add(rbFast);
         rabatBox.getChildren().add(rbProcent);
-        rabatBox.getChildren().add(rbUserDefined);
-        rabatBox.getChildren().add(rbNoDiscount);
         rabatBox.setSpacing(10);
         rabatBox.setAlignment(Pos.TOP_CENTER);
         prisBox.getChildren().add(txfRabat);
@@ -251,6 +256,14 @@ SalgPane extends GridPane {
             alert.setHeaderText("Salg er ikke oprettet!");
             alert.showAndWait();
         }
+    }
+
+    private void setFastRabatAction(){
+        salg.setRabat(new KontantRabat(Double.parseDouble(txfRabat.getText())));
+    }
+
+    private void setProcentRabatAction(){
+        salg.setRabat(new ProcentRabat(Double.parseDouble(txfRabat.getText())));
     }
 
 }

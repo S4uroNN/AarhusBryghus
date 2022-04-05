@@ -78,21 +78,25 @@ public class TilføjTilSalgOrdreWindow extends Stage {
         pane.add(lblError,0,3);
         lblError.setStyle("-fx-text-fill: red");
     }
-    private void tilføjVare(){
+    private void tilføjVare() {
+        lblError.setText("");
         Vare vare = lvwVare.getSelectionModel().getSelectedItem();
+        try {
         int antal = Integer.parseInt(txfAntal.getText().trim());
+            if (vare != null) {
+                if (antal <= 0) {
+                    lblError.setText("Antal skal være større end 0");
+                } else {
+                    salgController.createOrdrelinjeSalg(salg, antal, vare);
+                    this.hide();
+                }
 
-        if (vare != null){
-            if (antal <= 0) {
-                lblError.setText("Antal skal være større end 0");
-            }
-            else{
-                salgController.createOrdrelinjeSalg(salg,antal,vare);
-                this.hide();
             }
 
+        } catch (NumberFormatException e){
+            txfAntal.clear();
+            lblError.setText("Antal er ikke korrekt format");
         }
-
     }
     private void selectedVareChanged(){
         Vare selected = lvwVare.getSelectionModel().getSelectedItem();
