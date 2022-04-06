@@ -134,6 +134,7 @@ public class VareController {
         Vare glasUansetStørrelse = vareController.createVare("Glas");
         Vare gaveæske4øl = vareController.createVare("Gaveæske 4 øl");
         Vare rundvisning10prs = vareController.createVare("Rundvisning 10 personer");
+        Vare klippekort = vareController.createVare("Klippekort");
 
         Prisliste butik = vareController.createPrisliste("Butik");
         Prisliste fredagsweehoo = vareController.createPrisliste("Fredags Cafe");

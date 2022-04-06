@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class SalgController {
     private Storage storage;
@@ -127,6 +128,21 @@ public class SalgController {
             omsætning += udlejning.samletPris();
         }
         return omsætning;
+    }
+
+    public double getSamletPris(Salg salg){
+        double pris = salg.samletPris();
+        return pris;
+    }
+    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg){
+        return salg.getOrdrelinjer();
+    }
+
+    public double getSamletPrisUDl(Udlejning udlejning){
+        return udlejning.samletPris();
+    }
+    public Set<Ordrelinje> getUDlOrdrelinjer(Udlejning udlejning){
+        return udlejning.getOrdrelinjer();
     }
 
     public void setFastRabatSalg(Salg salg, double beloeb) {

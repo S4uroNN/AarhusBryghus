@@ -192,8 +192,8 @@ SalgPane extends GridPane {
         if (salg != null) {
             TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg);
             dia.showAndWait();
-            lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
-            txfSamletPris.setText(String.valueOf(salg.samletPris()));
+            lvwOrdre.getItems().setAll(salgController.getSalgOrdreLinjer(salg));
+            txfSamletPris.setText(String.valueOf(salgController.getSamletPris(salg)));
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Salg er ikke oprettet!");
@@ -210,8 +210,8 @@ SalgPane extends GridPane {
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
                 salgController.removeOrdrelinjeSalg(salg,ordre);
-                lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
-                txfSamletPris.setText(String.valueOf(salg.samletPris()));
+                lvwOrdre.getItems().setAll(salgController.getSalgOrdreLinjer(salg));
+                txfSamletPris.setText(String.valueOf(salgController.getSamletPris(salg)));
             }
         }
 
@@ -223,7 +223,7 @@ SalgPane extends GridPane {
         if(ordrelinje != null){
             PriskorrektionWindow pris = new PriskorrektionWindow(ordrelinje);
             pris.showAndWait();
-            txfSamletPris.setText(salg.samletPris() + "");
+            txfSamletPris.setText(salgController.getSamletPris(salg) + "");
         }
     }
 
@@ -284,14 +284,14 @@ SalgPane extends GridPane {
     private void setFastRabatAction(){
         if(rbFast.isSelected() && !(txfRabat.getText().equals(""))){
             salgController.setFastRabatSalg(salg, Double.parseDouble(txfRabat.getText()));
-            txfSamletPris.setText(salg.samletPris() + "");
+            txfSamletPris.setText(salgController.getSamletPris(salg) + "");
         }
     }
 
     private void setProcentRabatAction(){
         if(rbProcent.isSelected() && !(txfRabat.getText().equals(""))){
             salgController.setProcentRabatSalg(salg, Double.parseDouble(txfRabat.getText()));
-            txfSamletPris.setText(salg.samletPris()+"");
+            txfSamletPris.setText(salgController.getSamletPris(salg) + "");
         }
     }
 }
