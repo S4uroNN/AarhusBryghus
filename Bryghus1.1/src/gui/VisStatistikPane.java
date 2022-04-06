@@ -78,6 +78,7 @@ public class VisStatistikPane extends GridPane {
         txfOmsætningUdl.setPrefWidth(width);
 
         btnVisIkkeAfl = new Button("Vis ikke afleverede vare");
+        btnVisIkkeAfl.setOnAction(event -> visIkkeAflVareAction());
         btnOpdaterSalg = new Button("Opdater Salg");
         btnOpdaterSalg.setOnAction(event -> updateSalgAction());
 
@@ -168,6 +169,10 @@ public class VisStatistikPane extends GridPane {
         txfAntalKlipKøbt.setText(salgController.getSolgteKlip(startDato, slutDato) + "");
         txfAntalKlipBrugt.setText(salgController.getBrugteKlip(startDato, slutDato) + "");
 
+    }
+    private void visIkkeAflVareAction(){
+        VisIkkeAfleveredeWindow dia = new VisIkkeAfleveredeWindow();
+        dia.showAndWait();
     }
 }
 
