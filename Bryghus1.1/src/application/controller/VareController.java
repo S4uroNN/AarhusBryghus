@@ -119,13 +119,13 @@ public class VareController {
         VareGruppe glas = vareController.createVareGruppe("Glas", 0);
         VareGruppe sampakninger = vareController.createVareGruppe("Sampakninger", 0);
 
-        Vare klosterbrygFlaske = vareController.createVare("Klosterbryg");
-        Vare klosterbrygFustage = vareController.createVare("Klosterbryg");
-        Vare sweetGeorgiaBrownFlaske = vareController.createVare("Sweet Georgia Brown");
-        Vare extraPilsnerFadøl = vareController.createVare("Extra Pilsner");
-        Vare forårsbrygFlaske = vareController.createVare("Forårsbryg");
-        Vare forårsbrygFadøl = vareController.createVare("Forårsbryg");
-        Vare forårsbrygFustage = vareController.createVare("Forårsbryg");
+        Vare klosterbrygFlaske = vareController.createVare("Klosterbryg Flaske");
+        Vare klosterbrygFustage = vareController.createVare("Klosterbryg Fustage");
+        Vare sweetGeorgiaBrownFlaske = vareController.createVare("Sweet Georgia Brown Flaske");
+        Vare extraPilsnerFadøl = vareController.createVare("Extra Pilsner Fadøl");
+        Vare forårsbrygFlaske = vareController.createVare("Forårsbryg Flaske");
+        Vare forårsbrygFadøl = vareController.createVare("Forårsbryg Fadøl");
+        Vare forårsbrygFustage = vareController.createVare("Forårsbryg Fustage");
         Vare whisky4550cl = vareController.createVare("Whiskey 45% 50 cl rør");
         Vare sixkgKulsyre = vareController.createVare("6kg");
         Vare twentyfivekgsæk = vareController.createVare("25 kg sæk");
