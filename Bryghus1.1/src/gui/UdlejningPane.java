@@ -15,9 +15,9 @@ public class UdlejningPane extends GridPane {
     private ListView<Ordrelinje> lvwOrder = new ListView<>();
     private TextField txfStartDato, txfNavn, txfEmail, txfTlfnr, txfRabat, txfPris;
     private DatePicker dtpSlutDato;
-    private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning, btnNyUdlejning;
+    private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning, btnNyUdlejning,btnRetPris;
     private RadioButton rdbDankort, rdbMobilepay, rdbKontant, rdbRegning;
-    private RadioButton rdbFast, rdbProcent, rdbUserDefined, rdbNoRabat;
+    private RadioButton rdbFast, rdbProcent;
     private ComboBox cbPrisliste;
 
     private Storage storage = Storage.getInstance();
@@ -67,6 +67,11 @@ public class UdlejningPane extends GridPane {
         btnNyUdlejning.setPrefWidth(120);
         btnNyUdlejning.setDisable(true);
         btnNyUdlejning.setOnAction(event -> nyUdlejningAction());
+        btnRetPris = new Button("Ret pris");
+        btnRetPris.setPrefWidth(120);
+        btnRetPris.setDisable(true);
+        btnRetPris.setOnAction(event -> indsaetRabatPåVare());
+
 
 
         cbPrisliste = new ComboBox<>();
@@ -98,6 +103,7 @@ public class UdlejningPane extends GridPane {
         vboxTilføj.getChildren().add(btnFjern);
         vboxTilføj.getChildren().add(btnAfslutUdlejning);
         vboxTilføj.getChildren().add(btnNyUdlejning);
+        vboxTilføj.getChildren().add(btnRetPris);
         this.add(vboxTilføj, 1, 1);
 
         HBox hBox = new HBox();
@@ -111,8 +117,13 @@ public class UdlejningPane extends GridPane {
 
         rdbFast = new RadioButton("Fast");
         rdbFast.setToggleGroup(toggleGroupRabat);
+        rdbFast.setOnAction(event -> setFastRabatAction());
+        rdbFast.setDisable(true);
         rdbProcent = new RadioButton("Procent");
+        rdbProcent.setOnAction(event -> setProcentRabatAction());
         rdbProcent.setToggleGroup(toggleGroupRabat);
+        rdbProcent.setDisable(true);
+        txfRabat.setDisable(true);
 
 
         rdbDankort = new RadioButton("Dankort");
@@ -198,6 +209,10 @@ public class UdlejningPane extends GridPane {
             btnFjern.setDisable(false);
             btnAfslutUdlejning.setDisable(false);
             btnNyUdlejning.setDisable(false);
+            btnRetPris.setDisable(false);
+            rdbFast.setDisable(false);
+            rdbProcent.setDisable(false);
+            txfRabat.setDisable(false);
             cbPrisliste.setDisable(true);
 
         }
@@ -268,10 +283,10 @@ public class UdlejningPane extends GridPane {
     }
 
     private void updateControls() {
-        if (udlejning.getOrdrelinjer().size() > 0) {
-            lvwOrder.getItems().setAll(udlejning.getOrdrelinjer());
+        if (salgController.getUDlOrdrelinjer(udlejning).size() > 0) {
+            lvwOrder.getItems().setAll(salgController.getUDlOrdrelinjer(udlejning));
         }
-        txfPris.setText(udlejning.samletPris() + "");
+        txfPris.setText(salgController.getSamletPrisUDl(udlejning) + "");
 
     }
 
@@ -290,11 +305,39 @@ public class UdlejningPane extends GridPane {
         updateControls();
     }
 
+    private void indsaetRabatPåVare(){
+        Ordrelinje ordrelinje = lvwOrder.getSelectionModel().getSelectedItem();
+
+        if(ordrelinje != null){
+            PriskorrektionWindow pris = new PriskorrektionWindow(ordrelinje);
+            pris.showAndWait();
+            txfPris.setText(salgController.getSamletPrisUDl(udlejning) + "");
+        }
+    }
+
     private void setFastRabatAction(){
-        salgController.setFastRabatUdlejning(udlejning, Double.parseDouble(txfRabat.getText()));
+        if(udlejning != null){
+            if(rdbProcent.isSelected() && !(txfRabat.getText().trim().equals(""))) {
+                salgController.setFastRabatUdlejning(udlejning, Double.parseDouble(txfRabat.getText()));
+                updateControls();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Udlejning ikke oprettet");
+            alert.showAndWait();
+        }
     }
 
     private void setProcentRabatAction(){
-        salgController.setProcentRabatUdlejning(udlejning, Double.parseDouble(txfRabat.getText()));
+        if(udlejning != null){
+            if(rdbProcent.isSelected() && !(txfRabat.getText().trim().equals(""))) {
+                salgController.setProcentRabatUdlejning(udlejning, Double.parseDouble(txfRabat.getText()));
+                updateControls();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Udlejning ikke oprettet");
+            alert.showAndWait();
+        }
     }
 }
