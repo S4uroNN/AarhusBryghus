@@ -48,7 +48,7 @@ public class Salg {
         this.betalingsform = betalingsform;
     }
 
-    public Set<Ordrelinje> getOrdrer() {
+    public Set<Ordrelinje> getOrdrelinjer() {
         return new HashSet<>(ordrelinjer);
     }
 
@@ -99,10 +99,6 @@ public class Salg {
 
     public Betalingsform getBetalingsform() {
         return betalingsform;
-    }
-
-    public Set<Ordrelinje> getOrdrelinjer() {
-        return new HashSet<>(ordrelinjer);
     }
 
     /**
