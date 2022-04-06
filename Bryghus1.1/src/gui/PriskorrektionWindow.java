@@ -66,6 +66,7 @@ public class PriskorrektionWindow extends Stage {
         pane.add(txfVare,0,1);
         pane.add(new Label("Pris"),0,2);
         pane.add(txfPris,0,3);
+        pane.add(hboxBtn,0,5);
 
         ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -92,5 +93,6 @@ public class PriskorrektionWindow extends Stage {
             double beloeb = Double.parseDouble(txfPris.getText().trim());
             salgController.setProcentRabatOrdrelinje(ordrelinje,beloeb);
         }
+        this.hide();
     }
 }
