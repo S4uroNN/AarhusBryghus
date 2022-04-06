@@ -28,6 +28,7 @@ public class Salg {
      *
      * @param antal
      * antal > 0
+     * antal == Int
      * @param vare
      * vare != null
      * @return
@@ -58,7 +59,12 @@ public class Salg {
     public double samletPris() {
         double samletpris = 0;
         for(Ordrelinje ordreLinje : ordrelinjer){
-            samletpris += ordreLinje.getVare().getPrisMedPant(prisliste) * ordreLinje.getAntal();
+            double linjepris;
+            linjepris = ordreLinje.getVare().getPrisMedPant(prisliste) * ordreLinje.getAntal();
+            if (ordreLinje.getRabat() != null){
+                linjepris = linjepris - ordreLinje.getRabat().beregnRabat(linjepris);
+            }
+            samletpris += linjepris;
         }
         if (rabat != null){
             samletpris = samletpris - rabat.beregnRabat(samletpris);

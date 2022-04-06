@@ -119,10 +119,13 @@ public class VareController {
         VareGruppe glas = vareController.createVareGruppe("Glas", 0);
         VareGruppe sampakninger = vareController.createVareGruppe("Sampakninger", 0);
 
-        Vare klosterbryg = vareController.createVare("Klosterbryg");
-        Vare sweetGeorgiaBrown = vareController.createVare("Sweet Georgia Brown");
-        Vare extraPilsner = vareController.createVare("Extra Pilsner");
-        Vare forårsbryg = vareController.createVare("Forårsbryg");
+        Vare klosterbrygFlaske = vareController.createVare("Klosterbryg");
+        Vare klosterbrygFustage = vareController.createVare("Klosterbryg");
+        Vare sweetGeorgiaBrownFlaske = vareController.createVare("Sweet Georgia Brown");
+        Vare extraPilsnerFadøl = vareController.createVare("Extra Pilsner");
+        Vare forårsbrygFlaske = vareController.createVare("Forårsbryg");
+        Vare forårsbrygFadøl = vareController.createVare("Forårsbryg");
+        Vare forårsbrygFustage = vareController.createVare("Forårsbryg");
         Vare whisky4550cl = vareController.createVare("Whiskey 45% 50 cl rør");
         Vare sixkgKulsyre = vareController.createVare("6kg");
         Vare twentyfivekgsæk = vareController.createVare("25 kg sæk");
@@ -135,13 +138,13 @@ public class VareController {
         Prisliste butik = vareController.createPrisliste("Butik");
         Prisliste fredagsweehoo = vareController.createPrisliste("Fredags Cafe");
 
-        vareController.addVareToVareGruppe(klosterbryg, flaske);
-        vareController.addVareToVareGruppe(klosterbryg, fustage);
-        vareController.addVareToVareGruppe(extraPilsner, fadøl);
-        vareController.addVareToVareGruppe(sweetGeorgiaBrown, flaske);
-        vareController.addVareToVareGruppe(forårsbryg, flaske);
-        vareController.addVareToVareGruppe(forårsbryg, fadøl);
-        vareController.addVareToVareGruppe(forårsbryg, fustage);
+        vareController.addVareToVareGruppe(klosterbrygFlaske, flaske);
+        vareController.addVareToVareGruppe(klosterbrygFustage, fustage);
+        vareController.addVareToVareGruppe(extraPilsnerFadøl, fadøl);
+        vareController.addVareToVareGruppe(sweetGeorgiaBrownFlaske, flaske);
+        vareController.addVareToVareGruppe(forårsbrygFlaske, flaske);
+        vareController.addVareToVareGruppe(forårsbrygFadøl, fadøl);
+        vareController.addVareToVareGruppe(forårsbrygFustage, fustage);
         vareController.addVareToVareGruppe(whisky4550cl, spiritus);
         vareController.addVareToVareGruppe(sixkgKulsyre, kulsyre);
         vareController.addVareToVareGruppe(twentyfivekgsæk, malt);
@@ -159,10 +162,10 @@ public class VareController {
         vareController.addVareGruppeToPrisliste(fredagsweehoo,spiritus, 1000, 40);
 
         Udlejning udlejning = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
-        udlejning.createOrdreLinje(5,extraPilsner);
+        udlejning.createOrdreLinje(5,extraPilsnerFadøl);
 
         Udlejning udlejning1 = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
-        udlejning1.createOrdreLinje(5,extraPilsner);
+        udlejning1.createOrdreLinje(5,extraPilsnerFadøl);
 
         salgController.afslutUdlejning(udlejning,Betalingsform.DANKORT);
 

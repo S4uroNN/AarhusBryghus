@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Ordrelinje {
     private int antal;
-
+    private Rabat rabat;
     private Vare vare;
 
     public Ordrelinje(int antal, Vare vare){
@@ -27,6 +27,14 @@ public class Ordrelinje {
 
     public void setVare(Vare vare) {
         this.vare = vare;
+    }
+
+    public Rabat getRabat() {
+        return rabat;
+    }
+
+    public void setRabat(Rabat rabat) {
+        this.rabat = rabat;
     }
 
     @Override

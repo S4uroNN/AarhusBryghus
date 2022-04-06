@@ -11,6 +11,7 @@ public class Udlejning {
     private String telefonnr;
     private String email;
     private Prisliste prisliste;
+    private Rabat rabat;
     private int id;
     private int idCount = 0;
 
@@ -103,8 +104,12 @@ public class Udlejning {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Rabat getRabat() {
+        return rabat;
+    }
+
+    public void setRabat(Rabat rabat) {
+        this.rabat = rabat;
     }
 
     @Override
