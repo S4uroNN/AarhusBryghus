@@ -39,7 +39,7 @@ public class TilføjVareTilPrislisteWindow extends Stage {
     private TextField txfPris, txfKlip;
     private ListView<Vare> lvwAlleVarer = new ListView<>();
     private ListView<Vare> lvwTilføjedeVarer = new ListView<>();
-    private int buttonWidth = 130;
+    private int buttonWidth = 120;
 
     private void initContent(GridPane pane) {
         vareController = VareController.getController();
