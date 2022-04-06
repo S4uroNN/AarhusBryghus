@@ -62,9 +62,10 @@ public class UdlejningPane extends GridPane {
         btnAfslutUdlejning = new Button("Afslut Udlejning");
         btnAfslutUdlejning.setPrefWidth(120);
         btnAfslutUdlejning.setOnAction(event -> afslutUdlejningAction());
+        btnAfslutUdlejning.setDisable(true);
         btnNyUdlejning = new Button("Ny Udlejning");
         btnNyUdlejning.setPrefWidth(120);
-        btnAfslutUdlejning.setDisable(true);
+        btnNyUdlejning.setDisable(true);
         btnNyUdlejning.setOnAction(event -> nyUdlejningAction());
 
 

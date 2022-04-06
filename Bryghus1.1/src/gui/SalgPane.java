@@ -20,7 +20,7 @@ import java.util.Optional;
 public class
 SalgPane extends GridPane {
     private ListView<Ordrelinje> lvwOrdre = new ListView<>();
-    private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg;
+    private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg,btnPrisKorek;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
     private RadioButton rbFast, rbProcent;
@@ -94,13 +94,18 @@ SalgPane extends GridPane {
         btnFjernVare = new Button("Fjern");
         btnFjernVare.setOnAction(event -> fjernVareAction());
 
-        VBox OrdreButtons = new VBox();
-        OrdreButtons.getChildren().add(btnTilføjVare);
-        OrdreButtons.getChildren().add(btnFjernVare);
-        OrdreButtons.setSpacing(10);
-        OrdreButtons.setAlignment(Pos.TOP_CENTER);
-        OrdreButtons.prefWidth(500);
-        this.add(OrdreButtons, 1, 1);
+        btnPrisKorek = new Button("Ret Pris");
+        btnPrisKorek.setOnAction(event -> indsaetRabatPåVare());
+        btnPrisKorek.setDisable(true);
+
+        VBox ordreButtons = new VBox();
+        ordreButtons.getChildren().add(btnTilføjVare);
+        ordreButtons.getChildren().add(btnFjernVare);
+        ordreButtons.getChildren().add(btnPrisKorek);
+        ordreButtons.setSpacing(10);
+        ordreButtons.setAlignment(Pos.TOP_CENTER);
+        ordreButtons.prefWidth(500);
+        this.add(ordreButtons, 1, 1);
 
         ToggleGroup toggleGroupRabat = new ToggleGroup();
 
@@ -115,12 +120,15 @@ SalgPane extends GridPane {
         rbFast = new RadioButton("Fast");
         rbFast.setToggleGroup(toggleGroupRabat);
         rbFast.setOnAction(event -> setFastRabatAction());
+        rbFast.setDisable(true);
 
         rbProcent = new RadioButton("Procent");
         rbProcent.setToggleGroup(toggleGroupRabat);
         rbProcent.setOnAction(event -> setProcentRabatAction());
+        rbProcent.setDisable(true);
 
         txfRabat = new TextField();
+        txfRabat.setDisable(true);
 
         Label lblSamletPris = new Label("Samlet Pris:");
         txfSamletPris = new TextField();
@@ -150,6 +158,10 @@ SalgPane extends GridPane {
             alert.setHeaderText("Salg Oprettet!");
             alert.showAndWait();
             btnStartSalg.setDisable(true);
+            rbProcent.setDisable(false);
+            rbFast.setDisable(false);
+            txfRabat.setDisable(false);
+            btnPrisKorek.setDisable(false);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Prisliste er ikke valgt!");
@@ -192,12 +204,8 @@ SalgPane extends GridPane {
         if (ordre != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Vare fra ordre");
-            // alert.setContentText("Are you sure?");
             alert.setHeaderText("Are you sure?");
             Optional<ButtonType> result = alert.showAndWait();
-
-            // Wait for the modal dialog to close
-
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
                 salgController.removeOrdrelinjeSalg(salg,ordre);
                 lvwOrdre.getItems().setAll(salg.getOrdrelinjer());
@@ -205,6 +213,12 @@ SalgPane extends GridPane {
             }
         }
 
+    }
+
+    private void indsaetRabatPåVare(){
+        Ordrelinje ordrelinje = lvwOrdre.getSelectionModel().getSelectedItem();
+        PriskorrektionWindow pris = new PriskorrektionWindow(ordrelinje);
+        pris.showAndWait();
     }
 
 
