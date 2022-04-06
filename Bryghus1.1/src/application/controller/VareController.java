@@ -160,6 +160,7 @@ public class VareController {
         vareController.addVareGruppeToPrisliste(fredagsweehoo,fadøl,40, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,flaske,70, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,spiritus, 1000, 40);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
 
         Udlejning udlejning = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",butik);
         udlejning.createOrdreLinje(5,extraPilsnerFadøl);
