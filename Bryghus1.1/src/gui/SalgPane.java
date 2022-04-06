@@ -20,7 +20,7 @@ import java.util.Optional;
 public class
 SalgPane extends GridPane {
     private ListView<Ordrelinje> lvwOrdre = new ListView<>();
-    private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg;
+    private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg,btnPrisKorek;
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
     private RadioButton rbFast, rbProcent;
@@ -94,9 +94,14 @@ SalgPane extends GridPane {
         btnFjernVare = new Button("Fjern");
         btnFjernVare.setOnAction(event -> fjernVareAction());
 
+        btnPrisKorek = new Button("Ret Pris");
+        btnPrisKorek.setOnAction(event -> indsaetRabatPåVare());
+        btnPrisKorek.setDisable(true);
+
         VBox ordreButtons = new VBox();
         ordreButtons.getChildren().add(btnTilføjVare);
         ordreButtons.getChildren().add(btnFjernVare);
+        ordreButtons.getChildren().add(btnPrisKorek);
         ordreButtons.setSpacing(10);
         ordreButtons.setAlignment(Pos.TOP_CENTER);
         ordreButtons.prefWidth(500);
@@ -156,6 +161,7 @@ SalgPane extends GridPane {
             rbProcent.setDisable(false);
             rbFast.setDisable(false);
             txfRabat.setDisable(false);
+            btnPrisKorek.setDisable(false);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Prisliste er ikke valgt!");
@@ -207,6 +213,12 @@ SalgPane extends GridPane {
             }
         }
 
+    }
+
+    private void indsaetRabatPåVare(){
+        Ordrelinje ordrelinje = lvwOrdre.getSelectionModel().getSelectedItem();
+        PriskorrektionWindow pris = new PriskorrektionWindow(ordrelinje);
+        pris.showAndWait();
     }
 
 
