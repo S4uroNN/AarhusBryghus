@@ -219,10 +219,10 @@ SalgPane extends GridPane {
 
     private void indsaetRabatPåVare(){
         Ordrelinje ordrelinje = lvwOrdre.getSelectionModel().getSelectedItem();
-        PriskorrektionWindow pris = new PriskorrektionWindow(ordrelinje);
-        pris.showAndWait();
 
         if(ordrelinje != null){
+            PriskorrektionWindow pris = new PriskorrektionWindow(ordrelinje);
+            pris.showAndWait();
             txfSamletPris.setText(salg.samletPris() + "");
         }
     }
