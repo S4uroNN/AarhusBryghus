@@ -28,6 +28,7 @@ public class Salg {
      *
      * @param antal
      * antal > 0
+     * antal == Int
      * @param vare
      * vare != null
      * @return
