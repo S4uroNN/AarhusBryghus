@@ -129,20 +129,28 @@ public class SalgController {
         return omsætning;
     }
 
-    public void setFastRabatSalg(Salg salg, double beloeb){
+    public void setFastRabatSalg(Salg salg, double beloeb) {
         salg.setRabat(new KontantRabat(beloeb));
     }
 
-    public void setProcentRabatSalg(Salg salg, double beloeb){
+    public void setProcentRabatSalg(Salg salg, double beloeb) {
         salg.setRabat(new ProcentRabat(beloeb));
     }
 
-    public void setFastRabatUdlejning(Udlejning udlejning, double beloeb){
+    public void setFastRabatUdlejning(Udlejning udlejning, double beloeb) {
         udlejning.setRabat(new KontantRabat(beloeb));
     }
 
-    public void setProcentRabatUdlejning(Udlejning udlejning, double beloeb){
+    public void setProcentRabatUdlejning(Udlejning udlejning, double beloeb) {
         udlejning.setRabat(new ProcentRabat(beloeb));
+    }
+
+    public void setProcentRabatOrdrelinje(Ordrelinje ordrelinje, double beloeb) {
+        ordrelinje.setRabat(new ProcentRabat(beloeb));
+    }
+
+    public void setFastRabatOrdrelinje(Ordrelinje ordrelinje, double beloeb) {
+        ordrelinje.setRabat(new KontantRabat(beloeb));
     }
 
 }
