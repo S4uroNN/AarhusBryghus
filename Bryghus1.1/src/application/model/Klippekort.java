@@ -6,7 +6,7 @@ public class Klippekort extends Vare{
 
     public Klippekort(String navn) {
         super(navn);
-        this.klip = 10;
+        this.klip = 4;
     }
 
     public int getKlip() {

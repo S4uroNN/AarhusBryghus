@@ -89,7 +89,7 @@ public class SalgController {
                 for (Salg salg : storage.getSalg().get(dato)) {
                     for (Ordrelinje ordrelinje : salg.getOrdrelinjer()) {
                         if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")) {
-                            solgteKlip += ordrelinje.getAntal() * 10;
+                            solgteKlip += ordrelinje.getAntal() * 4;
                         }
                     }
                 }

@@ -39,7 +39,7 @@ public class VisUdlejningPane extends GridPane {
 
         this.add(new Label("Afsluttede Udlejninger"),1,0);
         this.add(lvwAfsluttedeUdlejninger,1,1);
-        lvwAfsluttedeUdlejninger.getItems().setAll(storage.getAfsluttedeUdlejninger().get(LocalDate.now()));
+        //lvwAfsluttedeUdlejninger.getItems().setAll(storage.getAfsluttedeUdlejninger().get(LocalDate.now()));
 
         ChangeListener<Udlejning> listener = (ov, oldArrangement, newArrangement) -> this.selectedAfsluttetUdlejningChanged();
         lvwAfsluttedeUdlejninger.getSelectionModel().selectedItemProperty().addListener(listener);
