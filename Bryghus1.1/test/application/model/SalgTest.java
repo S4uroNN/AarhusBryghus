@@ -36,8 +36,6 @@ class SalgTest {
         salgMedOrdrelinjer.setRabat(new ProcentRabat(10));
 
         Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
-
-
     }
 
     @org.junit.jupiter.api.Test
