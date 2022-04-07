@@ -25,9 +25,8 @@ class SalgControllerTest {
     Vare glasUansetStørrelse = vareController.createVare("Glas");
     Vare klippekort = vareController.createVare("Klippekort");
 
-    Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
-    Ordrelinje forårsbryg = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
-    Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
+    Salg salgMedOrdrelinjer;
+    Salg salgUdenOrdrelinjer;
 
     Ordrelinje klosterOrdrelinje;
     Ordrelinje forårOrdrelinje;
@@ -64,16 +63,22 @@ class SalgControllerTest {
 
     @Test
     void getSolgteKlip() {
-
-        System.out.println(salgController.getSolgteKlip(LocalDate.now(),LocalDate.now()));
-        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(klosterOrdrelinje));
-
+        //TC1
         assertEquals(10,salgController.getSolgteKlip(LocalDate.now(),LocalDate.now()));
+        //TC2
+        assertEquals(0,salgController.getSolgteKlip(LocalDate.of(2022,4,8),LocalDate.of(2022,4,7)));
+        //TC3
+        assertEquals(10,salgController.getSolgteKlip(LocalDate.of(2022,4,6),LocalDate.of(2022,4,7)));
     }
 
     @Test
     void getBrugteKlip(){
-        assertEquals(2,salgController.getBrugteKlip(LocalDate.of(05,04,22),LocalDate.now()));
+        //TC1
+        assertEquals(2,salgController.getBrugteKlip(LocalDate.now(),LocalDate.now()));
+        //TC2
+        assertEquals(0,salgController.getBrugteKlip(LocalDate.of(2022,4,8),LocalDate.of(2022,4,7)));
+        //TC3
+        assertEquals(2,salgController.getBrugteKlip(LocalDate.of(2022,4,6),LocalDate.of(2022,4,7)));
     }
 
     @Test
