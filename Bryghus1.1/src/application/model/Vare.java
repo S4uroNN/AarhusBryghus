@@ -30,10 +30,26 @@ public class Vare {
         this.vareGruppe = vareGruppe;
     }
 
+    /**
+     *
+     * @param prisliste
+     * @return returnerer pris med pant hvis hvis varen er tilknyttet en varegruppe
+     */
     public double getPrisMedPant(Prisliste prisliste){
-        return prisliste.getVarePris(this) + vareGruppe.getPant();
+        double pris = 0;
+        if (vareGruppe != null) {
+            pris = prisliste.getVarePris(this) + vareGruppe.getPant();
+        } else {
+            pris = prisliste.getVarePris(this);
+        }
+        return pris;
     }
 
+    /**
+     *
+     * @param prisliste
+     * @return returner prisen for varen uden pant
+     */
     public double getPrisUdenPant(Prisliste prisliste) {return prisliste.getVarePris(this);}
 
     public int getKlipPris(Prisliste prisliste){
