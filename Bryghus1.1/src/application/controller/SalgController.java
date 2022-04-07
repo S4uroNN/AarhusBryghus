@@ -136,21 +136,21 @@ public class SalgController {
         }
         return omsætning;
     }
-
-    public double getSamletPris(Salg salg) {
+    public double getSamletPrisKlip(Salg salg){
+        return salg.samletPrisKlip();
+    }
+    public double getSamletPris(Salg salg){
         double pris = salg.samletPris();
         return pris;
     }
-
-    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg) {
+    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg){
         return salg.getOrdrelinjer();
     }
 
-    public double getSamletPrisUDl(Udlejning udlejning) {
+    public double getSamletPrisUDl(Udlejning udlejning){
         return udlejning.samletPris();
     }
-
-    public Set<Ordrelinje> getUDlOrdrelinjer(Udlejning udlejning) {
+    public Set<Ordrelinje> getUDlOrdrelinjer(Udlejning udlejning){
         return udlejning.getOrdrelinjer();
     }
 
