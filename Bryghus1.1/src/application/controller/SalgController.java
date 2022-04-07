@@ -24,6 +24,10 @@ public class SalgController {
         return controller;
     }
 
+    public static SalgController getTestController() {
+        return new SalgController();
+    }
+
     public Salg createSalg(Prisliste prisliste) {
         Salg salg = new Salg(prisliste);
         storage.addSalg(salg);

@@ -3,10 +3,13 @@ package application.model;
 import application.controller.VareController;
 import storage.Storage;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SalgTest {
-    VareController vareController = VareController.getController();
+    VareController vareController = VareController.getTestController();
 
     VareGruppe fadøl = vareController.createVareGruppe("Fadøl, 40cl", 0);
     VareGruppe flaske = vareController.createVareGruppe("Flaske", 0);
@@ -18,6 +21,12 @@ class SalgTest {
 
     Prisliste fredagsweehoo = vareController.createPrisliste("Fredags Cafe");
 
+    Salg salgMedOrdrelinjer;
+    Salg salgUdenOrdrelinjer;
+
+    Ordrelinje klosterOrdrelinje;
+    Ordrelinje forårOrdrelinje;
+    Ordrelinje glasOrdrelinje;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -29,26 +38,30 @@ class SalgTest {
         vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
 
-        Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
-        salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
-        salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
-        salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
-        salgMedOrdrelinjer.setRabat(new ProcentRabat(10));
+        salgMedOrdrelinjer = new Salg(fredagsweehoo);
+        klosterOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
+        forårOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
+        glasOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
 
-        Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
+        salgUdenOrdrelinjer = new Salg(fredagsweehoo);
     }
 
     @org.junit.jupiter.api.Test
     void createOrdreLinje() {
-
+        salgMedOrdrelinjer.createOrdreLinje(1,klosterbrygFlaske);
+        assertEquals(4,salgMedOrdrelinjer.getOrdrelinjer().size());
+        salgMedOrdrelinjer.createOrdreLinje(10,klosterbrygFlaske);
+        assertEquals(5,salgMedOrdrelinjer.getOrdrelinjer().size());
     }
 
     @org.junit.jupiter.api.Test
     void setBetalingsform() {
+
     }
 
     @org.junit.jupiter.api.Test
     void getOrdrelinjer() {
+        assertEquals( 4, salgMedOrdrelinjer.getOrdrelinjer());
     }
 
     @org.junit.jupiter.api.Test
