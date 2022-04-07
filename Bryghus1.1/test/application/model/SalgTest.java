@@ -3,9 +3,6 @@ package application.model;
 import application.controller.VareController;
 import storage.Storage;
 
-import java.time.LocalDate;
-
-import static application.model.Betalingsform.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SalgTest {
@@ -28,6 +25,12 @@ class SalgTest {
     Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
     Ordrelinje forårsbryg = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
     Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
+    Salg salgMedOrdrelinjer;
+    Salg salgUdenOrdrelinjer;
+
+    Ordrelinje klosterOrdrelinje;
+    Ordrelinje forårOrdrelinje;
+    Ordrelinje glasOrdrelinje;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -39,16 +42,20 @@ class SalgTest {
         vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
 
+        salgMedOrdrelinjer = new Salg(fredagsweehoo);
+        klosterOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
+        forårOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
+        glasOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
 
-        salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
-        salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
-
-
+        salgUdenOrdrelinjer = new Salg(fredagsweehoo);
     }
 
     @org.junit.jupiter.api.Test
     void createOrdreLinje() {
-
+        salgMedOrdrelinjer.createOrdreLinje(1,klosterbrygFlaske);
+        assertEquals(4,salgMedOrdrelinjer.getOrdrelinjer().size());
+        salgMedOrdrelinjer.createOrdreLinje(10,klosterbrygFlaske);
+        assertEquals(5,salgMedOrdrelinjer.getOrdrelinjer().size());
     }
 
     @org.junit.jupiter.api.Test
@@ -73,7 +80,7 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void getOrdrelinjer() {
-
+        assertEquals( 4, salgMedOrdrelinjer.getOrdrelinjer());
     }
 
     @org.junit.jupiter.api.Test
