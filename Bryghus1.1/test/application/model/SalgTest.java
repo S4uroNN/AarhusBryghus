@@ -55,10 +55,12 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void createOrdreLinje() {
-        salgMedOrdrelinjer.createOrdreLinje(1,klosterbrygFlaske);
+        Ordrelinje enKloster = salgMedOrdrelinjer.createOrdreLinje(1,klosterbrygFlaske);
         assertEquals(4,salgMedOrdrelinjer.getOrdrelinjer().size());
-        salgMedOrdrelinjer.createOrdreLinje(10,klosterbrygFlaske);
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(enKloster));
+        Ordrelinje tiKloster = salgMedOrdrelinjer.createOrdreLinje(10,klosterbrygFlaske);
         assertEquals(5,salgMedOrdrelinjer.getOrdrelinjer().size());
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(tiKloster));
     }
 
     @org.junit.jupiter.api.Test
@@ -83,7 +85,11 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void getOrdrelinjer() {
-        assertEquals( 4, salgMedOrdrelinjer.getOrdrelinjer());
+        assertEquals(3,salgMedOrdrelinjer.getOrdrelinjer().size());
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(klosterOrdrelinje));
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(forårOrdrelinje));
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(glasOrdrelinje));
+        assertEquals(0,salgUdenOrdrelinjer.getOrdrelinjer().size());
     }
 
     @org.junit.jupiter.api.Test
@@ -126,14 +132,6 @@ class SalgTest {
     }
 
     @org.junit.jupiter.api.Test
-    void getId() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setId() {
-    }
-
-    @org.junit.jupiter.api.Test
     void getBetalingsform() {
         salgMedOrdrelinjer.setBetalingsform(Betalingsform.DANKORT);
         //Assert
@@ -145,6 +143,12 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void removeOrdrelinje() {
+        salgMedOrdrelinjer.removeOrdrelinje(klosterOrdrelinje);
+        assertEquals(2, salgMedOrdrelinjer.getOrdrelinjer().size());
+        assertFalse(salgMedOrdrelinjer.getOrdrelinjer().contains(klosterOrdrelinje));
+        salgMedOrdrelinjer.removeOrdrelinje(glasOrdrelinje);
+        assertEquals(1,salgMedOrdrelinjer.getOrdrelinjer().size());
+        assertFalse(salgMedOrdrelinjer.getOrdrelinjer().contains(glasOrdrelinje));
     }
 
     @org.junit.jupiter.api.Test
