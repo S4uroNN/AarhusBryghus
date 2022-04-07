@@ -1,15 +1,14 @@
 package application.model;
 
 import application.controller.VareController;
+
 import storage.Storage;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import static application.model.Betalingsform.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SalgTest {
-    VareController vareController = VareController.getTestController();
+    VareController vareController = VareController.getController();
 
     VareGruppe fadøl = vareController.createVareGruppe("Fadøl, 40cl", 0);
     VareGruppe flaske = vareController.createVareGruppe("Flaske", 0);
@@ -21,8 +20,13 @@ class SalgTest {
 
     Prisliste fredagsweehoo = vareController.createPrisliste("Fredags Cafe");
 
-    Salg salgMedOrdrelinjer;
-    Salg salgUdenOrdrelinjer;
+    KontantRabat rabat = new KontantRabat(10);
+    ProcentRabat prabat = new ProcentRabat(10);
+
+
+    Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
+    Ordrelinje forårsbryg = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
+    Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
 
     Ordrelinje klosterOrdrelinje;
     Ordrelinje forårOrdrelinje;
@@ -56,6 +60,21 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void setBetalingsform() {
+        salgMedOrdrelinjer.setBetalingsform(DANKORT);
+        assertEquals(DANKORT,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(MOBILEPAY);
+        assertEquals(MOBILEPAY,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(KONTANT);
+        assertEquals(KONTANT,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(REGNING);
+        assertEquals(REGNING,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(KLIPPEKORT);
+        assertEquals(KLIPPEKORT,salgMedOrdrelinjer.getBetalingsform());
+
 
     }
 
@@ -66,6 +85,20 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void samletPris() {
+        //TC1
+        assertEquals(475,salgMedOrdrelinjer.samletPris());
+
+        //TC2 - procent Rabat for salg
+        salgMedOrdrelinjer.setRabat(prabat);
+        assertEquals(427.5,salgMedOrdrelinjer.samletPris());
+
+        //TC3 - fast Rabat for salg
+        salgMedOrdrelinjer.setRabat(rabat);
+        assertEquals(465,salgMedOrdrelinjer.samletPris());
+
+        //TC4 - 0 rabat på salg, 10 på ordrelinje
+
+
     }
 
     @org.junit.jupiter.api.Test
