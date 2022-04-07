@@ -86,10 +86,12 @@ public class SalgController {
         int solgteKlip = 0;
         LocalDate dato = startdato;
         while (dato.compareTo(slutdato) < 1) {
-            for (Salg salg : storage.getSalg().get(dato)) {
-                for (Ordrelinje ordrelinje : salg.getOrdrelinjer()) {
-                    if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")) {
-                        solgteKlip += ordrelinje.getAntal() * 10;
+            if (storage.getSalg().get(dato) != null) {
+                for (Salg salg : storage.getSalg().get(dato)) {
+                    for (Ordrelinje ordrelinje : salg.getOrdrelinjer()) {
+                        if (ordrelinje.getVare().getNavn().equalsIgnoreCase("Klippekort")) {
+                            solgteKlip += ordrelinje.getAntal() * 10;
+                        }
                     }
                 }
             }
@@ -102,9 +104,11 @@ public class SalgController {
         int brugteKlip = 0;
         LocalDate dato = startdate;
         while (dato.compareTo(slutdato) < 1) {
-            for (Salg salg : storage.getSalg().get(dato)) {
-                if (salg.getBetalingsform().equals(Betalingsform.KLIPPEKORT))
-                    brugteKlip += salg.samletPrisKlip();
+            if ((storage.getSalg().get(dato) != null)) {
+                for (Salg salg : storage.getSalg().get(dato)) {
+                    if (salg.getBetalingsform().equals(Betalingsform.KLIPPEKORT))
+                        brugteKlip += salg.samletPrisKlip();
+                }
             }
             dato = dato.plusDays(1);
         }
@@ -140,7 +144,7 @@ public class SalgController {
         double pris = salg.samletPris();
         return pris;
     }
-    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg) {
+    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg){
         return salg.getOrdrelinjer();
     }
 
