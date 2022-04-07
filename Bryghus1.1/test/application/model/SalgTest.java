@@ -58,6 +58,7 @@ class SalgTest {
         Ordrelinje enKloster = salgMedOrdrelinjer.createOrdreLinje(1,klosterbrygFlaske);
         assertEquals(4,salgMedOrdrelinjer.getOrdrelinjer().size());
         assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(enKloster));
+
         Ordrelinje tiKloster = salgMedOrdrelinjer.createOrdreLinje(10,klosterbrygFlaske);
         assertEquals(5,salgMedOrdrelinjer.getOrdrelinjer().size());
         assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(tiKloster));
