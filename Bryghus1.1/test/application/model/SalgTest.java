@@ -41,8 +41,8 @@ class SalgTest {
         vareController.addVareToVareGruppe(forårsbrygFadøl, fadøl);
         vareController.addVareToVareGruppe(glasUansetStørrelse, glas);
 
-        vareController.addVareGruppeToPrisliste(fredagsweehoo, fadøl, 40, 4);
-        vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 4);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo, fadøl, 40, 2);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 2);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
 
         salgMedOrdrelinjer = new Salg(fredagsweehoo);
@@ -120,17 +120,11 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void samletPrisKlip() {
-       // assertEquals(14, salgMedOrdrelinjer.samletPrisKlip());
+        //TC1
+       assertEquals(14, salgMedOrdrelinjer.samletPrisKlip());
 
-        assertEquals(0,salgUdenOrdrelinjer.samletPrisKlip());
-    }
-
-    @org.junit.jupiter.api.Test
-    void getId() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setId() {
+       //TC2
+       assertEquals(0,salgUdenOrdrelinjer.samletPrisKlip());
     }
 
     @org.junit.jupiter.api.Test
@@ -149,9 +143,20 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void getRabat() {
+        salgMedOrdrelinjer.setRabat(prabat);
+        assertEquals(prabat,salgMedOrdrelinjer.getRabat());
+
+        salgUdenOrdrelinjer.setRabat(null);
+        assertEquals(null, salgUdenOrdrelinjer.getRabat());
     }
 
     @org.junit.jupiter.api.Test
     void setRabat() {
+        salgMedOrdrelinjer.setRabat(prabat);
+        assertEquals(prabat,salgMedOrdrelinjer.getRabat());
+
+        salgUdenOrdrelinjer.setRabat(null);
+        assertEquals(null, salgUdenOrdrelinjer.getRabat());
+
     }
 }

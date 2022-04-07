@@ -133,12 +133,14 @@ public class SalgController {
         }
         return omsætning;
     }
-
+    public double getSamletPrisKlip(Salg salg){
+        return salg.samletPrisKlip();
+    }
     public double getSamletPris(Salg salg){
         double pris = salg.samletPris();
         return pris;
     }
-    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg){
+    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg) {
         return salg.getOrdrelinjer();
     }
 

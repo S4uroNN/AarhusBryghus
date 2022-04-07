@@ -24,7 +24,7 @@ SalgPane extends GridPane {
     private ComboBox<Prisliste> prislisteComboBox;
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
     private RadioButton rbFast, rbProcent;
-    private TextField txfRabat, txfSamletPris;
+    private TextField txfRabat, txfSamletPris, txfKlipPris;
     private ToggleGroup toggleGroup = new ToggleGroup();
     private ToggleGroup toggleGroupRabat = new ToggleGroup();
 
@@ -131,11 +131,15 @@ SalgPane extends GridPane {
         txfSamletPris = new TextField();
         txfSamletPris.setEditable(false);
 
+        txfKlipPris = new TextField();
+        txfKlipPris.setEditable(false);
+
         VBox vboxLabel = new VBox();
         vboxLabel.setSpacing(35);
         vboxLabel.getChildren().add(lblPrisliste);
         vboxLabel.getChildren().add(lblRabat);
         vboxLabel.getChildren().add(lblSamletPris);
+        vboxLabel.getChildren().add(new Label("Antal Klip:"));
         this.add(vboxLabel,2,1);
 
         HBox rabatBox = new HBox();
@@ -148,7 +152,8 @@ SalgPane extends GridPane {
         prisBox.getChildren().add(rabatBox);
         prisBox.getChildren().add(txfRabat);
         prisBox.getChildren().add(txfSamletPris);
-        prisBox.setSpacing(10);
+        prisBox.getChildren().add(txfKlipPris);
+        prisBox.setSpacing(15);
         this.add(prisBox, 3, 1);
     }
 
@@ -195,6 +200,7 @@ SalgPane extends GridPane {
             dia.showAndWait();
             lvwOrdre.getItems().setAll(salgController.getSalgOrdreLinjer(salg));
             txfSamletPris.setText(String.valueOf(salgController.getSamletPris(salg)));
+            txfKlipPris.setText(salgController.getSamletPrisKlip(salg)+ "");
             rbProcent.setDisable(false);
             rbFast.setDisable(false);
             txfRabat.setDisable(false);

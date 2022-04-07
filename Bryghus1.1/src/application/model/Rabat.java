@@ -4,3 +4,4 @@ public interface Rabat {
 
     double beregnRabat(double pris);
 }
+

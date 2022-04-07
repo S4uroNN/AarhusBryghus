@@ -8,6 +8,8 @@ public class KontantRabat implements Rabat{
         this.beloeb = beloeb;
 
     }
+
+
     @Override
     public double beregnRabat(double pris) {
         return beloeb;
