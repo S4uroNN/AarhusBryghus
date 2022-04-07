@@ -19,14 +19,25 @@ class SalgTest {
     Prisliste fredagsweehoo = vareController.createPrisliste("Fredags Cafe");
 
 
-
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-    vareController.addVareToVareGruppe(klosterbrygFlaske,flaske);
-    vareController.addVareToVareGruppe(forårsbrygFadøl,fadøl);
-    vareController.addVareToVareGruppe(glasUansetStørrelse,glas);
+        vareController.addVareToVareGruppe(klosterbrygFlaske, flaske);
+        vareController.addVareToVareGruppe(forårsbrygFadøl, fadøl);
+        vareController.addVareToVareGruppe(glasUansetStørrelse, glas);
 
-    Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo, fadøl, 40, 4);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 4);
+        vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
+
+        Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
+        salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
+        salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
+        salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
+        salgMedOrdrelinjer.setRabat(new ProcentRabat(10));
+
+        Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
+
+
     }
 
     @org.junit.jupiter.api.Test
