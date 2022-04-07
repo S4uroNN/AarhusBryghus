@@ -1,8 +1,10 @@
 package application.model;
 
 import application.controller.VareController;
+
 import storage.Storage;
 
+import static application.model.Betalingsform.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SalgTest {
@@ -25,8 +27,6 @@ class SalgTest {
     Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
     Ordrelinje forårsbryg = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
     Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
-    Salg salgMedOrdrelinjer;
-    Salg salgUdenOrdrelinjer;
 
     Ordrelinje klosterOrdrelinje;
     Ordrelinje forårOrdrelinje;
