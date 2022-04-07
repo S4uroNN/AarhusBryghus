@@ -1,8 +1,11 @@
 package application.model;
 
+import application.controller.SalgController;
 import application.controller.VareController;
 
 import storage.Storage;
+
+import javax.swing.*;
 
 import static application.model.Betalingsform.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -96,13 +99,30 @@ class SalgTest {
         salgMedOrdrelinjer.setRabat(rabat);
         assertEquals(465,salgMedOrdrelinjer.samletPris());
 
-        //TC4 - 0 rabat på salg, 10 på ordrelinje
+        //TC4 - 0 rabat på salg, 10 kroner på ordrelinje
+        salgMedOrdrelinjer.setRabat(null);
+        forårOrdrelinje.setRabat(new KontantRabat(10));
+        assertEquals(465,salgMedOrdrelinjer.samletPris());
+
+        //TC4 - 0 rabat på salg, 10 procent på ordrelinje
+        forårOrdrelinje.setRabat(new ProcentRabat(10));
+        assertEquals(467,salgMedOrdrelinjer.samletPris());
+
+        //TC6 - ingen orderlinje
+        assertEquals(0,salgUdenOrdrelinjer.samletPris());
+
+        //TC7- ingen orderlinje med procentrabat
+        salgUdenOrdrelinjer.setRabat(new ProcentRabat(10));
+        assertEquals(0,salgUdenOrdrelinjer.samletPris());
 
 
     }
 
     @org.junit.jupiter.api.Test
     void samletPrisKlip() {
+       // assertEquals(14, salgMedOrdrelinjer.samletPrisKlip());
+
+        assertEquals(0,salgUdenOrdrelinjer.samletPrisKlip());
     }
 
     @org.junit.jupiter.api.Test

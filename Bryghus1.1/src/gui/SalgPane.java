@@ -160,9 +160,6 @@ SalgPane extends GridPane {
             alert.setHeaderText("Salg Oprettet!");
             alert.showAndWait();
             btnStartSalg.setDisable(true);
-            rbProcent.setDisable(false);
-            rbFast.setDisable(false);
-            txfRabat.setDisable(false);
             btnPrisKorek.setDisable(false);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -198,6 +195,9 @@ SalgPane extends GridPane {
             dia.showAndWait();
             lvwOrdre.getItems().setAll(salgController.getSalgOrdreLinjer(salg));
             txfSamletPris.setText(String.valueOf(salgController.getSamletPris(salg)));
+            rbProcent.setDisable(false);
+            rbFast.setDisable(false);
+            txfRabat.setDisable(false);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Salg er ikke oprettet!");
