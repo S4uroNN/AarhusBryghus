@@ -23,6 +23,10 @@ public class VareController {
         return vareController;
     }
 
+    public static VareController getTestController() {
+        return new VareController();
+    }
+
 
     public Vare createVare(String navn) {
         Vare vare = new Vare(navn);
