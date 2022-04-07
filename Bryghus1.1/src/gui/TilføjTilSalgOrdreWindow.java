@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.SalgController;
 import application.controller.VareController;
+import application.model.Prisliste;
 import application.model.Salg;
 import application.model.Vare;
 import javafx.beans.value.ChangeListener;
@@ -20,20 +21,18 @@ public class TilføjTilSalgOrdreWindow extends Stage {
     private Vare vare;
     private Storage storage;
     private Salg salg;
+    private Prisliste prisliste;
     private SalgController salgController = SalgController.getSalgController();
     private VareController vareController = VareController.getController();
 
 
-    public TilføjTilSalgOrdreWindow(String title,Salg salg){
+    public TilføjTilSalgOrdreWindow(String title, Salg salg, Prisliste prisliste){
         this.setTitle("Tilføj Vare");
         GridPane pane = new GridPane();
         Scene scene = new Scene(pane);
         this.setScene(scene);
         this.initContent(pane);
         this.salg = salg;
-
-
-
     }
 
     private ListView<Vare> lvwVare = new ListView<>();

@@ -299,6 +299,7 @@ public class VareController {
         vareController.addVareToVareGruppe(julebryg, fustage);
         vareController.addVareToVareGruppe(julebryg30, fustage);
         vareController.addVareToVareGruppe(imperialstout, fustage);
+        vareController.addVareToVareGruppe(imperialstout30, fustage);
 
         //--VareGruppeTilføjelse----Kulsyre--
         vareController.addVareToVareGruppe(sixkgKulsyre, kulsyre);
@@ -365,6 +366,7 @@ public class VareController {
         butik.setPris(forårsbrygFustage30,((775/20.0)*30),0);
         butik.setPris(indianale30,((775/20.0)*30),0);
         butik.setPris(julebryg30,((775/20.0)*30),0);
+        butik.setPris(imperialstout30,((775/20.0)*30),0);
         //Kulsyre
         butik.setPris(firekg,((400/6.0)*4),0);
         butik.setPris(tikg,((400/6.0)*10),0);
@@ -426,13 +428,32 @@ public class VareController {
 
         Udlejning udlejning = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",fredagsweehoo);
         udlejning.createOrdreLinje(5,extraPilsnerFadøl);
-
         Udlejning udlejning1 = salgController.createUdlejning(LocalDate.now(),LocalDate.now(),"MAthias","51482610","alin_con",fredagsweehoo);
         udlejning1.createOrdreLinje(5,extraPilsnerFadøl);
-
         salgController.afslutUdlejning(udlejning,Betalingsform.DANKORT);
 
 
+        vareController.addVareGruppeToPrisliste(udlejningprisliste,fustage,775,0);
+        vareController.addVareGruppeToPrisliste(udlejningprisliste,anlæg,500,0);
+        //fustageændringer
+        udlejningprisliste.setPris(klosterbrygFustage30,((775/20.0)*30),0);
+        udlejningprisliste.setPris(jazz30,((625/25.0)*30),0);
+        udlejningprisliste.setPris(extrapilsner,575,0);
+        udlejningprisliste.setPris(extrapilsner30,((575/25.1)*30),0);
+        udlejningprisliste.setPris(celebration30,((775/20.0)*30),0);
+        udlejningprisliste.setPris(blondie,700,0);
+        udlejningprisliste.setPris(blondie30,((700/20.0)*30),0);
+        udlejningprisliste.setPris(forårsbrygFustage30,((775/20.0)*30),0);
+        udlejningprisliste.setPris(indianale30,((775/20.0)*30),0);
+        udlejningprisliste.setPris(julebryg30,((775/20.0)*30),0);
+        udlejningprisliste.setPris(imperialstout30,((775/20.0)*30),0);
+        //Kulsyre
+        udlejningprisliste.setPris(firekg,((400/6.0)*4),0);
+        udlejningprisliste.setPris(tikg,((400/6.0)*10),0);
+        //anlægændringer
+        udlejningprisliste.setPris(enhane,250, 0);
+        udlejningprisliste.setPris(tohaner,400, 0);
+        udlejningprisliste.setPris(krus,60, 0);
     }
 
 

@@ -32,6 +32,7 @@ public class SalgPane extends GridPane {
     private Storage storage = Storage.getInstance();
 
     private Salg salg;
+    private Prisliste prisliste;
 
 
     public SalgPane() {
@@ -157,7 +158,7 @@ public class SalgPane extends GridPane {
     }
 
     private void startSalg() {
-        Prisliste prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
+        prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         if (prisliste != null){
             salg = salgController.createSalg(prisliste);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -195,7 +196,7 @@ public class SalgPane extends GridPane {
     }
     private void tilføjVareAction(){
         if (salg != null) {
-            TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg);
+            TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg, prisliste);
             dia.showAndWait();
             lvwOrdre.getItems().setAll(salgController.getSalgOrdreLinjer(salg));
             txfSamletPris.setText(String.valueOf(salgController.getSamletPris(salg)));
