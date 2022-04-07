@@ -110,6 +110,7 @@ public class SalgController {
                         brugteKlip += salg.samletPrisKlip();
                 }
             }
+            dato = dato.plusDays(1);
         }
         return brugteKlip;
     }
