@@ -176,7 +176,11 @@ SalgPane extends GridPane {
             lvwOrdre.getItems().clear();
             txfSamletPris.clear();
             toggleGroup.selectToggle(null);
+            toggleGroupRabat.selectToggle(null);
+            rbFast.setDisable(true);
+            rbProcent.setDisable(true);
             btnStartSalg.setDisable(false);
+            txfRabat.clear();
             prislisteComboBox.getSelectionModel().clearSelection();
             salg = null;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
