@@ -3,6 +3,9 @@ package application.model;
 import application.controller.VareController;
 import storage.Storage;
 
+import java.time.LocalDate;
+
+import static application.model.Betalingsform.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SalgTest {
@@ -18,6 +21,13 @@ class SalgTest {
 
     Prisliste fredagsweehoo = vareController.createPrisliste("Fredags Cafe");
 
+    KontantRabat rabat = new KontantRabat(10);
+    ProcentRabat prabat = new ProcentRabat(10);
+
+
+    Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
+    Ordrelinje forårsbryg = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
+    Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -29,13 +39,11 @@ class SalgTest {
         vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 4);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
 
-        Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
-        salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
-        salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
-        salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
-        salgMedOrdrelinjer.setRabat(new ProcentRabat(10));
 
-        Salg salgUdenOrdrelinjer = new Salg(fredagsweehoo);
+        salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
+        salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
+
+
     }
 
     @org.junit.jupiter.api.Test
@@ -45,14 +53,45 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void setBetalingsform() {
+        salgMedOrdrelinjer.setBetalingsform(DANKORT);
+        assertEquals(DANKORT,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(MOBILEPAY);
+        assertEquals(MOBILEPAY,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(KONTANT);
+        assertEquals(KONTANT,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(REGNING);
+        assertEquals(REGNING,salgMedOrdrelinjer.getBetalingsform());
+
+        salgMedOrdrelinjer.setBetalingsform(KLIPPEKORT);
+        assertEquals(KLIPPEKORT,salgMedOrdrelinjer.getBetalingsform());
+
+
     }
 
     @org.junit.jupiter.api.Test
     void getOrdrelinjer() {
+
     }
 
     @org.junit.jupiter.api.Test
     void samletPris() {
+        //TC1
+        assertEquals(475,salgMedOrdrelinjer.samletPris());
+
+        //TC2 - procent Rabat for salg
+        salgMedOrdrelinjer.setRabat(prabat);
+        assertEquals(427.5,salgMedOrdrelinjer.samletPris());
+
+        //TC3 - fast Rabat for salg
+        salgMedOrdrelinjer.setRabat(rabat);
+        assertEquals(465,salgMedOrdrelinjer.samletPris());
+
+        //TC4 - 0 rabat på salg, 10 på ordrelinje
+
+
     }
 
     @org.junit.jupiter.api.Test

@@ -87,8 +87,14 @@ public class PriskorrektionWindow extends Stage {
 
     private void tilføjRabat(){
         if(rdbFast.isSelected()){
-            double beloeb = Double.parseDouble(txfPris.getText().trim());
-            salgController.setFastRabatOrdrelinje(ordrelinje,beloeb);
+            if(Double.parseDouble(txfPris.getText().trim()) <=0){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Rabat skal være større en 0");
+                alert.showAndWait();
+            }else{
+                double beloeb = Double.parseDouble(txfPris.getText().trim());
+                salgController.setFastRabatOrdrelinje(ordrelinje,beloeb);
+            }
         } else if(rdbProcent.isSelected()){
             double beloeb = Double.parseDouble(txfPris.getText().trim());
             salgController.setProcentRabatOrdrelinje(ordrelinje,beloeb);
