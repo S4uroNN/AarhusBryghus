@@ -82,6 +82,12 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void getBetalingsform() {
+        salgMedOrdrelinjer.setBetalingsform(Betalingsform.DANKORT);
+        //Assert
+        assertEquals(Betalingsform.DANKORT,Betalingsform.DANKORT);
+        salgMedOrdrelinjer.setBetalingsform(Betalingsform.KLIPPEKORT);
+        //Assert
+        assertEquals(Betalingsform.KLIPPEKORT,Betalingsform.KLIPPEKORT);
     }
 
     @org.junit.jupiter.api.Test
