@@ -49,6 +49,7 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void getOrdrelinjer() {
+
     }
 
     @org.junit.jupiter.api.Test
@@ -69,6 +70,8 @@ class SalgTest {
 
     @org.junit.jupiter.api.Test
     void getBetalingsform() {
+
+
     }
 
     @org.junit.jupiter.api.Test
