@@ -17,8 +17,7 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class
-SalgPane extends GridPane {
+public class SalgPane extends GridPane {
     private ListView<Ordrelinje> lvwOrdre = new ListView<>();
     private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg,btnPrisKorek;
     private ComboBox<Prisliste> prislisteComboBox;
