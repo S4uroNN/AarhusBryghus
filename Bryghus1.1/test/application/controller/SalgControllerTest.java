@@ -23,7 +23,7 @@ class SalgControllerTest {
     Vare klosterbrygFlaske = vareController.createVare("Klosterbryg Flaske");
     Vare forårsbrygFadøl = vareController.createVare("Forårsbryg Fadøl");
     Vare glasUansetStørrelse = vareController.createVare("Glas");
-    Vare klippekortVare = new Klippekort("Klippekort");
+    Vare klippekort = vareController.createVare("Klippekort");
 
     Salg salgMedOrdrelinjer = new Salg(fredagsweehoo);
     Ordrelinje forårsbryg = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
@@ -32,7 +32,7 @@ class SalgControllerTest {
     Ordrelinje klosterOrdrelinje;
     Ordrelinje forårOrdrelinje;
     Ordrelinje glasOrdrelinje;
-    Ordrelinje klippekort;
+    Ordrelinje klippekortOrdrelinje;
 
     @BeforeEach
     void setUp() {
@@ -44,34 +44,41 @@ class SalgControllerTest {
         vareController.addVareGruppeToPrisliste(fredagsweehoo, fadøl, 40, 2);
         vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 2);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
-        vareController.addVareToPrisliste(fredagsweehoo,klippekortVare,100,10);
+        vareController.addVareToPrisliste(fredagsweehoo,klippekort,100,10);
 
-        salgMedOrdrelinjer = new Salg(fredagsweehoo);
+        salgMedOrdrelinjer = salgController.createSalg(fredagsweehoo);
         klosterOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
         forårOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
         glasOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
-        klippekort = salgMedOrdrelinjer.createOrdreLinje(1,klippekortVare);
+        klippekortOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(1,klippekort);
         salgMedOrdrelinjer.setBetalingsform(Betalingsform.DANKORT);
 
 
         salgUdenOrdrelinjer = new Salg(fredagsweehoo);
+        Salg salg = salgController.createSalg(fredagsweehoo);
+        salg.createOrdreLinje(1, klosterbrygFlaske);
+        salg.setBetalingsform(Betalingsform.KLIPPEKORT);
+
+
     }
 
     @Test
     void getSolgteKlip() {
 
         System.out.println(salgController.getSolgteKlip(LocalDate.now(),LocalDate.now()));
-        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(klippekort));
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(klosterOrdrelinje));
 
         assertEquals(10,salgController.getSolgteKlip(LocalDate.now(),LocalDate.now()));
     }
 
     @Test
-    void getBrugteKlip() {
-        assertEquals(100,salgController.getBrugteKlip(LocalDate.of(05,04,22),LocalDate.now()));
+    void getBrugteKlip(){
+        assertEquals(2,salgController.getBrugteKlip(LocalDate.of(05,04,22),LocalDate.now()));
     }
 
     @Test
     void getOmsætning() {
+        assertEquals(575, salgController.getOmsætning(LocalDate.now()));
+
     }
 }

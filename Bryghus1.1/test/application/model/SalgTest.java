@@ -11,7 +11,8 @@ import static application.model.Betalingsform.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SalgTest {
-    VareController vareController = VareController.getController();
+    VareController vareController = VareController.getTestController();
+    SalgController salgController = SalgController.getTestController();
 
     VareGruppe fadøl = vareController.createVareGruppe("Fadøl, 40cl", 0);
     VareGruppe flaske = vareController.createVareGruppe("Flaske", 0);
@@ -45,7 +46,7 @@ class SalgTest {
         vareController.addVareGruppeToPrisliste(fredagsweehoo, flaske, 70, 2);
         vareController.addVareGruppeToPrisliste(fredagsweehoo,glas,15,0);
 
-        salgMedOrdrelinjer = new Salg(fredagsweehoo);
+        salgMedOrdrelinjer = salgController.createSalg(fredagsweehoo);
         klosterOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(5,klosterbrygFlaske);
         forårOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
         glasOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);

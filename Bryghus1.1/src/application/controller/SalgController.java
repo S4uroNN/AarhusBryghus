@@ -119,7 +119,9 @@ public class SalgController {
         double omsætning = 0;
         if (storage.getSalg().get(dato) != null) {
             for (Salg salg : storage.getSalg().get(dato)) {
-                omsætning += salg.samletPris();
+                if(salg.getBetalingsform() != Betalingsform.KLIPPEKORT){
+                    omsætning += salg.samletPris();
+                }
             }
         }
         if (storage.getAfsluttedeUdlejninger().get(dato) != null) {
