@@ -34,7 +34,7 @@ public class SalgController {
         return salg;
     }
 
-    public Map<LocalDate,Set<Salg>> getSalg(){
+    public Map<LocalDate, Set<Salg>> getSalg() {
         return storage.getSalg();
     }
 
@@ -44,11 +44,11 @@ public class SalgController {
         return udlejning;
     }
 
-    public Map<LocalDate,Set<Udlejning>> getAfsluttedeUdlejninger(){
+    public Map<LocalDate, Set<Udlejning>> getAfsluttedeUdlejninger() {
         return storage.getAfsluttedeUdlejninger();
     }
 
-    public Set<Udlejning> getAktiveUdlejninger(){
+    public Set<Udlejning> getAktiveUdlejninger() {
         return storage.getAktiveUdlejninger();
     }
 
@@ -132,7 +132,7 @@ public class SalgController {
         double omsætning = 0;
         if (storage.getSalg().get(dato) != null) {
             for (Salg salg : storage.getSalg().get(dato)) {
-                if(salg.getBetalingsform() != Betalingsform.KLIPPEKORT){
+                if (salg.getBetalingsform() != Betalingsform.KLIPPEKORT) {
                     omsætning += salg.samletPris();
                 }
             }
@@ -152,21 +152,25 @@ public class SalgController {
         }
         return omsætning;
     }
-    public double getSamletPrisKlip(Salg salg){
+
+    public double getSamletPrisKlip(Salg salg) {
         return salg.samletPrisKlip();
     }
-    public double getSamletPris(Salg salg){
+
+    public double getSamletPris(Salg salg) {
         double pris = salg.samletPris();
         return pris;
     }
-    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg){
+
+    public Set<Ordrelinje> getSalgOrdreLinjer(Salg salg) {
         return salg.getOrdrelinjer();
     }
 
-    public double getSamletPrisUDl(Udlejning udlejning){
+    public double getSamletPrisUDl(Udlejning udlejning) {
         return udlejning.samletPris();
     }
-    public Set<Ordrelinje> getUDlOrdrelinjer(Udlejning udlejning){
+
+    public Set<Ordrelinje> getUDlOrdrelinjer(Udlejning udlejning) {
         return udlejning.getOrdrelinjer();
     }
 

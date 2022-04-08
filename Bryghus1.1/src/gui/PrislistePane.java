@@ -18,7 +18,7 @@ public class PrislistePane extends GridPane {
     private ListView<Vare> lvwVarer = new ListView<>();
 
     private Button btnAddPrisliste, btnDeletePrisliste, btnEditPrisliste, btnTilføjVare, btnTilføjVareGruppe, btnFjernVare;
-    private VareController vareController = VareController.getController();
+    private VareController vareController;
 
     public PrislistePane() {
         this.setPadding(new Insets(20));

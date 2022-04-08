@@ -36,6 +36,7 @@ public class Udlejning implements Serializable {
         ordrelinjer.add(ordrelinje);
         return ordrelinje;
     }
+
     public void removeOrdreLinje(Ordrelinje ordrelinje){
         ordrelinjer.remove(ordrelinje);
     }

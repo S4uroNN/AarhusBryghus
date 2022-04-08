@@ -11,8 +11,7 @@ import java.util.HashSet;
 public class VareController {
     private Storage storage;
     private static VareController vareController;
-    private SalgController salgController = SalgController.getSalgController();
-    
+
 
     private VareController() {
         storage = Storage.getInstance();

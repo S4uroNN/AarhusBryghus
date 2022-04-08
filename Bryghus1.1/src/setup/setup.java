@@ -333,9 +333,9 @@ public class setup {
 
 
         Udlejning udlejning = salgController.createUdlejning(LocalDate.now(), LocalDate.now(), "Mathias", "51482610", "alin_con", fredagsweehoo);
-        udlejning.createOrdreLinje(5, extraPilsnerFadøl);
+        salgController.createOrdrelinjeUdlejning(udlejning, 5, extraPilsnerFadøl);
         Udlejning udlejning1 = salgController.createUdlejning(LocalDate.now(), LocalDate.now(), "Mathias", "51482610", "alin_con", fredagsweehoo);
-        udlejning1.createOrdreLinje(5, extraPilsnerFadøl);
+        salgController.createOrdrelinjeUdlejning(udlejning1, 5, extraPilsnerFadøl);
         salgController.afslutUdlejning(udlejning, Betalingsform.DANKORT);
 
 

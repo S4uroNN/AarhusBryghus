@@ -9,12 +9,12 @@ import java.util.*;
 public class Storage implements Serializable {
     private static Storage storage;
 
-    private Set<Vare> varer = new HashSet<>();
-    private Set<Prisliste> prislister = new HashSet<>();
-    private Set<VareGruppe> varegrupper = new HashSet<>();
-    private Map<LocalDate, Set<Salg>> alleSalg = new HashMap<>();
-    private Map<LocalDate, Set<Udlejning>> afslutedeUdlejninger = new HashMap<>();
-    private Set<Udlejning> aktiveUdlejninger = new HashSet<>();
+    private final Set<Vare> varer = new HashSet<>();
+    private final Set<Prisliste> prislister = new HashSet<>();
+    private final Set<VareGruppe> varegrupper = new HashSet<>();
+    private final Map<LocalDate, Set<Salg>> alleSalg = new HashMap<>();
+    private final Map<LocalDate, Set<Udlejning>> afsluttedeUdlejninger = new HashMap<>();
+    private final Set<Udlejning> aktiveUdlejninger = new HashSet<>();
 
     private Storage() {
     }
@@ -79,19 +79,19 @@ public class Storage implements Serializable {
 
 
     public HashMap<LocalDate, Set<Udlejning>> getAfsluttedeUdlejninger() {
-        return new HashMap<>(afslutedeUdlejninger);
+        return new HashMap<>(afsluttedeUdlejninger);
     }
 
     public void addAfsluttetUdlejning(Udlejning udlejning) {
         LocalDate dato = LocalDate.now();
-        if (afslutedeUdlejninger.get(dato) == null) {
-            afslutedeUdlejninger.put(dato, new HashSet<Udlejning>());
+        if (afsluttedeUdlejninger.get(dato) == null) {
+            afsluttedeUdlejninger.put(dato, new HashSet<>());
         }
-        afslutedeUdlejninger.get(dato).add(udlejning);
+        afsluttedeUdlejninger.get(dato).add(udlejning);
     }
 
     public void removeAfsluttetUdlejning(LocalDate dato, Udlejning udlejning) {
-        afslutedeUdlejninger.get(dato).remove(udlejning);
+        afsluttedeUdlejninger.get(dato).remove(udlejning);
     }
 
 
