@@ -18,7 +18,7 @@ public class PrislistePane extends GridPane {
     private ListView<Vare> lvwVarer = new ListView<>();
 
     private Button btnAddPrisliste, btnDeletePrisliste, btnEditPrisliste, btnTilføjVare, btnTilføjVareGruppe, btnFjernVare;
-    private VareController vareController;
+    private VareController vareController = VareController.getController();
 
     public PrislistePane() {
         this.setPadding(new Insets(20));
@@ -86,10 +86,10 @@ public class PrislistePane extends GridPane {
     }
 
     private void tilføjAction() {
-            PrisListeWindow tilføj = new PrisListeWindow("Tilføj Prisliste");
-            tilføj.showAndWait();
+        PrisListeWindow tilføj = new PrisListeWindow("Tilføj Prisliste");
+        tilføj.showAndWait();
 
-            lvwPrislister.getItems().setAll(vareController.getPrislister());
+        lvwPrislister.getItems().setAll(vareController.getPrislister());
 
     }
 
@@ -105,7 +105,7 @@ public class PrislistePane extends GridPane {
                 lvwPrislister.getItems().setAll(vareController.getPrislister());
                 lvwVarer.getItems().clear();
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en prisliste!");
             alert.showAndWait();
@@ -119,57 +119,57 @@ public class PrislistePane extends GridPane {
             ret.showAndWait();
 
             lvwPrislister.getItems().setAll(vareController.getPrislister());
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en prisliste!");
             alert.showAndWait();
         }
     }
 
-    private void tilføjVareAction(){
+    private void tilføjVareAction() {
         Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
         if (selected != null) {
             TilføjVareTilPrislisteWindow tilføj = new TilføjVareTilPrislisteWindow("Tilføj til prisliste", selected);
             tilføj.showAndWait();
 
             lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en prisliste!");
             alert.showAndWait();
         }
     }
 
-    private void tilføjVaregruppeAction(){
+    private void tilføjVaregruppeAction() {
         Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
         if (selected != null) {
             TilføjVaregruppeTilPrislisteWindow tilføj = new TilføjVaregruppeTilPrislisteWindow("Tilføj til prisliste", selected);
             tilføj.showAndWait();
 
             lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en prisliste!");
             alert.showAndWait();
         }
     }
 
-    private void fjernVareAction(){
+    private void fjernVareAction() {
         Prisliste selectedPrisliste = lvwPrislister.getSelectionModel().getSelectedItem();
         Vare selectedVare = lvwVarer.getSelectionModel().getSelectedItem();
-        if (selectedPrisliste != null && selectedVare != null){
-            vareController.fjernVarefromPrisliste(selectedPrisliste,selectedVare);
+        if (selectedPrisliste != null && selectedVare != null) {
+            vareController.fjernVarefromPrisliste(selectedPrisliste, selectedVare);
             lvwVarer.getItems().setAll(selectedPrisliste.getTilføjedeVarer());
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Du har ikke valgt en vare eller prisliste!");
             alert.showAndWait();
         }
     }
 
-    private void selectedPrislisteChanged(){
+    private void selectedPrislisteChanged() {
         Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
-        if(selected != null){
+        if (selected != null) {
             lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
         }
 
