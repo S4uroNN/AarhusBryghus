@@ -1,9 +1,10 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ordrelinje {
+public class Ordrelinje implements Serializable {
     private int antal;
     private Rabat rabat;
     private Vare vare;

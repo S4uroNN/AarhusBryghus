@@ -38,7 +38,6 @@ public class SalgPane extends GridPane {
         this.setPadding(new Insets(20));
         this.setGridLinesVisible(false);
 
-        salgController.loadStorage();
 
         Label lblOrdre = new Label("Ordre:");
         this.add(lblOrdre, 0, 0);

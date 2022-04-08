@@ -29,8 +29,6 @@ public class VisUdlejningPane extends GridPane {
     private Udlejning udlejning;
     public VisUdlejningPane() {
 
-        salgController.loadStorage();
-
         this.setPadding(new Insets(20));
         setHgap(20);
         setHgap(10);
@@ -41,7 +39,7 @@ public class VisUdlejningPane extends GridPane {
 
         this.add(new Label("Afsluttede Udlejninger"),1,0);
         this.add(lvwAfsluttedeUdlejninger,1,1);
-        lvwAfsluttedeUdlejninger.getItems().setAll(salgController.getAfsluttedeUdlejninger().get(LocalDate.now())); //SUTUFF
+        lvwAfsluttedeUdlejninger.getItems().setAll(salgController.getAfsluttedeUdlejninger().get(LocalDate.now()));
 
         ChangeListener<Udlejning> listener = (ov, oldArrangement, newArrangement) -> this.selectedAfsluttetUdlejningChanged();
         lvwAfsluttedeUdlejninger.getSelectionModel().selectedItemProperty().addListener(listener);

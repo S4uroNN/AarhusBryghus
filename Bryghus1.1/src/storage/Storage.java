@@ -30,11 +30,11 @@ public class Storage implements Serializable {
         return new HashSet<>(varer);
     }
 
-    public void addVare(Vare vare){
+    public void addVare(Vare vare) {
         varer.add(vare);
     }
 
-    public void removeVare(Vare vare){
+    public void removeVare(Vare vare) {
         varer.remove(vare);
     }
 
@@ -43,11 +43,11 @@ public class Storage implements Serializable {
         return new HashSet<>(prislister);
     }
 
-    public void addPrisliste(Prisliste prisliste){
+    public void addPrisliste(Prisliste prisliste) {
         prislister.add(prisliste);
     }
 
-    public void removePrisliste(Prisliste prisliste){
+    public void removePrisliste(Prisliste prisliste) {
         prislister.remove(prisliste);
     }
 
@@ -56,58 +56,54 @@ public class Storage implements Serializable {
         return new HashSet<>(varegrupper);
     }
 
-    public void addVareGruppe(VareGruppe varegruppe){
+    public void addVareGruppe(VareGruppe varegruppe) {
         varegrupper.add(varegruppe);
     }
 
-    public void removeVareGruppe(VareGruppe varegruppe){
+    public void removeVareGruppe(VareGruppe varegruppe) {
         varegrupper.remove(varegruppe);
     }
 
 
-    public HashMap<LocalDate, Set<Salg>> getSalg(){
+    public HashMap<LocalDate, Set<Salg>> getSalg() {
         return new HashMap<>(alleSalg);
     }
 
-    public void addSalg(Salg salg){
+    public void addSalg(Salg salg) {
         LocalDate dato = LocalDate.now();
-        if (alleSalg.get(dato) == null){
-            alleSalg.put(dato,new HashSet<Salg>());
+        if (alleSalg.get(dato) == null) {
+            alleSalg.put(dato, new HashSet<Salg>());
         }
         alleSalg.get(dato).add(salg);
     }
 
-    public void removeDagsproduktion(LocalDate dato, Salg salg){
-        alleSalg.get(dato).remove(salg);
-    }
 
-
-    public HashMap<LocalDate, Set<Udlejning>> getAfsluttedeUdlejninger(){
+    public HashMap<LocalDate, Set<Udlejning>> getAfsluttedeUdlejninger() {
         return new HashMap<>(afslutedeUdlejninger);
     }
 
-    public void addAfsluttetUdlejning(Udlejning udlejning){
+    public void addAfsluttetUdlejning(Udlejning udlejning) {
         LocalDate dato = LocalDate.now();
-        if (afslutedeUdlejninger.get(dato) == null){
-            afslutedeUdlejninger.put(dato,new HashSet<Udlejning>());
+        if (afslutedeUdlejninger.get(dato) == null) {
+            afslutedeUdlejninger.put(dato, new HashSet<Udlejning>());
         }
         afslutedeUdlejninger.get(dato).add(udlejning);
     }
 
-    public void removeAfsluttetUdlejning (LocalDate dato, Udlejning udlejning){
+    public void removeAfsluttetUdlejning(LocalDate dato, Udlejning udlejning) {
         afslutedeUdlejninger.get(dato).remove(udlejning);
     }
 
 
-    public HashSet<Udlejning> getAktiveUdlejninger(){
+    public HashSet<Udlejning> getAktiveUdlejninger() {
         return new HashSet<>(aktiveUdlejninger);
     }
 
-    public void addAktivUdlejning(Udlejning udlejning){
+    public void addAktivUdlejning(Udlejning udlejning) {
         aktiveUdlejninger.add(udlejning);
     }
 
-    public void removeAktivUdlejning(Udlejning udlejning){
+    public void removeAktivUdlejning(Udlejning udlejning) {
         aktiveUdlejninger.remove(udlejning);
     }
 

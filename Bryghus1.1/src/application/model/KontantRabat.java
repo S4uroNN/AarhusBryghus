@@ -1,7 +1,9 @@
 package application.model;
 
 
-public class KontantRabat implements Rabat{
+import java.io.Serializable;
+
+public class KontantRabat implements Rabat, Serializable {
     private double beloeb;
 
     public KontantRabat(double beloeb){

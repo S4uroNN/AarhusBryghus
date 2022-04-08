@@ -13,9 +13,11 @@ public class StartVindue extends Application {
     private VareController vareController = VareController.getController();
 
     private void initContent(BorderPane pane) {
+        vareController.loadStorage();
         TabPane tabPane = new TabPane();
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);
+
     }
 
     public void start(Stage stage) throws Exception {

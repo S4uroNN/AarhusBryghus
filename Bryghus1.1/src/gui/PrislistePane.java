@@ -28,7 +28,6 @@ public class PrislistePane extends GridPane {
         setMaxWidth(700);
 
         vareController = VareController.getController();
-        vareController.loadStorage();
         lvwPrislister.getItems().setAll(vareController.getPrislister());
 
         Label lblVareGruppe = new Label("Prislister");

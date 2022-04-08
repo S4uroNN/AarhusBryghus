@@ -5,7 +5,6 @@ import storage.Storage;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -56,8 +55,8 @@ public class SalgController {
 
     public Udlejning afslutUdlejning(Udlejning udlejning, Betalingsform betalingsform) {
         udlejning.setBetalingsform(betalingsform);
-        storage.removeAktivUdlejning(udlejning);
         storage.addAfsluttetUdlejning(udlejning);
+        storage.removeAktivUdlejning(udlejning);
         return udlejning;
     }
 

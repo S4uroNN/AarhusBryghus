@@ -25,10 +25,6 @@ public class VarePane extends GridPane {
 
 
     public VarePane() {
-
-        vareController.loadStorage();
-
-        vareController.initStorage(); //Remove?
         updateLists();
 
         this.setPadding(new Insets(20));

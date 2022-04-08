@@ -52,7 +52,6 @@ public class TilføjVareGruppeWindow extends Stage {
         pane.setGridLinesVisible(false);
 
         vareController = VareController.getController();
-        vareController.loadStorage();
 
 //------------------------------------------------------------------------------------
         Label lblNavn = new Label("Navn:");

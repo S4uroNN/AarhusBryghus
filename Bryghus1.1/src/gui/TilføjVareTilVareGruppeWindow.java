@@ -48,8 +48,6 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(650);
 
-        vareController.loadStorage();
-
 
         pane.add(new Label("Tilføjet"),0,0);
         pane.add(new Label("Vare"),1,0);

@@ -50,8 +50,6 @@ public class TilføjVareWindow extends Stage {
         pane2.setGridLinesVisible(false);
         pane2.setPrefWidth(250);
 
-        vareController.loadStorage();
-
 
         pane2.add(new Label("Vare: " + vare),0,0,2,1);
         pane2.add(new Label("Navn: "),0,1);

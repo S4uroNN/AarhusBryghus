@@ -46,8 +46,6 @@ public class TilføjTilOrdreWindow extends Stage {
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(250);
 
-        salgController.loadStorage();
-
         cbvarer = new ComboBox<>();
         cbvarer.getItems().setAll(prisliste.getTilføjedeVarer());
 

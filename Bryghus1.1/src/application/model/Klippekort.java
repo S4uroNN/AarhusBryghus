@@ -1,6 +1,8 @@
 package application.model;
 
-public class Klippekort extends Vare{
+import java.io.Serializable;
+
+public class Klippekort extends Vare implements Serializable {
 
     private int klip;
 

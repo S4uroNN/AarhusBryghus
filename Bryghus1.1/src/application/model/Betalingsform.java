@@ -1,3 +1,5 @@
 package application.model;
 
-public enum Betalingsform {DANKORT, MOBILEPAY, KONTANT, REGNING, KLIPPEKORT}
+import java.io.Serializable;
+
+public enum Betalingsform implements Serializable {DANKORT, MOBILEPAY, KONTANT, REGNING, KLIPPEKORT}

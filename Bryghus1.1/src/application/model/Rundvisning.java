@@ -1,9 +1,10 @@
 package application.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Rundvisning extends Vare {
+public class Rundvisning extends Vare implements Serializable {
     private LocalDate dato;
     private LocalTime tid;
 
