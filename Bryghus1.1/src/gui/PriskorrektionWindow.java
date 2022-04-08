@@ -87,6 +87,11 @@ public class PriskorrektionWindow extends Stage {
 
     }
 
+    public void stop() {
+        salgController.saveStorage();
+    }
+
+
     private void tilføjRabat(){
         if(rdbFast.isSelected()){
             if(Double.parseDouble(txfPris.getText().trim()) <=0){

@@ -73,6 +73,10 @@ public class TilføjTilOrdreWindow extends Stage {
 
     }
 
+    public void stop() {
+        salgController.saveStorage();
+    }
+
     private void tilføjTilOrder() {
         Vare vare = (Vare) cbvarer.getSelectionModel().getSelectedItem();
         int antal = Integer.parseInt(txfAntal.getText().trim());

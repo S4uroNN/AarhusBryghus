@@ -68,4 +68,9 @@ public class StartVindue extends Application {
 
 
     }
+
+    public void stop() {
+        vareController.saveStorage();
+    }
+
 }

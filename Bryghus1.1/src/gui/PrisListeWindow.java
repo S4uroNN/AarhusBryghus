@@ -66,6 +66,10 @@ public class PrisListeWindow extends Stage {
         lblError.setStyle("-fx-text-fill: red");
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void initControls() {
         if (prisliste != null) {
             txfNavn.setText(prisliste.getNavn());

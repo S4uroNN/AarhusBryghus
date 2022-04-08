@@ -90,6 +90,11 @@ public class TilføjTilSalgOrdreWindow extends Stage {
         pane.add(lblError,0,3);
         lblError.setStyle("-fx-text-fill: red");
     }
+
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void tilføjVare() {
         lblError.setText("");
         Vare vare = lvwVare.getSelectionModel().getSelectedItem();

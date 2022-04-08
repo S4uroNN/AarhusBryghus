@@ -86,6 +86,10 @@ public class PrislistePane extends GridPane {
         lowerVbox.setAlignment(Pos.BOTTOM_RIGHT);
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void tilføjAction() {
         PrisListeWindow tilføj = new PrisListeWindow("Tilføj Prisliste");
         tilføj.showAndWait();

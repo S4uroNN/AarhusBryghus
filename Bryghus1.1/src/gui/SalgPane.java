@@ -156,6 +156,11 @@ public class SalgPane extends GridPane {
         this.add(prisBox, 3, 1);
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
+
     private void startSalg() {
         prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         if (prisliste != null){
