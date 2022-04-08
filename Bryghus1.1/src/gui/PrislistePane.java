@@ -9,7 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import storage.Storage;
+
 
 import java.util.Optional;
 
@@ -19,7 +19,6 @@ public class PrislistePane extends GridPane {
 
     private Button btnAddPrisliste, btnDeletePrisliste, btnEditPrisliste, btnTilføjVare, btnTilføjVareGruppe, btnFjernVare;
     private VareController vareController;
-    private Storage storage = Storage.getInstance();
 
     public PrislistePane() {
         this.setPadding(new Insets(20));
@@ -29,7 +28,7 @@ public class PrislistePane extends GridPane {
         setMaxWidth(700);
 
         vareController = VareController.getController();
-        lvwPrislister.getItems().setAll(storage.getPrislister());
+        lvwPrislister.getItems().setAll(vareController.getPrislister());
 
         Label lblVareGruppe = new Label("Prislister");
         this.add(lblVareGruppe, 0, 0);
@@ -87,10 +86,11 @@ public class PrislistePane extends GridPane {
     }
 
     private void tilføjAction() {
-        PrisListeWindow tilføj = new PrisListeWindow("Tilføj Prisliste");
-        tilføj.showAndWait();
+            PrisListeWindow tilføj = new PrisListeWindow("Tilføj Prisliste");
+            tilføj.showAndWait();
 
-        lvwPrislister.getItems().setAll(vareController.getPrislister());
+            lvwPrislister.getItems().setAll(vareController.getPrislister());
+
     }
 
     private void sletAction() {
@@ -169,7 +169,10 @@ public class PrislistePane extends GridPane {
 
     private void selectedPrislisteChanged(){
         Prisliste selected = lvwPrislister.getSelectionModel().getSelectedItem();
-        lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
+        if(selected != null){
+            lvwVarer.getItems().setAll(selected.getTilføjedeVarer());
+        }
+
     }
 
 

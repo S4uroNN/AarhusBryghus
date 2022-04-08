@@ -1,13 +1,13 @@
 package gui;
 
 import application.controller.SalgController;
+import application.controller.VareController;
 import application.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import storage.Storage;
 
 import java.time.LocalDate;
 
@@ -18,11 +18,12 @@ public class UdlejningPane extends GridPane {
     private Button btnTilføj, btnFjern, btnOpretUdlejning, btnAfslutUdlejning, btnNyUdlejning,btnRetPris;
     private RadioButton rdbDankort, rdbMobilepay, rdbKontant, rdbRegning;
     private RadioButton rdbFast, rdbProcent;
-    private ComboBox cbPrisliste;
+    private ComboBox<Prisliste> cbPrisliste;
 
-    private Storage storage = Storage.getInstance();
     private SalgController salgController = SalgController.getSalgController();
+    private VareController vareController = VareController.getController();
     private Udlejning udlejning;
+    private Prisliste prisliste;
 
     public UdlejningPane() {
 
@@ -75,7 +76,7 @@ public class UdlejningPane extends GridPane {
 
 
         cbPrisliste = new ComboBox<>();
-        cbPrisliste.getItems().setAll(storage.getPrislister());
+        cbPrisliste.getItems().setAll(vareController.getPrislister());
 
 
         VBox vBoxLabel = new VBox();
@@ -174,7 +175,7 @@ public class UdlejningPane extends GridPane {
         String kontaktPerson = txfNavn.getText().trim();
         String email = txfEmail.getText().trim();
         String telefonr = txfTlfnr.getText().trim();
-        Prisliste prisliste = (Prisliste) cbPrisliste.getSelectionModel().getSelectedItem();
+        prisliste = cbPrisliste.getSelectionModel().getSelectedItem();
 
         if (startDato == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -291,7 +292,7 @@ public class UdlejningPane extends GridPane {
     }
 
     private void tilføjVareAction() {
-        TilføjTilOrdreWindow tilføj = new TilføjTilOrdreWindow("Test", udlejning);
+        TilføjTilOrdreWindow tilføj = new TilføjTilOrdreWindow("Test", udlejning,prisliste);
         tilføj.showAndWait();
 
         updateControls();

@@ -8,7 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import storage.Storage;
+
 
 import java.time.LocalDate;
 
@@ -23,7 +23,7 @@ public class VisUdlejningPane extends GridPane {
     private TextArea txaLinjer;
 
 
-    private Storage storage = Storage.getInstance();
+
     private SalgController salgController = SalgController.getSalgController();
 
     private Udlejning udlejning;
@@ -35,11 +35,11 @@ public class VisUdlejningPane extends GridPane {
         setGridLinesVisible(false);
         this.add(new Label("Aktive Udlejninger"),0,0);
         this.add(lvwaktiveUdlejninger,0,1);
-        lvwaktiveUdlejninger.getItems().setAll(storage.getAktiveUdlejninger());
+        lvwaktiveUdlejninger.getItems().setAll(salgController.getAktiveUdlejninger());
 
         this.add(new Label("Afsluttede Udlejninger"),1,0);
         this.add(lvwAfsluttedeUdlejninger,1,1);
-        lvwAfsluttedeUdlejninger.getItems().setAll(storage.getAfsluttedeUdlejninger().get(LocalDate.now())); //SUTUFF
+        lvwAfsluttedeUdlejninger.getItems().setAll(salgController.getAfsluttedeUdlejninger().get(LocalDate.now())); //SUTUFF
 
         ChangeListener<Udlejning> listener = (ov, oldArrangement, newArrangement) -> this.selectedAfsluttetUdlejningChanged();
         lvwAfsluttedeUdlejninger.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -87,8 +87,8 @@ public class VisUdlejningPane extends GridPane {
 
     }
     private void updatelists(){
-        lvwaktiveUdlejninger.getItems().setAll(storage.getAktiveUdlejninger());
-        lvwAfsluttedeUdlejninger.getItems().setAll(storage.getAfsluttedeUdlejninger().get(LocalDate.now()));
+        lvwaktiveUdlejninger.getItems().setAll(salgController.getAktiveUdlejninger());
+        lvwAfsluttedeUdlejninger.getItems().setAll(salgController.getAfsluttedeUdlejninger().get(LocalDate.now()));
     }
 
     private void selectedAktiveUdlejningChanged() {

@@ -3,34 +3,31 @@ package gui;
 import application.controller.SalgController;
 import application.controller.VareController;
 import application.model.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import storage.Storage;
 
-import java.time.LocalDate;
+
+
 import java.util.Optional;
 
 public class SalgPane extends GridPane {
     private ListView<Ordrelinje> lvwOrdre = new ListView<>();
     private Button btnTilføjVare, btnFjernVare, btnStartSalg, btnAfslutSalg,btnPrisKorek;
-    private ComboBox<Prisliste> prislisteComboBox;
+
     private RadioButton rbDankort, rbMobilepay, rbKontant, rbRegning, rbKlippekort;
     private RadioButton rbFast, rbProcent;
     private TextField txfRabat, txfSamletPris, txfKlipPris;
     private ToggleGroup toggleGroup = new ToggleGroup();
     private ToggleGroup toggleGroupRabat = new ToggleGroup();
 
-
     private SalgController salgController = SalgController.getSalgController();
-    private Storage storage = Storage.getInstance();
+    private VareController vareController = VareController.getController();
 
+    private ComboBox<Prisliste> prislisteComboBox;
     private Salg salg;
     private Prisliste prisliste;
 
@@ -110,7 +107,7 @@ public class SalgPane extends GridPane {
         Label lblPrisliste = new Label("Prisliste:");
 
         prislisteComboBox = new ComboBox<>();
-        prislisteComboBox.getItems().setAll(storage.getPrislister());
+        prislisteComboBox.getItems().setAll(vareController.getPrislister());
 
         Label lblRabat = new Label("Rabat:");
 
@@ -166,6 +163,11 @@ public class SalgPane extends GridPane {
             alert.showAndWait();
             btnStartSalg.setDisable(true);
             btnPrisKorek.setDisable(false);
+            prislisteComboBox.setDisable(true);
+
+            if(!prisliste.getNavn().equals("Fredags Cafe")){
+                rbKlippekort.setDisable(true);
+            }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Prisliste er ikke valgt!");
@@ -182,7 +184,9 @@ public class SalgPane extends GridPane {
             rbFast.setDisable(true);
             rbProcent.setDisable(true);
             btnStartSalg.setDisable(false);
+            rbKlippekort.setDisable(false);
             txfRabat.clear();
+            prislisteComboBox.setDisable(false);
             prislisteComboBox.getSelectionModel().clearSelection();
             salg = null;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -195,8 +199,9 @@ public class SalgPane extends GridPane {
         }
     }
     private void tilføjVareAction(){
+        prisliste = prislisteComboBox.getSelectionModel().getSelectedItem();
         if (salg != null) {
-            TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow("Tilføj vare til ordre", salg, prisliste);
+            TilføjTilSalgOrdreWindow dia = new TilføjTilSalgOrdreWindow(salg, prisliste);
             dia.showAndWait();
             lvwOrdre.getItems().setAll(salgController.getSalgOrdreLinjer(salg));
             txfSamletPris.setText(String.valueOf(salgController.getSamletPris(salg)));
@@ -236,9 +241,6 @@ public class SalgPane extends GridPane {
             txfSamletPris.setText(salgController.getSamletPris(salg) + "");
         }
     }
-
-
-
 
     private void dankortAction(){
         if (rbDankort.isSelected() && salg != null){

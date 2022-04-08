@@ -1,6 +1,7 @@
 package gui;
 
 import application.controller.SalgController;
+import application.model.Prisliste;
 import application.model.Udlejning;
 import application.model.Vare;
 import javafx.geometry.Insets;
@@ -10,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import storage.Storage;
+
 
 public class TilføjTilOrdreWindow extends Stage {
     private Udlejning udlejning;
@@ -21,13 +22,14 @@ public class TilføjTilOrdreWindow extends Stage {
 
     private Button btnTilføj, btnAfbryd;
 
-    private Storage storage = Storage.getInstance();
     private SalgController salgController = SalgController.getSalgController();
+    private Prisliste prisliste;
 
 
-    public TilføjTilOrdreWindow(String title, Udlejning udlejning) {
+    public TilføjTilOrdreWindow(String title, Udlejning udlejning, Prisliste prisliste) {
         this.title = title;
         this.udlejning = udlejning;
+        this.prisliste = prisliste;
 
         GridPane pane = new GridPane();
         Scene scene = new Scene(pane);
@@ -44,7 +46,7 @@ public class TilføjTilOrdreWindow extends Stage {
         pane.setPrefWidth(250);
 
         cbvarer = new ComboBox<>();
-        cbvarer.getItems().setAll(storage.getVarer());
+        cbvarer.getItems().setAll(prisliste.getTilføjedeVarer());
 
         txfAntal = new TextField();
 

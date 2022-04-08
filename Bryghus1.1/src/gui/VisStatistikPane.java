@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import storage.Storage;
+
 
 import java.time.LocalDate;
 
@@ -22,7 +22,7 @@ public class VisStatistikPane extends GridPane {
 
 
     private SalgController salgController = SalgController.getSalgController();
-    private Storage storage = Storage.getInstance();
+
 
     public VisStatistikPane() {
         this.setPadding(new Insets(20));
@@ -158,8 +158,8 @@ public class VisStatistikPane extends GridPane {
 
         txfOmsætningSalg.setText(salgController.getOmsætning(dato) + "");
         txfOmsætningUdl.setText(salgController.getUdlejningsOmsætning(dato) + "");
-        txfAntalsalg.setText(storage.getSalg().size() + "");
-        txfAntalUdl.setText(storage.getAfsluttedeUdlejninger().size() + "");
+        txfAntalsalg.setText(salgController.getSalg().size() + "");
+        txfAntalUdl.setText(salgController.getAfsluttedeUdlejninger().size() + "");
     }
 
     private void updateKlipAction() {

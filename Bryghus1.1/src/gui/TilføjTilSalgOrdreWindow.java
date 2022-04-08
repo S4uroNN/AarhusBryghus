@@ -13,33 +13,39 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import storage.Storage;
+
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TilføjTilSalgOrdreWindow extends Stage {
     private Vare vare;
-    private Storage storage;
     private Salg salg;
     private Prisliste prisliste;
     private SalgController salgController = SalgController.getSalgController();
     private VareController vareController = VareController.getController();
 
 
-    public TilføjTilSalgOrdreWindow(String title, Salg salg, Prisliste prisliste){
-        this.setTitle("Tilføj Vare");
-        GridPane pane = new GridPane();
-        Scene scene = new Scene(pane);
-        this.setScene(scene);
-        this.initContent(pane);
-        this.salg = salg;
-    }
-
     private ListView<Vare> lvwVare = new ListView<>();
     private TextField txfAntal;
     private Button btnTilføj, btnFortryd;
 
     private Label lblError;
+
+    private ArrayList<Vare> varer = new ArrayList<>();
+
+    public TilføjTilSalgOrdreWindow(Salg salg, Prisliste prisliste){
+        this.setTitle("Tilføj Vare");
+        this.salg = salg;
+        this.prisliste = prisliste;
+        GridPane pane = new GridPane();
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+        this.initContent(pane);
+
+    }
+
+
 
     private void initContent(GridPane pane){
         pane.setPadding(new Insets(10));
@@ -55,7 +61,11 @@ public class TilføjTilSalgOrdreWindow extends Stage {
 
         pane.add(new Label("Vare:"),0,0);
         pane.add(lvwVare,0,1);
-        lvwVare.getItems().setAll(vareController.getVarer());
+        pane.add(new Label(prisliste +""),5,5);
+
+        if(prisliste != null){
+            lvwVare.getItems().setAll(prisliste.getTilføjedeVarer());
+        }
 
         ChangeListener<Vare> vareListener = (ov, oldVare, newVare) -> this.selectedVareChanged();
         lvwVare.getSelectionModel().selectedItemProperty().addListener(vareListener);
