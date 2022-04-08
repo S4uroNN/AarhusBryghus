@@ -32,6 +32,8 @@ public class UdlejningPane extends GridPane {
         setHgap(10);
         setGridLinesVisible(false);
 
+        salgController.loadStorage();
+        vareController.loadStorage();
 
         this.add(new Label("Ordre"), 0, 0);
         this.add(lvwOrder, 0, 1);

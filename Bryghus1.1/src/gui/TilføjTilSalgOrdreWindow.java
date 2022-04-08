@@ -54,6 +54,9 @@ public class TilføjTilSalgOrdreWindow extends Stage {
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(500);
 
+        salgController.loadStorage();
+        vareController.loadStorage();
+
         pane.add(new Label("Antal:"),1 ,0);
         txfAntal = new TextField();
         pane.add(txfAntal,1,1);

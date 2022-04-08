@@ -1,6 +1,7 @@
 package gui;
 
 import application.controller.SalgController;
+import application.controller.VareController;
 import application.model.Prisliste;
 import application.model.Udlejning;
 import application.model.Vare;
@@ -44,6 +45,8 @@ public class TilføjTilOrdreWindow extends Stage {
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
         pane.setPrefWidth(250);
+
+        salgController.loadStorage();
 
         cbvarer = new ComboBox<>();
         cbvarer.getItems().setAll(prisliste.getTilføjedeVarer());

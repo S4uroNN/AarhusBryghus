@@ -25,7 +25,7 @@ public class TilføjVareGruppeWindow extends Stage {
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
 
-        vareController = VareController.getController();
+
 
         this.vareGruppe = vareGruppe;
 
@@ -50,6 +50,10 @@ public class TilføjVareGruppeWindow extends Stage {
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
+
+        vareController = VareController.getController();
+        vareController.loadStorage();
+
 //------------------------------------------------------------------------------------
         Label lblNavn = new Label("Navn:");
         pane.add(lblNavn, 0, 0);

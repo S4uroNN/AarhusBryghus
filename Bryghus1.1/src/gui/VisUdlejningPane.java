@@ -29,6 +29,8 @@ public class VisUdlejningPane extends GridPane {
     private Udlejning udlejning;
     public VisUdlejningPane() {
 
+        salgController.loadStorage();
+
         this.setPadding(new Insets(20));
         setHgap(20);
         setHgap(10);

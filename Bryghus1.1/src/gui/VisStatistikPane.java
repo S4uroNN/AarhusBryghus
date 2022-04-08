@@ -30,6 +30,8 @@ public class VisStatistikPane extends GridPane {
         setHgap(10);
         setGridLinesVisible(false);
 
+        salgController.loadStorage();
+
         String cssLayout = "-fx-border-color: black;\n" +
                 "-fx-border-insets: 1;\n" +
                 "-fx-border-width: 1;\n";

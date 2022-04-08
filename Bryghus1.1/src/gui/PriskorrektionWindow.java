@@ -45,6 +45,8 @@ public class PriskorrektionWindow extends Stage {
         pane.setHgap(10);
         pane.setVgap(10);
 
+        salgController.loadStorage();
+
 
         txfPris = new TextField();
         txfVare = new TextField();

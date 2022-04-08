@@ -37,7 +37,10 @@ public class VisIkkeAfleveredeWindow extends Stage {
         pane.add(new Label("Vare"),0,0);
         pane.add(txa,0,1);
 
+        salgController.loadStorage();
+
         txa.setText(String.valueOf(salgController.getUdlejedeVarer()));
+        txa.setEditable(false);
 
         btnOK = new Button("OK");
         btnOK.setOnAction(event -> this.hide());
