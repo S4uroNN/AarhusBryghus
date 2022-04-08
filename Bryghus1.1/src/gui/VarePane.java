@@ -72,6 +72,10 @@ public class VarePane extends GridPane {
 
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void selectedVareGruppeChanged() {
         this.updateLists();
     }

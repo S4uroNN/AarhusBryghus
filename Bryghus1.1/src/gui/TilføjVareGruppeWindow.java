@@ -84,6 +84,10 @@ public class TilføjVareGruppeWindow extends Stage {
         this.initControls();
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void initControls() {
         if (vareGruppe != null) {
             txfNavn.setText(vareGruppe.getNavn());

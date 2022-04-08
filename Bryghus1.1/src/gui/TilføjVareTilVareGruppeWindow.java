@@ -84,6 +84,10 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
 
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void updateLists(){
         if(vareGruppe != null){
             lvwvareGruppeVare.getItems().setAll(vareGruppe.getVarer());

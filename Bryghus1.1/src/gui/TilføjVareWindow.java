@@ -102,6 +102,11 @@ public class TilføjVareWindow extends Stage {
         lblError.setStyle("-fx-text-fill: red");
 
     }
+
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void opretVare(){
         String navn = txfNavn.getText().trim();
 

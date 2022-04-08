@@ -86,6 +86,11 @@ public class VisUdlejningPane extends GridPane {
         this.add(vBoxlabel,2,1);
 
     }
+
+    public void stop() {
+        salgController.saveStorage();
+    }
+
     private void updatelists(){
         lvwaktiveUdlejninger.getItems().setAll(salgController.getAktiveUdlejninger());
         lvwAfsluttedeUdlejninger.getItems().setAll(salgController.getAfsluttedeUdlejninger().get(LocalDate.now()));
