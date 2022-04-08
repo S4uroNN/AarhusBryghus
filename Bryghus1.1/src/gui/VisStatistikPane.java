@@ -153,6 +153,10 @@ public class VisStatistikPane extends GridPane {
 
     }
 
+    public void stop() {
+        salgController.saveStorage();
+    }
+
     private void updateSalgAction() {
         LocalDate dato = dpDag.getValue();
 

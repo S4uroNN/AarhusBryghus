@@ -106,6 +106,10 @@ public class TilføjVaregruppeTilPrislisteWindow extends Stage {
 
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void addAction() {
         VareGruppe selected = lvwAlleVareGrupper.getSelectionModel().getSelectedItem();
         if (selected != null) {

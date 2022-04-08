@@ -108,6 +108,10 @@ public class TilføjVareTilPrislisteWindow extends Stage {
 
     }
 
+    public void stop() {
+        vareController.saveStorage();
+    }
+
     private void addAction() {
         Vare selected = lvwAlleVarer.getSelectionModel().getSelectedItem();
         if (selected != null) {

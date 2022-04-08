@@ -47,4 +47,8 @@ public class VisIkkeAfleveredeWindow extends Stage {
         pane.add(btnOK,0,2);
 
     }
+
+    public void stop() {
+        salgController.saveStorage();
+    }
 }

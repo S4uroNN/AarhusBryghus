@@ -171,6 +171,10 @@ public class UdlejningPane extends GridPane {
 
     }
 
+    public void stop() {
+        salgController.saveStorage();
+    }
+
     private void opretUdlejningAction() {
         LocalDate startDato = LocalDate.parse(txfStartDato.getText().trim());
         LocalDate slutDato = dtpSlutDato.getValue();
