@@ -1,10 +1,11 @@
 package application.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Udlejning {
+public class Udlejning implements Serializable {
     private LocalDate startDato;
     private LocalDate slutDato;
     private String kontaktPerson;

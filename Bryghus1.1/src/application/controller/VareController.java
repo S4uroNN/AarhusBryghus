@@ -4,6 +4,7 @@ import application.model.*;
 import storage.Storage;
 
 import javax.xml.xpath.XPathVariableResolver;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 
@@ -108,6 +109,35 @@ public class VareController {
 
     public HashSet<Prisliste> getPrislister() {
         return storage.getPrislister();
+    }
+
+    public void loadStorage() {
+        try (FileInputStream fileIn = new FileInputStream("storage.ser")) {
+            try (ObjectInputStream in = new ObjectInputStream(fileIn);) {
+                storage = (Storage) in.readObject();
+
+                System.out.println("Storage loaded from file storage.ser.");
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Error loading storage object.");
+                throw new RuntimeException(ex);
+            }
+        } catch (IOException ex) {
+            System.out.println("Error loading storage object.");
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    public void saveStorage() {
+        try (FileOutputStream fileOut = new FileOutputStream("storage.ser")) {
+            try (ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                out.writeObject(storage);
+                System.out.println("Storage saved in file storage.ser.");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error saving storage object.");
+            throw new RuntimeException(ex);
+        }
     }
 
     //------------------------------------------------------------------------------------------------

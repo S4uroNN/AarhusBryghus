@@ -1,7 +1,9 @@
 package application.model;
 
 
-public class Vare {
+import java.io.Serializable;
+
+public class Vare implements Serializable {
     private String navn;
     private VareGruppe vareGruppe;
 

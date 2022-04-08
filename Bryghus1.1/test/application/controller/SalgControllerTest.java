@@ -50,7 +50,7 @@ class SalgControllerTest {
         forårOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(2,forårsbrygFadøl);
         glasOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(3, glasUansetStørrelse);
         klippekortOrdrelinje = salgMedOrdrelinjer.createOrdreLinje(1,klippekort);
-        salgMedOrdrelinjer.setBetalingsform(Betalingsform.DANKORT);
+//        salgMedOrdrelinjer.setBetalingsform(Betalingsform.DANKORT);
 
 
         salgUdenOrdrelinjer = new Salg(fredagsweehoo);
@@ -63,12 +63,10 @@ class SalgControllerTest {
 
     @Test
     void getSolgteKlip() {
-        //TC1
-        assertEquals(10,salgController.getSolgteKlip(LocalDate.now(),LocalDate.now()));
-        //TC2
-        assertEquals(0,salgController.getSolgteKlip(LocalDate.of(2022,4,8),LocalDate.of(2022,4,7)));
-        //TC3
-        assertEquals(10,salgController.getSolgteKlip(LocalDate.of(2022,4,6),LocalDate.of(2022,4,7)));
+
+        assertTrue(salgMedOrdrelinjer.getOrdrelinjer().contains(klippekort));
+
+        assertEquals(10,salgController.getSolgteKlip(LocalDate.of(2022,4,6),LocalDate.of(2022,4,8)));
     }
 
     @Test
