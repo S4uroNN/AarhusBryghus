@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import storage.Storage;
+
 
 import java.util.Optional;
 
@@ -20,7 +20,7 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
     private VareGruppe vareGruppe;
 
     private VareController vareController = VareController.getController();
-    private Storage storage = Storage.getInstance();
+
 
     private ListView<Vare> lvwvareGruppeVare = new ListView<>();
     private ListView<Vare> lvwalleVarer = new ListView<>();
@@ -87,9 +87,8 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
     private void updateLists(){
         if(vareGruppe != null){
             lvwvareGruppeVare.getItems().setAll(vareGruppe.getVarer());
-            lvwalleVarer.getItems().setAll(storage.getVarer());
+            lvwalleVarer.getItems().setAll(vareController.getVarer());
         }
-        lvwalleVarer.getItems().setAll(storage.getVarer());
     }
     private void tilføjActionVare() {
         TilføjVareWindow tilføjVareWindow = new TilføjVareWindow();
@@ -119,7 +118,7 @@ public class TilføjVareTilVareGruppeWindow extends Stage {
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
                 vareController.deleteVare(vare);
-                lvwalleVarer.getItems().setAll(storage.getVarer());
+                lvwalleVarer.getItems().setAll(vareController.getVarer());
             }
 
         } else{

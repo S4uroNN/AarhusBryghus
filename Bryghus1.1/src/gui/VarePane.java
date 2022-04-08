@@ -22,7 +22,7 @@ public class VarePane extends GridPane {
     private Button btnAddVareGruppe, btnDeleteVareGruppe, btnEditVareGruppe, btnÆndreVareGruppe;
 
     private VareController vareController = VareController.getController();
-    private Storage storage = Storage.getInstance();
+
 
     public VarePane() {
 
@@ -68,7 +68,7 @@ public class VarePane extends GridPane {
 
         ChangeListener<VareGruppe> listener = (ov, oldArrangement, newArrangement) -> this.selectedVareGruppeChanged();
         lvwvareGruppe.getSelectionModel().selectedItemProperty().addListener(listener);
-        lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
+        lvwvareGruppe.getItems().setAll(vareController.getVareGrupper());
 
     }
 
@@ -82,7 +82,7 @@ public class VarePane extends GridPane {
         if (vareGruppe != null) {
             lvwVareInGruppe.getItems().setAll(vareGruppe.getVarer());
         }
-        lvwAlleVare.getItems().setAll(storage.getVarer());
+        lvwAlleVare.getItems().setAll(vareController.getVarer());
     }
 
     private void ændreVareGruppe() {
@@ -96,7 +96,7 @@ public class VarePane extends GridPane {
             alert.showAndWait();
         }
 
-        lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
+        lvwvareGruppe.getItems().setAll(vareController.getVareGrupper());
     }
 
 
@@ -104,7 +104,7 @@ public class VarePane extends GridPane {
         TilføjVareGruppeWindow dia = new TilføjVareGruppeWindow("Tilføj VareGruppe");
         dia.showAndWait();
 
-        lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
+        lvwvareGruppe.getItems().setAll(vareController.getVareGrupper());
 
     }
 
@@ -117,7 +117,7 @@ public class VarePane extends GridPane {
             Optional<ButtonType> result = alert.showAndWait();
             if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
                 vareController.deleteVareGruppe(vareGruppe);
-                lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
+                lvwvareGruppe.getItems().setAll(vareController.getVareGrupper());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -137,6 +137,6 @@ public class VarePane extends GridPane {
             alert.setHeaderText("Du har ikke valgt en vare gruppe!");
             alert.showAndWait();
         }
-        lvwvareGruppe.getItems().setAll(storage.getVaregrupper());
+        lvwvareGruppe.getItems().setAll(vareController.getVareGrupper());
     }
 }

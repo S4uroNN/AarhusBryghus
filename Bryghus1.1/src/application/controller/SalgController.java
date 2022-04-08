@@ -5,6 +5,7 @@ import storage.Storage;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -34,11 +35,24 @@ public class SalgController {
         return salg;
     }
 
+    public Map<LocalDate,Set<Salg>> getSalg(){
+        return storage.getSalg();
+    }
+
     public Udlejning createUdlejning(LocalDate startDato, LocalDate slutDato, String kontaktPerson, String telefonnr, String email, Prisliste prisliste) {
         Udlejning udlejning = new Udlejning(startDato, slutDato, kontaktPerson, telefonnr, email, prisliste);
         storage.addAktivUdlejning(udlejning);
         return udlejning;
     }
+
+    public Map<LocalDate,Set<Udlejning>> getAfsluttedeUdlejninger(){
+        return storage.getAfsluttedeUdlejninger();
+    }
+
+    public Set<Udlejning> getAktiveUdlejninger(){
+        return storage.getAktiveUdlejninger();
+    }
+
 
     public Udlejning afslutUdlejning(Udlejning udlejning, Betalingsform betalingsform) {
         udlejning.setBetalingsform(betalingsform);
