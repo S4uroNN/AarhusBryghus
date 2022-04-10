@@ -7,13 +7,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import storage.Storage;
 
 public class StartVindue extends Application {
 
-    private VareController vareController = VareController.getController();
+Storage storage;
+VareController vareController;
 
     private void initContent(BorderPane pane) {
-        vareController.loadStorage();
+        storage = Storage.getInstance();
+        vareController = VareController.getController();
         TabPane tabPane = new TabPane();
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);

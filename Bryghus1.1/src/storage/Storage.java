@@ -2,6 +2,9 @@ package storage;
 
 import application.model.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -21,7 +24,18 @@ public class Storage implements Serializable {
 
     public static Storage getInstance() {
         if (storage == null) {
-            storage = new Storage();
+            try (FileInputStream fileIn = new FileInputStream("storage.ser")) {
+                try (ObjectInputStream in = new ObjectInputStream(fileIn);) {
+                    storage = (Storage) in.readObject();
+                    System.out.println("Storage loaded from file storage.ser.");
+                } catch (ClassNotFoundException ex) {
+                    System.out.println("Error loading storage object.");
+                    throw new RuntimeException(ex);
+                }
+            } catch (IOException ex) {
+                System.out.println("Error loading storage object.");
+                throw new RuntimeException(ex);
+            }
         }
         return storage;
     }
