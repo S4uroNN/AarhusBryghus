@@ -11,12 +11,11 @@ import storage.Storage;
 
 public class StartVindue extends Application {
 
-Storage storage;
-VareController vareController;
+    private VareController vareController = VareController.getController();
+    Storage storage;
 
     private void initContent(BorderPane pane) {
         storage = Storage.getInstance();
-        vareController = VareController.getController();
         TabPane tabPane = new TabPane();
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);

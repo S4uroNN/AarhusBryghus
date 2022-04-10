@@ -12,15 +12,12 @@ import java.util.*;
 public class Storage implements Serializable {
     private static Storage storage;
 
-    private final Set<Vare> varer = new HashSet<>();
-    private final Set<Prisliste> prislister = new HashSet<>();
-    private final Set<VareGruppe> varegrupper = new HashSet<>();
-    private final Map<LocalDate, Set<Salg>> alleSalg = new HashMap<>();
-    private final Map<LocalDate, Set<Udlejning>> afsluttedeUdlejninger = new HashMap<>();
-    private final Set<Udlejning> aktiveUdlejninger = new HashSet<>();
-
-    private Storage() {
-    }
+    private Set<Vare> varer;
+    private Set<Prisliste> prislister;
+    private Set<VareGruppe> varegrupper;
+    private Map<LocalDate, Set<Salg>> alleSalg;
+    private Map<LocalDate, Set<Udlejning>> afsluttedeUdlejninger;
+    private Set<Udlejning> aktiveUdlejninger;
 
     public static Storage getInstance() {
         if (storage == null) {
@@ -33,11 +30,19 @@ public class Storage implements Serializable {
                     throw new RuntimeException(ex);
                 }
             } catch (IOException ex) {
-                System.out.println("Error loading storage object.");
-                throw new RuntimeException(ex);
+                storage = new Storage();
             }
         }
         return storage;
+    }
+
+    private Storage(){
+        varer = new HashSet<>();
+        prislister = new HashSet<>();
+        varegrupper = new HashSet<>();
+        alleSalg = new HashMap<>();
+        afsluttedeUdlejninger = new HashMap<>();
+        aktiveUdlejninger = new HashSet<>();
     }
 
     public HashSet<Vare> getVarer() {

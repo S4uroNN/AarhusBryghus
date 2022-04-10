@@ -12,16 +12,15 @@ public class VareController {
     private Storage storage;
     private static VareController vareController;
 
-
-    private VareController() {
-        storage = Storage.getInstance();
-    }
-
     public static VareController getController() {
         if (vareController == null) {
             vareController = new VareController();
         }
         return vareController;
+    }
+
+    private VareController() {
+        storage = Storage.getInstance();
     }
 
     public static VareController getTestController() {
